@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Marca {
 
     private String nome;
-    private ArrayList<String> modelos;
+    private ArrayList<Modelo> modelos;
 
     public Marca() {
     }
@@ -15,24 +15,11 @@ public class Marca {
         this.modelos = new ArrayList<>();
     }
 
-    public Marca(String nome, ArrayList<String> modelos) {
+    public Marca(String nome, ArrayList<Modelo> modelos) {
         this.nome = nome.toUpperCase();
         this.modelos = modelos;
     }
-    
-    public void incluirModelo(String novoModelo) {
-        this.modelos.stream().filter((modelo) -> (modelo.equalsIgnoreCase(novoModelo))).forEachOrdered((_item) -> {
-            throw new IllegalArgumentException("O modelo " + novoModelo + " já está incluído na marca " + this.nome + ".");
-        });
-        this.modelos.add(novoModelo.toUpperCase());
-    }
-    
-    public void removerModelo(String modelo) {
-        int indexModelo = this.modelos.indexOf(modelo);
-        if (indexModelo == -1) throw new IllegalArgumentException("O modelo " + modelo + " não está incluído na marca " + this.nome + ".");
-        this.modelos.remove(indexModelo);
-    }
-    
+        
     public String getNome() {
         return nome;
     }
@@ -41,7 +28,7 @@ public class Marca {
         this.nome = nome.toUpperCase();
     }
 
-    public ArrayList<String> getModelos() {
+    public ArrayList<Modelo> getModelos() {
         return modelos;
     }
 
@@ -50,5 +37,23 @@ public class Marca {
         modelos.forEach((modelo) -> {
             modelos.add(modelo.toUpperCase());
         });
+    }
+    
+    public void incluirModelo(Modelo novoModelo) {
+        for (Modelo modelo : this.modelos) {
+            if (modelo.getNome().equals(novoModelo.getNome()))
+                throw new IllegalArgumentException("O modelo " + novoModelo.getNome() + " já está incluído na marca " + this.nome + ".");
+        }
+        this.modelos.add(novoModelo);
+    }
+    
+    public void removerModelo(Modelo modeloExistente) {
+        for (int indexModelo = 0; indexModelo < this.modelos.size(); indexModelo++) {
+            if (modelos.get(indexModelo).getNome().equals(modeloExistente.getNome())) {
+                this.modelos.remove(indexModelo);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("O modelo " + modeloExistente.getNome() + " não está incluído na marca " + this.nome + ".");  
     }
 }
