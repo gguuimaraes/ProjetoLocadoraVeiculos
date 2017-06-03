@@ -20,5 +20,15 @@ public class Marca {
         this.modelos = modelos;
     }
     
+    public void incluirModelo(String novoModelo) {
+        for (String modelo : this.modelos)
+            if (modelo.equalsIgnoreCase(novoModelo)) throw new IllegalArgumentException("O modelo " + novoModelo + " já está incluído na marca " + this.nome + ".");
+        this.modelos.add(novoModelo.toUpperCase());
+    }
     
+    public void removerModelo(String modelo) {
+        int indexModelo = this.modelos.indexOf(modelo);
+        if (indexModelo == -1) throw new IllegalArgumentException("O modelo " + modelo + " não está incluído na marca " + this.nome + ".");
+        this.modelos.remove(indexModelo);
+    }
 }
