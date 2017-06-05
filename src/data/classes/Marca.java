@@ -6,18 +6,21 @@ public class Marca {
 
     private String nome;
     private ArrayList<Modelo> modelos;
+    private float valor;
 
     public Marca() {
     }
 
-    public Marca(String nome) {
+    public Marca(String nome, float valor) {
         this.nome = nome.toUpperCase();
         this.modelos = new ArrayList<>();
+        this.valor = valor;
     }
 
-    public Marca(String nome, ArrayList<Modelo> modelos) {
+    public Marca(String nome, float valor, ArrayList<Modelo> modelos) {
         this.nome = nome.toUpperCase();
         this.modelos = modelos;
+        this.valor = valor;
     }
         
     public String getNome() {
@@ -26,6 +29,14 @@ public class Marca {
 
     public void setNome(String nome) {
         this.nome = nome.toUpperCase();
+    }
+    
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
     }
 
     public ArrayList<Modelo> getModelos() {
