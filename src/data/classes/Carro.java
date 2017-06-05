@@ -5,5 +5,5 @@ public class Carro {
     private Modelo modelo;
     private int ano;
    
-//modificadofjfjifhwjifhwijfhsidfk    
+    //o notebook do pedro tá com 2% de bateria
 }
