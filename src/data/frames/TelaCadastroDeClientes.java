@@ -84,37 +84,37 @@ public class TelaCadastroDeClientes extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setTitle("Cadastro de Cliente");
 
-        jLabel1.setText("Nome Completo");
+        jLabel1.setText("Nome Completo:");
 
-        jLabel2.setText("CPF");
+        jLabel2.setText("CPF:");
 
-        jLabel3.setText("CNH");
+        jLabel3.setText("CNH:");
 
-        jLabel4.setText("DDI");
+        jLabel4.setText("DDI:");
 
-        jLabel5.setText("DDD");
+        jLabel5.setText("DDD:");
 
-        jLabel6.setText("Numero");
+        jLabel6.setText("Numero:");
 
         jLabel7.setText("TELEFONE");
 
-        jLabel8.setText("Email");
+        jLabel8.setText("Email:");
 
         jCBTipoTelefone.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Residencial", "Trabalho", "Pessoal" }));
 
         jLabel9.setText("ENDEREÇO");
 
-        jLabel10.setText("Logradouro");
+        jLabel10.setText("Logradouro:");
 
-        jLabel11.setText("Numero");
+        jLabel11.setText("Numero:");
 
-        jLabel12.setText("CEP");
+        jLabel12.setText("CEP:");
 
-        jLabel13.setText("Cidade");
+        jLabel13.setText("Cidade:");
 
-        jLabel14.setText("Estado");
+        jLabel14.setText("Estado:");
 
-        jLabel15.setText("Pais");
+        jLabel15.setText("Pais:");
 
         jTFPais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,9 +122,9 @@ public class TelaCadastroDeClientes extends javax.swing.JInternalFrame {
             }
         });
 
-        jLabel16.setText("Bairro");
+        jLabel16.setText("Bairro:");
 
-        jLabel17.setText("Complemento");
+        jLabel17.setText("Complemento:");
 
         jCbTipoEndereco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trabalho", "Residencial" }));
 
@@ -137,11 +137,11 @@ public class TelaCadastroDeClientes extends javax.swing.JInternalFrame {
 
         jLabel18.setText("CARTÃO DE CRÉDITO");
 
-        jLabel19.setText("Numero");
+        jLabel19.setText("Numero:");
 
-        jLabel20.setText("CVC");
+        jLabel20.setText("CVC:");
 
-        jLabel21.setText("Validade");
+        jLabel21.setText("Validade:");
 
         jComboBoxBandeira.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bandeira", "Visa", "Master" }));
 
