@@ -55,7 +55,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         );
         jDPLayout.setVerticalGroup(
             jDPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 390, Short.MAX_VALUE)
+            .addGap(0, 392, Short.MAX_VALUE)
         );
 
         jMenu1.setText("Clientes");
