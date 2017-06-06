@@ -5,6 +5,8 @@
  */
 package data.frames;
 
+import javax.swing.JInternalFrame;
+
 /**
  *
  * @author Pedro
@@ -27,9 +29,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDP = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMCadastrar = new javax.swing.JMenuItem();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem2 = new javax.swing.JMenuItem();
@@ -41,18 +44,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+
+        javax.swing.GroupLayout jDPLayout = new javax.swing.GroupLayout(jDP);
+        jDP.setLayout(jDPLayout);
+        jDPLayout.setHorizontalGroup(
+            jDPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 540, Short.MAX_VALUE)
+        );
+        jDPLayout.setVerticalGroup(
+            jDPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 390, Short.MAX_VALUE)
+        );
 
         jMenu1.setText("Clientes");
 
-        jMenuItem1.setText("Cadastro");
-        jMenu1.add(jMenuItem1);
+        jMCadastrar.setText("Cadastro");
+        jMCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMCadastrarActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMCadastrar);
 
         jMenuItem7.setText("Consultar");
         jMenu1.add(jMenuItem7);
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Véiculos");
+        jMenu2.setText("Frota");
 
         jMenuItem2.setText("Cadastro");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
@@ -95,17 +116,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu5);
 
+        jMenu3.setText("Marca");
+
+        jMenuItem1.setText("Cadastra Marca");
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu3);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 540, Short.MAX_VALUE)
+            .addComponent(jDP)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 399, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jDP)
+                .addContainerGap())
         );
 
         pack();
@@ -118,6 +148,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem8ActionPerformed
+
+    private void jMCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCadastrarActionPerformed
+     TelaCadastroDeClientes tela02 = new TelaCadastroDeClientes();
+     jDP.add(tela02);
+     tela02.setVisible(true);
+    }//GEN-LAST:event_jMCadastrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,8 +191,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane jDP;
+    private javax.swing.JMenuItem jMCadastrar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
