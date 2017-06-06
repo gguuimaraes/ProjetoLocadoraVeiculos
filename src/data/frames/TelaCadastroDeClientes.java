@@ -283,8 +283,7 @@ public class TelaCadastroDeClientes extends javax.swing.JInternalFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
             ClienteDAO clienteDAO = new ClienteDAO();
-            clienteDAO.incluir(new Cliente("Gabriel Guimarães",
-                    101012332,
+            clienteDAO.incluir(new Cliente("101012332", "Gabriel Guimarães",
                     new CPF("00869960105"),
                     new Endereco("Rua Sacramento", 0, 74915380, "Aparecida de Goiânia", "Goiás", "Brasil", "Setor dos Afonsos", "Condomínio Marrom", "RESIDENCIAL"),
                     new Telefone(55, 62, 999235909, "PESSOAL"),

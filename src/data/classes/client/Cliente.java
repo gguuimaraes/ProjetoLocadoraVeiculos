@@ -3,7 +3,7 @@ package data.classes.client;
 public class Cliente {
 
     private String nomeCompleto;
-    private long cnh;
+    private String cnh;
     private CPF cpf;
     private Endereco endereco;
     private Telefone telefone;
@@ -15,15 +15,15 @@ public class Cliente {
     public Cliente(String linha) throws Exception {
         String dados[] = linha.split("|");
         if (dados.length != 6) throw new IllegalArgumentException("Dados do cliente incorretos.");
-        nomeCompleto = dados[0];
-        cnh = Long.parseLong(dados[1]);
+        cnh = dados[0];
+        nomeCompleto = dados[1];
         cpf = new CPF(dados[2]);
         endereco = new Endereco(dados[3]);
         telefone = new Telefone(dados[4]);
         cartaoCredito = new CartaoCredito(dados[5]);
     }
 
-    public Cliente(String nomeCompleto, long cnh, CPF cpf, Endereco endereco, Telefone telefone, CartaoCredito cartaoCredito) {
+    public Cliente(String cnh, String nomeCompleto, CPF cpf, Endereco endereco, Telefone telefone, CartaoCredito cartaoCredito) {
         this.nomeCompleto = nomeCompleto;
         this.cnh = cnh;
         this.cpf = cpf;
@@ -32,6 +32,14 @@ public class Cliente {
         this.cartaoCredito = cartaoCredito;
     }
 
+    public String getCNH() {
+        return cnh;
+    }
+
+    public void setCNH(String cnh) {
+        this.cnh = cnh;
+    }
+    
     public String getNomeCompleto() {
         return nomeCompleto;
     }
@@ -39,20 +47,12 @@ public class Cliente {
     public void setNomeCompleto(String nomeCompleto) {
         this.nomeCompleto = nomeCompleto;
     }
-
-    public long getCnh() {
-        return cnh;
-    }
-
-    public void setCnh(long cnh) {
-        this.cnh = cnh;
-    }
-
-    public CPF getCpf() {
+    
+    public CPF getCPF() {
         return cpf;
     }
 
-    public void setCpf(CPF cpf) {
+    public void setCPF(CPF cpf) {
         this.cpf = cpf;
     }
 
@@ -82,8 +82,8 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return nomeCompleto + "|"
-                + cnh + "|"
+        return cnh + "|"
+                + nomeCompleto + "|"
                 + cpf.toString() + "|"
                 + endereco.toString() + "|"
                 + telefone.toString() + "|"

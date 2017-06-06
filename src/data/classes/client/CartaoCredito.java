@@ -4,7 +4,7 @@ public class CartaoCredito {
 
     private Bandeira bandeira;
     private long numero;
-    private int cvv;
+    private int cvc;
     private int mes;
     private int ano;
 
@@ -30,7 +30,7 @@ public class CartaoCredito {
         if (dados.length != 5) throw new IllegalArgumentException("Dados do cartão de crédito incorretos.");
         setBandeira(dados[0]);
         numero = Long.parseLong(dados[1]);
-        cvv = Integer.parseInt(dados[2]);
+        cvc = Integer.parseInt(dados[2]);
         mes = Integer.parseInt(dados[3]);
         ano = Integer.parseInt(dados[4]);
     }
@@ -38,7 +38,7 @@ public class CartaoCredito {
     public CartaoCredito(String bandeira, long numero, int cvv, int mes, int ano) {
         setBandeira(bandeira);
         this.numero = numero;
-        this.cvv = cvv;
+        this.cvc = cvv;
         this.mes = mes;
         this.ano = ano;
     }
@@ -66,12 +66,12 @@ public class CartaoCredito {
         this.numero = numero;
     }
 
-    public int getCVV() {
-        return cvv;
+    public int getCVC() {
+        return cvc;
     }
 
-    public void setCVV(int cvv) {
-        this.cvv = cvv;
+    public void setCVC(int cvc) {
+        this.cvc = cvc;
     }
 
     public int getMes() {
@@ -93,7 +93,7 @@ public class CartaoCredito {
     public String toString() {
         return bandeira.toString() + ";"
                 + numero + ";"
-                + cvv + ";"
+                + cvc + ";"
                 + mes + ";"
                 + ano;
     }
