@@ -80,6 +80,8 @@ public class TelaCadastroDeClientes extends javax.swing.JInternalFrame {
         jTextField4 = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
 
+        setClosable(true);
+        setIconifiable(true);
         setTitle("Cadastro de Cliente");
 
         jLabel1.setText("Nome Completo");
