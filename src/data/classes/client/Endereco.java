@@ -1,4 +1,4 @@
-package data.classes.cliente;
+package data.classes.client;
 
 public class Endereco {
 

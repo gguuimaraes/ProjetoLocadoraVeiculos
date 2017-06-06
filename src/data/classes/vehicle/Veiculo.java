@@ -1,4 +1,4 @@
-package data.classes.veiculo;
+package data.classes.vehicle;
 
 public class Veiculo {
     private String placa;
