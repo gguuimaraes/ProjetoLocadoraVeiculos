@@ -1,4 +1,4 @@
-package data.classes;
+package data.classes.cliente;
 
 public class Endereco {
     private String logradouro = "";
