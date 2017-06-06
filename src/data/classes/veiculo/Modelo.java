@@ -1,4 +1,4 @@
-package data.classes;
+package data.classes.veiculo;
 
 public class Modelo {
     private String nome;

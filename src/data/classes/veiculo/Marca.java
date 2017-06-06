@@ -1,4 +1,4 @@
-package data.classes;
+package data.classes.veiculo;
 
 import java.util.ArrayList;
 

@@ -1,6 +1,7 @@
 package data.classes.cliente;
 
 public class Telefone {
+
     private int ddi = 0;
     private int ddd = 0;
     private int numero = 0;
@@ -24,17 +25,20 @@ public class Telefone {
         }
     }
 
-    public Telefone() {}
-    
+    public Telefone() {
+    }
+
     public Telefone(String linha) throws Exception {
         String dados[] = linha.split(";");
-        if (dados.length != 4) throw new Exception("Dados incorretos.");
+        if (dados.length != 4) {
+            throw new Exception("Dados do telefone incorretos.");
+        }
         ddi = Integer.parseInt(dados[0]);
         ddd = Integer.parseInt(dados[1]);
         numero = Integer.parseInt(dados[2]);
         setTipo(dados[3]);
     }
-    
+
     public Telefone(int DDI, int DDD, int numero, String tipo) {
         this.ddi = DDI;
         this.ddd = DDD;
@@ -65,11 +69,11 @@ public class Telefone {
     public void setNumero(int numero) {
         this.numero = numero;
     }
-    
+
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
-    }   
-    
+    }
+
     public void setTipo(String tipo) {
         switch (tipo) {
             case "PESSOAL":
@@ -83,7 +87,7 @@ public class Telefone {
                 break;
         }
     }
-    
+
     public String getTipo() {
         return tipo.toString();
     }
@@ -95,7 +99,7 @@ public class Telefone {
                 + numero + ";"
                 + tipo.toString() + "\n";
     }
-    
+
     public String getTelefone() {
         return ddi + "-" + ddd + "-" + numero + "-" + (tipo.toString().substring(0, 1));
     }

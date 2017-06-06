@@ -1,10 +1,11 @@
 package data.classes.cliente;
 
 public class Endereco {
+
     private String logradouro = "";
     private int numero = 0;
     private int cep = 0;
-    private String cidade ="";
+    private String cidade = "";
     private String estado = "";
     private String pais = "";
     private String bairro = "";
@@ -26,12 +27,15 @@ public class Endereco {
             }
         }
     }
-    
-    public Endereco(){}
-    
+
+    public Endereco() {
+    }
+
     public Endereco(String linha) throws Exception {
         String dados[] = linha.split(";");
-        if(dados.length != 9) throw new Exception("Dados incorretos.");
+        if (dados.length != 9) {
+            throw new Exception("Dados do endereço incorretos.");
+        }
         logradouro = dados[0];
         numero = Integer.parseInt(dados[1]);
         cep = Integer.parseInt(dados[2]);
@@ -42,8 +46,8 @@ public class Endereco {
         complemento = dados[7];
         setTipo(dados[8]);
     }
-    
-    public Endereco(String logradouro, int numero, int CEP, String cidade, String estado, String pais, String bairro, String complemento, String tipo){
+
+    public Endereco(String logradouro, int numero, int CEP, String cidade, String estado, String pais, String bairro, String complemento, String tipo) {
         this.logradouro = logradouro;
         this.numero = numero;
         this.cep = CEP;
@@ -117,16 +121,16 @@ public class Endereco {
 
     public void setBairro(String bairro) {
         this.bairro = bairro;
-    } 
-    
+    }
+
     public Tipo getTipo() {
         return tipo;
     }
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
-    }   
- 
+    }
+
     public void setTipo(String tipo) {
         switch (tipo) {
             case "RESIDENCIAL":
@@ -150,7 +154,7 @@ public class Endereco {
                 + complemento + ";"
                 + tipo.toString() + "\n";
     }
-    
+
     public String getEndereco() {
         return logradouro + "-"
                 + numero + "-"

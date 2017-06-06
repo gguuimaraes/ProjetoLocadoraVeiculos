@@ -4,11 +4,11 @@ package data.classes.cliente;
 public class CPF {
 
     private byte n1, n2, n3, n4, n5, n6, n7, n8, n9;
-    private byte digit1, digit2;
+    private byte digito1, digito2;
 
     public CPF(String cpf) {
         if (cpf.length() != 11) {
-            throw new IllegalArgumentException("O valor fornecido deve conter 11 digitos.");
+            throw new IllegalArgumentException("CPF incorreto.");
         }
         n1 = Byte.parseByte(cpf.substring(0, 1));
         n2 = Byte.parseByte(cpf.substring(1, 2));
@@ -19,8 +19,8 @@ public class CPF {
         n7 = Byte.parseByte(cpf.substring(6, 7));
         n8 = Byte.parseByte(cpf.substring(7, 8));
         n9 = Byte.parseByte(cpf.substring(8, 9));
-        digit1 = Byte.parseByte(cpf.substring(9, 10));
-        digit2 = Byte.parseByte(cpf.substring(10, 11));
+        digito1 = Byte.parseByte(cpf.substring(9, 10));
+        digito2 = Byte.parseByte(cpf.substring(10, 11));
     }
 
     public byte calcPrimeiroDigito() {
@@ -47,23 +47,23 @@ public class CPF {
         somatorio += n7 * 5;
         somatorio += n8 * 4;
         somatorio += n9 * 3;
-        somatorio += digit1 * 2;
+        somatorio += digito1 * 2;
         byte resultado = Byte.parseByte(String.valueOf(somatorio % 11));
         return resultado < 2 ? 0 : Byte.parseByte(String.valueOf(11 - resultado));
     }
 
-    public boolean isValid() {
-        return digit1 == calcPrimeiroDigito() && digit2 == calcSegundoDigito();
+    public boolean validar() {
+        return digito1 == calcPrimeiroDigito() && digito2 == calcSegundoDigito();
     }
 
     @Override
     public String toString() {
-        return String.format("%d%d%d%d%d%d%d%d%d%d%d", n1, n2, n3, n4, n5, n6, n7, n8, n9, digit1, digit2);
+        return String.format("%d%d%d%d%d%d%d%d%d%d%d", n1, n2, n3, n4, n5, n6, n7, n8, n9, digito1, digito2);
     }
 
     public String toString(boolean with_mask) {
         if (with_mask) {
-            return String.format("%d%d%d.%d%d%d.%d%d%d-%d%d", n1, n2, n3, n4, n5, n6, n7, n8, n9, digit1, digit2);
+            return String.format("%d%d%d.%d%d%d.%d%d%d-%d%d", n1, n2, n3, n4, n5, n6, n7, n8, n9, digito1, digito2);
         }
         return toString();
     }
