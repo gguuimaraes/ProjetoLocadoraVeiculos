@@ -69,6 +69,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu1.add(jMCadastrar);
 
         jMenuItem7.setText("Consultar");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem7);
 
         jMenuBar1.add(jMenu1);
@@ -156,6 +161,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
      jDP.add(tela02);
      tela02.setVisible(true);
     }//GEN-LAST:event_jMCadastrarActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+       TelaConsultaDeCliente tela04 = new TelaConsultaDeCliente();
+       jDP.add(tela04);
+       tela04.setVisible(true);
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     /**
      * @param args the command line arguments
