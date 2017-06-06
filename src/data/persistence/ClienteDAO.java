@@ -40,12 +40,33 @@ public class ClienteDAO implements CRUD {
     }
 
     @Override
-    public void remover(Object o) throws Exception {
-
+    public void remover(Object objeto) throws Exception {
+        Cliente clienteExistente = (Cliente) objeto;
+        FileWriter clienteFileWriter = null;
+        BufferedWriter clienteBufferedWriter = null;
+        try {
+            ArrayList<Cliente> clientes = listar();
+            clienteFileWriter = new FileWriter(arquivoClientes, false);
+            clienteBufferedWriter = new BufferedWriter(clienteFileWriter);
+            for (Cliente cliente : clientes) {
+                if (!cliente.getCNH().equals(clienteExistente.getCNH())) {
+                    clienteBufferedWriter.write(cliente.toString());
+                }
+            }
+        } catch (Exception ex) {
+            throw new Exception("Falha ao remover o cliente.\n\n" + ex);
+        } finally {
+            if (clienteBufferedWriter != null) {
+                clienteBufferedWriter.close();
+            }
+            if (clienteFileWriter != null) {
+                clienteFileWriter.close();
+            }
+        }
     }
 
     @Override
-    public ArrayList<?> listar() throws Exception {
+    public ArrayList<Cliente> listar() throws Exception {
         FileReader clienteFileReader = null;
         BufferedReader clienteBufferedReader = null;
         ArrayList<Cliente> clientes = new ArrayList<>();
