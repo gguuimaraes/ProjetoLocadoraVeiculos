@@ -152,7 +152,7 @@ public class Endereco {
                 + pais + ";"
                 + bairro + ";"
                 + complemento + ";"
-                + tipo.toString() + "\n";
+                + tipo.toString();
     }
 
     public String getEndereco() {

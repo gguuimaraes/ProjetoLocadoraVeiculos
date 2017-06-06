@@ -7,26 +7,29 @@ public class Cliente {
     private CPF cpf;
     private Endereco endereco;
     private Telefone telefone;
+    private CartaoCredito cartaoCredito;
 
     public Cliente() {
     }
 
     public Cliente(String linha) throws Exception {
         String dados[] = linha.split("|");
-        if (dados.length != 5) throw new IllegalArgumentException("Dados do cliente incorretos.");
+        if (dados.length != 6) throw new IllegalArgumentException("Dados do cliente incorretos.");
         nomeCompleto = dados[0];
         cnh = Long.parseLong(dados[1]);
         cpf = new CPF(dados[2]);
         endereco = new Endereco(dados[3]);
         telefone = new Telefone(dados[4]);
+        cartaoCredito = new CartaoCredito(dados[5]);
     }
 
-    public Cliente(String nomeCompleto, long cnh, CPF cpf, Endereco endereco, Telefone telefone) {
+    public Cliente(String nomeCompleto, long cnh, CPF cpf, Endereco endereco, Telefone telefone, CartaoCredito cartaoCredito) {
         this.nomeCompleto = nomeCompleto;
         this.cnh = cnh;
         this.cpf = cpf;
         this.endereco = endereco;
         this.telefone = telefone;
+        this.cartaoCredito = cartaoCredito;
     }
 
     public String getNomeCompleto() {
@@ -69,12 +72,23 @@ public class Cliente {
         this.telefone = telefone;
     }
 
+    public CartaoCredito getCartaoCredito() {
+        return cartaoCredito;
+    }
+
+    public void setCartaoCredito(CartaoCredito cartaoCredito) {
+        this.cartaoCredito = cartaoCredito;
+    }
+
+    @Override
     public String toString() {
         return nomeCompleto + "|"
                 + cnh + "|"
                 + cpf.toString() + "|"
                 + endereco.toString() + "|"
-                + telefone.toString() + "\n";
+                + telefone.toString() + "|"
+                + cartaoCredito.toString()
+                + "\n";
     }
 
 }

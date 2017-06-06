@@ -6,6 +6,7 @@
 package data.frames;
 
 import data.classes.client.CPF;
+import data.classes.client.CartaoCredito;
 import data.classes.client.Cliente;
 import data.classes.client.Endereco;
 import data.classes.client.Telefone;
@@ -286,7 +287,8 @@ public class TelaCadastroDeClientes extends javax.swing.JInternalFrame {
                     101012332,
                     new CPF("00869960105"),
                     new Endereco("Rua Sacramento", 0, 74915380, "Aparecida de Goiânia", "Goiás", "Brasil", "Setor dos Afonsos", "Condomínio Marrom", "RESIDENCIAL"),
-                    new Telefone(55, 62, 999235909, "PESSOAL")));
+                    new Telefone(55, 62, 999235909, "PESSOAL"),
+                    new CartaoCredito("VISA", 1121022112, 112, 2, 29)));
         } catch (Exception ex) {
             Logger.getLogger(TelaCadastroDeClientes.class.getName()).log(Level.SEVERE, null, ex);
         }
