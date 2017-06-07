@@ -11,6 +11,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class ClienteDAO implements CRUD {
@@ -27,7 +28,7 @@ public class ClienteDAO implements CRUD {
             clienteFileWriter = new FileWriter(arquivoClientes, true);
             clienteBufferedWriter = new BufferedWriter(clienteFileWriter);
             clienteBufferedWriter.write(cliente.toString());
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             throw new Exception("Falha ao incluir o cliente.\n\n" + ex);
         } finally {
             if (clienteBufferedWriter != null) {
@@ -87,7 +88,7 @@ public class ClienteDAO implements CRUD {
                     clientes.add(cliente);
                 }
             }
-        } catch (Exception ex) {
+        } catch (IOException ex) {
             throw new Exception("Falha ao listar os clientes.\n\n" + ex);
         } finally {
             if (clienteBufferedReader != null) {

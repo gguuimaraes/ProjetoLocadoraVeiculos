@@ -8,6 +8,13 @@ public class Modelo {
         this.nome = nome;
         this.valor = valor;
     }
+    
+    public Modelo(String linha) {
+        String dados[] = linha.split(";");
+        if (dados.length != 2) throw new IllegalArgumentException("Dados do modelo incorretos");
+        nome = dados[0];
+        valor = Float.parseFloat(dados[1]);
+    }
 
     public String getNome() {
         return nome;
@@ -23,5 +30,11 @@ public class Modelo {
 
     public void setValor(float valor) {
         this.valor = valor;
+    }
+    
+    @Override
+    public String toString() {
+        return nome + ";" +
+                valor + "\n";
     }
 }

@@ -13,7 +13,7 @@ public class Marca {
 
     public Marca(String nome, float valor) {
         this.nome = nome.toUpperCase();
-        this.modelos = new ArrayList<>();
+        modelos = new ArrayList<>();
         this.valor = valor;
     }
 
@@ -21,6 +21,14 @@ public class Marca {
         this.nome = nome.toUpperCase();
         this.modelos = modelos;
         this.valor = valor;
+    }
+    
+    public Marca(String linha) {
+        String dados[] = linha.split(";");
+        if (dados.length != 2) throw new IllegalArgumentException("Dados da marca incorretos.");
+        nome = dados[0];
+        modelos = new ArrayList<>();
+        valor = Float.parseFloat(dados[1]);
     }
         
     public String getNome() {
@@ -66,5 +74,11 @@ public class Marca {
             }
         }
         throw new IllegalArgumentException("O modelo " + modeloExistente.getNome() + " não está incluído na marca " + this.nome + ".");  
+    }
+    
+    @Override
+    public String toString() {
+        return nome + ";" +
+                valor + "\n";
     }
 }
