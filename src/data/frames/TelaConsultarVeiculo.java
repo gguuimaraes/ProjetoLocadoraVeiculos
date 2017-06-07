@@ -36,6 +36,7 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setTitle("Consultar Veiculo");
 
         jButton1.setText("Consultar");
 
