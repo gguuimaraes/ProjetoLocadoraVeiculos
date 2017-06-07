@@ -153,7 +153,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
-        // TODO add your handling code here:
+       TelaConsultarVeiculo tela05 = new TelaConsultarVeiculo();
+       jDP.add(tela05);
+       tela05.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCadastrarActionPerformed
