@@ -6,9 +6,9 @@ public class CPF {
     private byte n1, n2, n3, n4, n5, n6, n7, n8, n9;
     private byte digito1, digito2;
 
-    public CPF(String cpf) {
+    public CPF(String cpf) throws Exception {
         if (cpf.length() != 11) {
-            throw new IllegalArgumentException("CPF incorreto.");
+            throw new Exception("CPF incorreto.");
         }
         n1 = Byte.parseByte(cpf.substring(0, 1));
         n2 = Byte.parseByte(cpf.substring(1, 2));

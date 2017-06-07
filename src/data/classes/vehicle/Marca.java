@@ -13,7 +13,7 @@ public class Marca {
 
     public Marca(String nome, float valor) {
         this.nome = nome.toUpperCase();
-        modelos = new ArrayList<>();
+        modelos = new ArrayList<Modelo>();
         this.valor = valor;
     }
 
@@ -23,11 +23,11 @@ public class Marca {
         this.valor = valor;
     }
     
-    public Marca(String linha) {
+    public Marca(String linha) throws Exception {
         String dados[] = linha.split(";");
-        if (dados.length != 2) throw new IllegalArgumentException("Dados da marca incorretos.");
+        if (dados.length != 2) throw new Exception("Dados da marca incorretos.");
         nome = dados[0];
-        modelos = new ArrayList<>();
+        modelos = new ArrayList<Modelo>();
         valor = Float.parseFloat(dados[1]);
     }
         
@@ -58,22 +58,22 @@ public class Marca {
         });
     }
     
-    public void incluirModelo(Modelo novoModelo) {
+    public void incluirModelo(Modelo novoModelo) throws Exception {
         for (Modelo modelo : this.modelos) {
             if (modelo.getNome().equals(novoModelo.getNome()))
-                throw new IllegalArgumentException("O modelo " + novoModelo.getNome() + " já está incluído na marca " + this.nome + ".");
+                throw new Exception("O modelo " + novoModelo.getNome() + " já está incluído na marca " + this.nome + ".");
         }
         this.modelos.add(novoModelo);
     }
     
-    public void removerModelo(Modelo modeloExistente) {
+    public void removerModelo(Modelo modeloExistente) throws Exception {
         for (int indexModelo = 0; indexModelo < this.modelos.size(); indexModelo++) {
             if (modelos.get(indexModelo).getNome().equals(modeloExistente.getNome())) {
                 this.modelos.remove(indexModelo);
                 return;
             }
         }
-        throw new IllegalArgumentException("O modelo " + modeloExistente.getNome() + " não está incluído na marca " + this.nome + ".");  
+        throw new Exception("O modelo " + modeloExistente.getNome() + " não está incluído na marca " + this.nome + ".");  
     }
     
     @Override

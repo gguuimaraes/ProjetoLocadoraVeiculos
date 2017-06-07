@@ -14,7 +14,7 @@ public class Cliente {
 
     public Cliente(String linha) throws Exception {
         String dados[] = linha.split("|");
-        if (dados.length != 6) throw new IllegalArgumentException("Dados do cliente incorretos.");
+        if (dados.length != 6) throw new Exception("Dados do cliente incorretos.");
         cnh = dados[0];
         nomeCompleto = dados[1];
         cpf = new CPF(dados[2]);

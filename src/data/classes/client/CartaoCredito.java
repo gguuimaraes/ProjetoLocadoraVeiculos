@@ -27,7 +27,7 @@ public class CartaoCredito {
 
     public CartaoCredito(String linha) throws Exception {
         String dados[] = linha.split(";");
-        if (dados.length != 5) throw new IllegalArgumentException("Dados do cartão de crédito incorretos.");
+        if (dados.length != 5) throw new Exception("Dados do cartão de crédito incorretos.");
         setBandeira(dados[0]);
         numero = Long.parseLong(dados[1]);
         cvc = Integer.parseInt(dados[2]);

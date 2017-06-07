@@ -9,9 +9,9 @@ public class Modelo {
         this.valor = valor;
     }
     
-    public Modelo(String linha) {
+    public Modelo(String linha) throws Exception {
         String dados[] = linha.split(";");
-        if (dados.length != 2) throw new IllegalArgumentException("Dados do modelo incorretos");
+        if (dados.length != 2) throw new Exception("Dados do modelo incorretos");
         nome = dados[0];
         valor = Float.parseFloat(dados[1]);
     }

@@ -5,6 +5,13 @@
  */
 package data.frames;
 
+import data.classes.vehicle.Marca;
+import data.classes.vehicle.Modelo;
+import data.persistence.MarcaDAO;
+import javax.swing.CellEditor;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author aluno
@@ -28,14 +35,14 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTFMarca = new javax.swing.JTextField();
+        jTextFieldMarca = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTModelos = new javax.swing.JTable();
+        jTableModelos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jButtonCadastrar = new javax.swing.JButton();
+        jButtonPesquisar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jTextFieldValor = new javax.swing.JTextField();
 
         setClosable(true);
         setIconifiable(true);
@@ -43,7 +50,7 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
 
         jLabel1.setText("Nome da Marca:");
 
-        jTModelos.setModel(new javax.swing.table.DefaultTableModel(
+        jTableModelos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -52,14 +59,27 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
             new String [] {
                 "Nome do modelo", "Valor"
             }
-        ));
-        jScrollPane1.setViewportView(jTModelos);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Float.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(jTableModelos);
 
         jLabel2.setText("Modelos:");
 
-        jButton1.setText("Cadastrar");
+        jButtonCadastrar.setText("Cadastrar");
+        jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCadastrarActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Pesquisar");
+        jButtonPesquisar.setText("Pesquisar");
 
         jLabel3.setText("Valor do aluguel da marca:");
 
@@ -67,57 +87,95 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 531, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jTFMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton2))
-                    .addComponent(jLabel2)
+                        .addComponent(jButtonCadastrar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButtonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(30, Short.MAX_VALUE)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTFMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonCadastrar)
+                    .addComponent(jButtonPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldValor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
+        try {
+            if (jTextFieldMarca.getText().isEmpty()) {
+                throw new Exception("Insira o nome da marca!");
+            }
+            if (jTextFieldValor.getText().isEmpty()) {
+                throw new Exception("Insira o valor de aluguel!");
+            }
+            MarcaDAO marcaDAO = new MarcaDAO();
+            Marca marca = new Marca(jTextFieldMarca.getText(), Float.parseFloat(jTextFieldValor.getText()));
+            DefaultTableModel tableModelModelos = (DefaultTableModel) jTableModelos.getModel();
+            CellEditor cellEditor = jTableModelos.getCellEditor();
+            if (cellEditor != null) {
+                if (cellEditor.getCellEditorValue() != null) {
+                    cellEditor.stopCellEditing();
+                } else {
+                    cellEditor.cancelCellEditing();
+                }
+            }
+            for (int i = 0; i < tableModelModelos.getRowCount(); i++) {
+                if (tableModelModelos.getValueAt(i, 0) != null && tableModelModelos.getValueAt(i, 1) != null) {
+                    String nome = tableModelModelos.getValueAt(i, 0).toString();
+                    Float valor = Float.parseFloat(tableModelModelos.getValueAt(i, 1).toString());
+                    if (!nome.isEmpty() && !valor.toString().isEmpty()) {
+                        marca.incluirModelo(new Modelo(nome, valor));
+                    }
+                }
+            }
+            marcaDAO.incluir(marca);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex);
+        }
+
+    }//GEN-LAST:event_jButtonCadastrarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButtonCadastrar;
+    private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTFMarca;
-    private javax.swing.JTable jTModelos;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTable jTableModelos;
+    private javax.swing.JTextField jTextFieldMarca;
+    private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 }

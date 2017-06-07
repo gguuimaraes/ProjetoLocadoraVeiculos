@@ -17,10 +17,8 @@ public class Telefone {
                     return "PESSOAL";
                 case RESIDENCIAL:
                     return "RESIDENCIAL";
-                case TRABALHO:
-                    return "TRABALHO";
                 default:
-                    throw new IllegalArgumentException();
+                    return "TRABALHO";
             }
         }
     }

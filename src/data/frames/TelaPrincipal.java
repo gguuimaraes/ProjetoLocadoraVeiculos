@@ -47,6 +47,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         jMenuItemCadastroDeMarca = new javax.swing.JMenuItem();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
         javax.swing.GroupLayout jDPLayout = new javax.swing.GroupLayout(jDP);
         jDP.setLayout(jDPLayout);
         jDPLayout.setHorizontalGroup(
