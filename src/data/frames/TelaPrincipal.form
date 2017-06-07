@@ -94,10 +94,13 @@
             <Property name="text" type="java.lang.String" value="Marca"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCadastroDeMarca">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Cadastra Marca"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCadastroDeMarcaActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

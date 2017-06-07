@@ -45,7 +45,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItemCadastroDeMarca = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jDPLayout = new javax.swing.GroupLayout(jDP);
         jDP.setLayout(jDPLayout);
@@ -123,8 +123,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jMenu3.setText("Marca");
 
-        jMenuItem1.setText("Cadastra Marca");
-        jMenu3.add(jMenuItem1);
+        jMenuItemCadastroDeMarca.setText("Cadastra Marca");
+        jMenuItemCadastroDeMarca.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCadastroDeMarcaActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItemCadastroDeMarca);
 
         jMenuBar1.add(jMenu3);
 
@@ -147,7 +152,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-      TelaCadastroDeVeiculos tela03 = new TelaCadastroDeVeiculos();
+      TelaCadastroVeiculo tela03 = new TelaCadastroVeiculo();
       jDP.add(tela03);
       tela03.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -159,16 +164,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCadastrarActionPerformed
-     TelaCadastroDeClientes tela02 = new TelaCadastroDeClientes();
+     TelaCadastroCliente tela02 = new TelaCadastroCliente();
      jDP.add(tela02);
      tela02.setVisible(true);
     }//GEN-LAST:event_jMCadastrarActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
-       TelaConsultaDeCliente tela04 = new TelaConsultaDeCliente();
+       TelaConsultarCliente tela04 = new TelaConsultarCliente();
        jDP.add(tela04);
        tela04.setVisible(true);
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItemCadastroDeMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeMarcaActionPerformed
+       TelaCadastroMarca tela05 = new TelaCadastroMarca();
+       jDP.add(tela05);
+       tela05.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastroDeMarcaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,7 +225,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JMenuItem jMenuItem4;
@@ -223,5 +233,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem7;
     private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
+    private javax.swing.JMenuItem jMenuItemCadastroDeMarca;
     // End of variables declaration//GEN-END:variables
 }

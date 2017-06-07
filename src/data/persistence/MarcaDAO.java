@@ -1,7 +1,14 @@
 package data.persistence;
 
 import data.classes.vehicle.Marca;
+import data.classes.vehicle.Modelo;
 import data.interfaces.CRUD;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MarcaDAO implements CRUD {
@@ -13,16 +20,136 @@ public class MarcaDAO implements CRUD {
     @Override
     public void incluir(Object objeto) throws Exception {
         Marca marca = (Marca) objeto;
+        FileWriter marcaFileWriter = null;
+        BufferedWriter marcaBufferedWriter = null;
+        FileWriter modeloFileWriter = null;
+        BufferedWriter modeloBufferedWriter = null;
+        try {
+            marcaFileWriter = new FileWriter(arquivoMarcas, true);
+            marcaBufferedWriter = new BufferedWriter(marcaFileWriter);
+            modeloFileWriter = new FileWriter(arquivoModelos, true);
+            modeloBufferedWriter = new BufferedWriter(modeloFileWriter);
+            marcaBufferedWriter.write(marca.toString());
+            for (Modelo modelo : marca.getModelos()) {
+                modeloBufferedWriter.write(marca.getNome() + ";" + modelo.toString());
+            }
+        } catch (IOException ex) {
+            throw new Exception("Falha ao incluir a marca.\n\n" + ex);
+        } finally {
+            if (modeloBufferedWriter != null) {
+                modeloBufferedWriter.close();
+            }
+            if (modeloFileWriter != null) {
+                modeloFileWriter.close();
+            }
+            if (marcaBufferedWriter != null) {
+                marcaBufferedWriter.close();
+            }
+            if (marcaFileWriter != null) {
+                marcaFileWriter.close();
+            }
+        }
     }
 
     @Override
-    public void remover(Object o) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void remover(Object objeto) throws Exception {
+        Marca marcaExistente = (Marca) objeto;
+        FileWriter marcaFileWriter = null;
+        BufferedWriter marcaBufferedWriter = null;
+        FileReader modeloFileReader = null;
+        BufferedReader modeloBufferedReader = null;
+        FileWriter modeloFileWriter = null;
+        BufferedWriter modeloBufferedWriter = null;
+        try {
+            ArrayList<Marca> marcas = listar();
+            marcaFileWriter = new FileWriter(arquivoMarcas, false);
+            marcaBufferedWriter = new BufferedWriter(marcaFileWriter);
+            for (Marca marca : marcas) {
+                if (!marca.getNome().equals(marcaExistente.getNome())) {
+                    marcaBufferedWriter.write(marca.toString());
+                }
+            }
+            if (new File(arquivoModelos).exists()) {
+                modeloFileReader = new FileReader(arquivoModelos);
+                modeloBufferedReader = new BufferedReader(modeloFileReader);
+                modeloFileWriter = new FileWriter(arquivoModelos, false);
+                modeloBufferedWriter = new BufferedWriter(modeloFileWriter);
+                String linha;
+                while ((linha = modeloBufferedReader.readLine()) != null) {
+                    String nome = linha.substring(0, linha.indexOf(";"));
+                    if (!nome.equals(marcaExistente.getNome()))  modeloBufferedWriter.write(linha);
+                }
+            }
+        } catch (Exception ex) {
+            throw new Exception("Falha ao remover a marca.\n\n" + ex);
+        } finally {
+            if (modeloBufferedReader != null) {
+                modeloBufferedReader.close();
+            }
+            if (modeloFileReader != null) {
+                modeloFileReader.close();
+            }
+            if (modeloBufferedWriter != null) {
+                modeloBufferedWriter.close();
+            }
+            if (modeloFileWriter != null) {
+                modeloFileWriter.close();
+            }
+            if (marcaBufferedWriter != null) {
+                marcaBufferedWriter.close();
+            }
+            if (marcaFileWriter != null) {
+                marcaFileWriter.close();
+            }
+        }
     }
 
     @Override
-    public ArrayList<?> listar() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Marca> listar() throws Exception {
+        FileReader marcaFileReader = null;
+        BufferedReader marcaBufferedReader = null;
+        FileReader modeloFileReader = null;
+        BufferedReader modeloBufferedReader = null;
+        ArrayList<Marca> marcas = new ArrayList<>();
+        try {
+            if (new File(arquivoMarcas).exists()) {
+                marcaFileReader = new FileReader(arquivoMarcas);
+                marcaBufferedReader = new BufferedReader(marcaFileReader);
+                String linha;
+                while ((linha = marcaBufferedReader.readLine()) != null) {
+                    Marca marca = new Marca(linha);
+                    if (new File(arquivoModelos).exists()) {
+                        modeloFileReader = new FileReader(arquivoModelos);
+                        modeloBufferedReader = new BufferedReader(modeloFileReader);
+                        String subLinha;
+                        while ((subLinha = modeloBufferedReader.readLine()) != null) {
+                            String nome = subLinha.substring(0, subLinha.indexOf(";"));
+                            subLinha = subLinha.substring(subLinha.indexOf(";") + 1);
+                            if (nome.equals(marca.getNome())) {
+                                marca.incluirModelo(new Modelo(subLinha));
+                            }
+                        }
+                    }
+                    marcas.add(marca);
+                }
+            }
+        } catch (IOException ex) {
+            throw new Exception("Falha ao listar as marcas.\n\n" + ex);
+        } finally {
+            if (modeloBufferedReader != null) {
+                modeloBufferedReader.close();
+            }
+            if (modeloFileReader != null) {
+                modeloFileReader.close();
+            }
+            if (marcaBufferedReader != null) {
+                marcaBufferedReader.close();
+            }
+            if (marcaFileReader != null) {
+                marcaFileReader.close();
+            }
+        }
+        return marcas;
     }
 
 }
