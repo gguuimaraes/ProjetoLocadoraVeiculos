@@ -25,6 +25,7 @@ public class MarcaDAO implements CRUD {
         FileWriter modeloFileWriter = null;
         BufferedWriter modeloBufferedWriter = null;
         try {
+            if (exists(marca.getNome())) throw new Exception("Marca existente.");
             marcaFileWriter = new FileWriter(arquivoMarcas, true);
             marcaBufferedWriter = new BufferedWriter(marcaFileWriter);
             modeloFileWriter = new FileWriter(arquivoModelos, true);
@@ -61,6 +62,7 @@ public class MarcaDAO implements CRUD {
         FileWriter modeloFileWriter = null;
         BufferedWriter modeloBufferedWriter = null;
         try {
+            if (!exists(marcaExistente.getNome())) throw new Exception("Marca inexistente.");
             ArrayList<Marca> marcas = listar();
             marcaFileWriter = new FileWriter(arquivoMarcas, false);
             marcaBufferedWriter = new BufferedWriter(marcaFileWriter);
@@ -150,6 +152,33 @@ public class MarcaDAO implements CRUD {
             }
         }
         return marcas;
+    }
+    
+    public Marca getByNome(String nomeMarca) throws Exception {
+        for (Marca marca : listar()) {
+            if (marca.getNome().equals(nomeMarca))
+                return marca;
+        }
+        throw new Exception("Marca não existente.");
+    }
+    
+    public Modelo getModeloByNome(String nomeModelo) throws Exception {
+        for (Marca marca : listar()) {
+            for (Modelo modelo : marca.getModelos()) {
+                if (modelo.getNome().equals(nomeModelo)) {
+                    return modelo;
+                }
+            }
+        }
+        throw new Exception("Modelo do veículo não encontrado.");
+    }
+    
+    public boolean exists(String nomeMarca) throws Exception {
+        for (Marca marca : listar()) {
+            if (marca.getNome().equals(nomeMarca))
+                return true;
+        }
+        return false;
     }
 
 }

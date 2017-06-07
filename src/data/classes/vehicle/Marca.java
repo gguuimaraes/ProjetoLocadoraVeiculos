@@ -8,8 +8,7 @@ public class Marca {
     private ArrayList<Modelo> modelos;
     private float valor;
 
-    public Marca() {
-    }
+    public Marca() {}
 
     public Marca(String nome, float valor) {
         this.nome = nome.toUpperCase();

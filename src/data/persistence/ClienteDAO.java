@@ -25,6 +25,7 @@ public class ClienteDAO implements CRUD {
         FileWriter clienteFileWriter = null;
         BufferedWriter clienteBufferedWriter = null;
         try {
+            if (exists(cliente.getCNH())) throw new Exception("Cliente existente.");
             clienteFileWriter = new FileWriter(arquivoClientes, true);
             clienteBufferedWriter = new BufferedWriter(clienteFileWriter);
             clienteBufferedWriter.write(cliente.toString());
@@ -46,6 +47,7 @@ public class ClienteDAO implements CRUD {
         FileWriter clienteFileWriter = null;
         BufferedWriter clienteBufferedWriter = null;
         try {
+            if (!exists(clienteExistente.getCNH())) throw new Exception("Cliente inexistente.");
             ArrayList<Cliente> clientes = listar();
             clienteFileWriter = new FileWriter(arquivoClientes, false);
             clienteBufferedWriter = new BufferedWriter(clienteFileWriter);
@@ -99,5 +101,21 @@ public class ClienteDAO implements CRUD {
             }
         }
         return clientes;
+    }
+    
+    public Cliente getByCNH(String cnhCliente) throws Exception {
+        for (Cliente cliente : listar()) {
+            if (cliente.getCNH().equals(cnhCliente))
+                return cliente;
+        }
+        throw new Exception("Cliente não existente.");
+    }
+    
+    public boolean exists(String cnhCliente) throws Exception {
+        for (Cliente cliente : listar()) {
+            if (cliente.getCNH().equals(cnhCliente))
+                return true;
+        }
+        return false;
     }
 }
