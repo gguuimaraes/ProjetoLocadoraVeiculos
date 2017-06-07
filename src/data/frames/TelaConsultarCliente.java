@@ -9,12 +9,12 @@ package data.frames;
  *
  * @author aluno
  */
-public class TelaConsultaDeCliente extends javax.swing.JInternalFrame {
+public class TelaConsultarCliente extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TelaConsultaDeCliente
      */
-    public TelaConsultaDeCliente() {
+    public TelaConsultarCliente() {
         initComponents();
     }
 
