@@ -1,6 +1,7 @@
 package data.classes.vehicle;
 
 import data.persistence.MarcaDAO;
+import java.util.Calendar;
 
 public class Veiculo {
 
@@ -95,8 +96,19 @@ public class Veiculo {
 
     }
 
-    public Float calcularValor() {
-        return (float) 0;
+    public Float getDiaria() {
+        int diferencaAno = Calendar.YEAR - ano;
+        float valor = marca.getValor() + modelo.getValor();
+        return valor - (valor * diferencaAno/100);
     }
 
+    @Override
+    public String toString() {
+        return placa + ";" +
+                marca.getNome() + ";" +
+                modelo.getNome() + ";" + 
+                ano + ";" +
+                situacao.toString() + "\n";
+    }
+    
 }
