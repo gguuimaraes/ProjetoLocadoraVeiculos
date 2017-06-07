@@ -96,7 +96,7 @@ public class Veiculo {
     }
 
     public Float calcularValor() {
-        return 
+        return (float) 0;
     }
 
 }
