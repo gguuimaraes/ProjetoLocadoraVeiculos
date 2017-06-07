@@ -9,12 +9,12 @@ package data.frames;
  *
  * @author aluno
  */
-public class TelaCadastroVeiculo extends javax.swing.JInternalFrame {
+public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TelaCadastroDeVeiculos
      */
-    public TelaCadastroVeiculo() {
+    public TelaCadastrarVeiculo() {
         initComponents();
     }
 

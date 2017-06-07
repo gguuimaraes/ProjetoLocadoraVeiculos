@@ -154,7 +154,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-      TelaCadastroVeiculo tela03 = new TelaCadastroVeiculo();
+      TelaCadastrarVeiculo tela03 = new TelaCadastrarVeiculo();
       jDP.add(tela03);
       tela03.setVisible(true);
     }//GEN-LAST:event_jMenuItem2ActionPerformed
@@ -166,7 +166,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCadastrarActionPerformed
-     TelaCadastroCliente tela02 = new TelaCadastroCliente();
+     TelaCadastrarCliente tela02 = new TelaCadastrarCliente();
      jDP.add(tela02);
      tela02.setVisible(true);
     }//GEN-LAST:event_jMCadastrarActionPerformed
@@ -178,7 +178,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
     private void jMenuItemCadastroDeMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeMarcaActionPerformed
-       TelaCadastroMarca tela05 = new TelaCadastroMarca();
+       TelaCadastrarMarca tela05 = new TelaCadastrarMarca();
        jDP.add(tela05);
        tela05.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastroDeMarcaActionPerformed

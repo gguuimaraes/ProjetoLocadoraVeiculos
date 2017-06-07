@@ -16,12 +16,12 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author aluno
  */
-public class TelaCadastroMarca extends javax.swing.JInternalFrame {
+public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TelaDeCadastroDeMarca
      */
-    public TelaCadastroMarca() {
+    public TelaCadastrarMarca() {
         initComponents();
     }
 
@@ -35,7 +35,7 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldMarca = new javax.swing.JTextField();
+        jTextFieldNome = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableModelos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -94,7 +94,7 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCadastrar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -115,7 +115,7 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonCadastrar)
                     .addComponent(jButtonPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -133,14 +133,14 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
 
     private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
         try {
-            if (jTextFieldMarca.getText().isEmpty()) {
+            if (jTextFieldNome.getText().isEmpty()) {
                 throw new Exception("Insira o nome da marca!");
             }
             if (jTextFieldValor.getText().isEmpty()) {
-                throw new Exception("Insira o valor de aluguel!");
+                throw new Exception("Insira o valor de aluguel da marca!");
             }
             MarcaDAO marcaDAO = new MarcaDAO();
-            Marca marca = new Marca(jTextFieldMarca.getText(), Float.parseFloat(jTextFieldValor.getText()));
+            Marca marca = new Marca(jTextFieldNome.getText(), Float.parseFloat(jTextFieldValor.getText()));
             DefaultTableModel tableModelModelos = (DefaultTableModel) jTableModelos.getModel();
             CellEditor cellEditor = jTableModelos.getCellEditor();
             if (cellEditor != null) {
@@ -175,7 +175,7 @@ public class TelaCadastroMarca extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableModelos;
-    private javax.swing.JTextField jTextFieldMarca;
+    private javax.swing.JTextField jTextFieldNome;
     private javax.swing.JTextField jTextFieldValor;
     // End of variables declaration//GEN-END:variables
 }

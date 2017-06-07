@@ -18,12 +18,12 @@ import java.util.logging.Logger;
  *
  * @author Pedro
  */
-public class TelaCadastroCliente extends javax.swing.JInternalFrame {
+public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
 
     /**
      * Creates new form TelaCadastroDeClientes
      */
-    public TelaCadastroCliente() {
+    public TelaCadastrarCliente() {
         initComponents();
     }
 
@@ -339,7 +339,7 @@ public class TelaCadastroCliente extends javax.swing.JInternalFrame {
                     new Telefone(55, 62, 999235909, "PESSOAL"),
                     new CartaoCredito("VISA", 1121022112, 112, 2, 29)));
         } catch (Exception ex) {
-            Logger.getLogger(TelaCadastroCliente.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TelaCadastrarCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
