@@ -1,9 +1,110 @@
 package data.persistence;
 
-/**
- *
- * @author gguui
- */
-public class VeiculoDAO {
+import data.classes.client.Cliente;
+import data.classes.vehicle.Veiculo;
+import data.interfaces.CRUD;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+
+public class VeiculoDAO implements CRUD {
+    String pastaArquivos = "C:\\Users\\gguui\\OneDrive\\Documentos\\NetBeansProjects\\ProjetoLocadoraVeiculos\\src\\files\\";
+    String arquivoVeiculos = pastaArquivos + "Veiculos.csv";
     
+    @Override
+    public void incluir(Object objeto) throws Exception {
+        Veiculo veiculo = (Veiculo) objeto;
+        FileWriter veiculoFileWriter = null;
+        BufferedWriter veiculoBufferedWriter = null;
+        try {
+            if (exists(veiculo.getPlaca())) throw new Exception("Veículo existente.");
+            veiculoFileWriter = new FileWriter(arquivoVeiculos, true);
+            veiculoBufferedWriter = new BufferedWriter(veiculoFileWriter);
+            veiculoBufferedWriter.write(veiculo.toString());
+        } catch (IOException ex) {
+            throw new Exception("Falha ao incluir o veículo.\n\n" + ex);
+        } finally {
+            if (veiculoBufferedWriter != null) {
+                veiculoBufferedWriter.close();
+            }
+            if (veiculoFileWriter != null) {
+                veiculoFileWriter.close();
+            }
+        }
+    }
+
+    @Override
+    public void remover(Object objeto) throws Exception {
+        Veiculo veiculoExistente = (Veiculo) objeto;
+        FileWriter veiculoFileWriter = null;
+        BufferedWriter veiculoBufferedReader = null;
+        try {
+            if (!exists(veiculoExistente.getPlaca())) throw new Exception("Veículo inexistente.");
+            ArrayList<Veiculo> veiculos = listar();
+            veiculoFileWriter = new FileWriter(arquivoVeiculos, false);
+            veiculoBufferedReader = new BufferedWriter(veiculoFileWriter);
+            for (Veiculo veiculo : veiculos) {
+                if (!veiculo.getPlaca().equals(veiculoExistente.getPlaca())) {
+                    veiculoBufferedReader.write(veiculo.toString());
+                }
+            }
+        } catch (Exception ex) {
+            throw new Exception("Falha ao remover o veículo.\n\n" + ex);
+        } finally {
+            if (veiculoBufferedReader != null) {
+                veiculoBufferedReader.close();
+            }
+            if (veiculoFileWriter != null) {
+                veiculoFileWriter.close();
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<Veiculo> listar() throws Exception {
+        FileReader veiculoFileReader = null;
+        BufferedReader veiculoBufferedReader = null;
+        ArrayList<Veiculo> veiculos = new ArrayList<>();
+        try {
+            if (new File(arquivoVeiculos).exists()) {
+                veiculoFileReader = new FileReader(arquivoVeiculos);
+                veiculoBufferedReader = new BufferedReader(veiculoFileReader);
+                String linha;
+                while ((linha = veiculoBufferedReader.readLine()) != null) {
+                    Veiculo veiculo = new Veiculo(linha);
+                    veiculos.add(veiculo);
+                }
+            }
+        } catch (IOException ex) {
+            throw new Exception("Falha ao listar os veículos.\n\n" + ex);
+        } finally {
+            if (veiculoBufferedReader != null) {
+                veiculoBufferedReader.close();
+            }
+            if (veiculoFileReader != null) {
+                veiculoFileReader.close();
+            }
+        }
+        return veiculos;
+    }
+    
+    public Veiculo getByPlaca(String placaVeiculo) throws Exception {
+        for (Veiculo veiculo : listar()) {
+            if (veiculo.getPlaca().equals(placaVeiculo))
+                return veiculo;
+        }
+        throw new Exception("Veículo inexistente.");
+    }
+    
+    public boolean exists(String placaVeiculo) throws Exception {
+        for (Veiculo veiculo : listar()) {
+            if (veiculo.getPlaca().equals(placaVeiculo))
+                return true;
+        }
+        return false;
+    }
 }

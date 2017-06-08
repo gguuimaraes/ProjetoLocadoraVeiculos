@@ -46,8 +46,9 @@ public class Veiculo {
         String dados[] = linha.split(";");
         if (dados.length != 5) throw new Exception("Dados do veículo incorretos.");
         placa = dados[0];
-        marca = new MarcaDAO().getByNome(dados[1]);
-        modelo = new MarcaDAO().getModeloByNome(dados[2]);
+        MarcaDAO marcaDAO = new MarcaDAO();
+        marca = marcaDAO.getByNome(dados[1]);
+        modelo = marcaDAO.getModeloByNome(dados[2]);
         ano = Integer.parseInt(dados[3]);
         setSituacao(dados[4]);
     }

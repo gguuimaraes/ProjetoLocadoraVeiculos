@@ -79,14 +79,7 @@ public class ClienteDAO implements CRUD {
                 clienteBufferedReader = new BufferedReader(clienteFileReader);
                 String linha;
                 while ((linha = clienteBufferedReader.readLine()) != null) {
-                    String dados[] = linha.split("|");
-                    Cliente cliente = new Cliente();
-                    cliente.setCNH(dados[0]);
-                    cliente.setNomeCompleto(dados[1]);
-                    cliente.setCPF(new CPF(dados[2]));
-                    cliente.setEndereco(new Endereco(dados[3]));
-                    cliente.setTelefone(new Telefone(dados[4]));
-                    cliente.setCartaoCredito(new CartaoCredito(dados[5]));
+                    Cliente cliente = new Cliente(linha);
                     clientes.add(cliente);
                 }
             }
@@ -108,7 +101,7 @@ public class ClienteDAO implements CRUD {
             if (cliente.getCNH().equals(cnhCliente))
                 return cliente;
         }
-        throw new Exception("Cliente não existente.");
+        throw new Exception("Cliente inexistente.");
     }
     
     public boolean exists(String cnhCliente) throws Exception {

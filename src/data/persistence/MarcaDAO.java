@@ -159,7 +159,7 @@ public class MarcaDAO implements CRUD {
             if (marca.getNome().equals(nomeMarca))
                 return marca;
         }
-        throw new Exception("Marca não existente.");
+        throw new Exception("Marca inexistente.");
     }
     
     public Modelo getModeloByNome(String nomeModelo) throws Exception {
