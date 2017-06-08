@@ -82,7 +82,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Cadastro de Cliente");
+        setTitle("Cadastro do Cliente");
 
         jLabel1.setText("Nome Completo:");
 
@@ -128,7 +128,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
 
         jComboBoxTipoEndereco.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Trabalho", "Residencial" }));
 
-        jButtonCadastrarCliente.setText("Cadastrar");
+        jButtonCadastrarCliente.setText("Salvar");
         jButtonCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCadastrarClienteActionPerformed(evt);
