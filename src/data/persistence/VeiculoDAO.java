@@ -1,6 +1,5 @@
 package data.persistence;
 
-import data.classes.client.Cliente;
 import data.classes.vehicle.Veiculo;
 import data.interfaces.CRUD;
 import java.io.BufferedReader;
