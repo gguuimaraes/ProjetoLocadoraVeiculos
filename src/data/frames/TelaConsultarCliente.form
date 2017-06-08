@@ -24,7 +24,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               <Component id="jTextFieldConsultarCliente" min="-2" pref="352" max="-2" attributes="0"/>
@@ -39,6 +38,7 @@
               <Component id="jButtonExcluirCliente" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
+          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -56,7 +56,7 @@
                   <Component id="jButtonAlterarCliente" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButtonExcluirCliente" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="20" max="32767" attributes="0"/>
+              <EmptySpace pref="24" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -80,8 +80,13 @@
               <Table columnCount="4" rowCount="4">
                 <Column editable="true" title="Nome Completo" type="java.lang.Object"/>
                 <Column editable="true" title="Telefone" type="java.lang.Object"/>
-                <Column editable="true" title="Endere&#xe7;o" type="java.lang.Object"/>
-                <Column editable="true" title="Cart&#xe3;o de credito" type="java.lang.Object"/>
+                <Column editable="true" title="Aluguel" type="java.lang.Object"/>
+                <Column editable="true" title="CNH" type="java.lang.Object">
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value="null"/>
+                  <Data value=""/>
+                </Column>
               </Table>
             </Property>
           </Properties>
