@@ -44,6 +44,7 @@ public class ClienteDAO implements CRUD {
         BufferedWriter clienteBufferedWriter = null;
         try {
             if (!exists(clienteExistente.getCNH())) throw new Exception("Cliente inexistente.");
+            if (new LocacaoDAO().existsByCNH(clienteExistente.getCNH())) throw new Exception("Impossível remover um cliente que já realizou uma locação.");
             ArrayList<Cliente> clientes = listar();
             clienteFileWriter = new FileWriter(arquivoClientes, false);
             clienteBufferedWriter = new BufferedWriter(clienteFileWriter);

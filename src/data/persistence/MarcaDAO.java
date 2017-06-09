@@ -63,6 +63,7 @@ public class MarcaDAO implements CRUD {
         BufferedWriter modeloBufferedWriter = null;
         try {
             if (!exists(marcaExistente.getNome())) throw new Exception("Marca inexistente.");
+            if (new VeiculoDAO().existsByMarca(marcaExistente.getNome())) throw new Exception("Impossível remover uma marca de um veículo cadastrado.");
             ArrayList<Marca> marcas = listar();
             marcaFileWriter = new FileWriter(arquivoMarcas, false);
             marcaBufferedWriter = new BufferedWriter(marcaFileWriter);

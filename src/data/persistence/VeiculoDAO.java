@@ -43,6 +43,7 @@ public class VeiculoDAO implements CRUD {
         BufferedWriter veiculoBufferedReader = null;
         try {
             if (!exists(veiculoExistente.getPlaca())) throw new Exception("Veículo inexistente.");
+            if (new LocacaoDAO().existsByPlaca(veiculoExistente.getPlaca())) throw new Exception("Impossível remover um veículo que já foi locado.");
             ArrayList<Veiculo> veiculos = listar();
             veiculoFileWriter = new FileWriter(arquivoVeiculos, false);
             veiculoBufferedReader = new BufferedWriter(veiculoFileWriter);
@@ -102,6 +103,22 @@ public class VeiculoDAO implements CRUD {
     public boolean exists(String placaVeiculo) throws Exception {
         for (Veiculo veiculo : listar()) {
             if (veiculo.getPlaca().equals(placaVeiculo))
+                return true;
+        }
+        return false;
+    }
+    
+    public boolean existsByMarca(String marcaNome) throws Exception {
+        for (Veiculo veiculo : listar()) {
+            if (veiculo.getMarca().getNome().equals(marcaNome))
+                return true;
+        }
+        return false;
+    }
+      
+    public boolean existsByMarcaModelo(String marcaNome, String modeloNome) throws Exception {
+        for (Veiculo veiculo : listar()) {
+            if (veiculo.getMarca().getNome().equals(marcaNome) && veiculo.getModelo().getNome().equals(modeloNome))
                 return true;
         }
         return false;
