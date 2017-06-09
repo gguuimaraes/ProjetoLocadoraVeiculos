@@ -78,5 +78,25 @@ public class LocacaoDAO implements CRUD {
         }
         return locacoes;
     }
+    
+    public ArrayList<Locacao> listarByPlaca(String veiculoPlaca) throws Exception {
+        ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+        for (Locacao locacao : listar()) {
+            if (locacao.getVeiculo().getPlaca().equals(veiculoPlaca)) {
+                locacoes.add(locacao);
+            }
+        }
+        return locacoes;
+    }
+    
+    public ArrayList<Locacao> listarByCNHPlaca(String clienteCNH, String veiculoPlaca) throws Exception {
+        ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+        for (Locacao locacao : listar()) {
+            if (locacao.getCliente().getCNH().equals(clienteCNH) && locacao.getVeiculo().getPlaca().equals(veiculoPlaca)) {
+                locacoes.add(locacao);
+            }
+        }
+        return locacoes;
+    }
 
 }
