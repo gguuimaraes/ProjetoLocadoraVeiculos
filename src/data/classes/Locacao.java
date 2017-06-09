@@ -7,7 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
 
 public class Locacao {
-    private Date dataAbertura;
+    private final Date dataAbertura;
     private Date dataPrevisaoFechamento;
     private Date dataFechamento;
     private Cliente cliente;
