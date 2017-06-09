@@ -2,6 +2,7 @@ package data.classes.vehicle;
 
 import data.persistence.MarcaDAO;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Veiculo {
 
@@ -117,7 +118,7 @@ public class Veiculo {
     }
 
     public Float getDiaria() {
-        int diferencaAno = Calendar.YEAR - ano;
+        int diferencaAno = new GregorianCalendar().get(Calendar.YEAR) - ano;
         float valor = marca.getValor() + modelo.getValor();
         return valor - (valor * diferencaAno * (float) 0.05);
     }
