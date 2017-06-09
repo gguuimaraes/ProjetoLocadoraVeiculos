@@ -2,6 +2,7 @@ package data.classes.vehicle;
 
 import data.persistence.MarcaDAO;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 public class Veiculo {
 
@@ -9,6 +10,7 @@ public class Veiculo {
     private Marca marca;
     private Modelo modelo;
     private int ano;
+    private float quilometragem;
     private Situacao situacao;
 
     private enum Situacao {
@@ -34,23 +36,25 @@ public class Veiculo {
     public Veiculo() {
     }
 
-    public Veiculo(String placa, Marca marca, Modelo modelo, int ano, String situacao) {
+    public Veiculo(String placa, Marca marca, Modelo modelo, int ano, float quilometragem, String situacao) {
         this.placa = placa;
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
+        this.quilometragem = quilometragem;
         setSituacao(situacao);
     }
     
     public Veiculo(String linha) throws Exception {
         String dados[] = linha.split(";");
-        if (dados.length != 5) throw new Exception("Dados do veículo incorretos.");
+        if (dados.length != 6) throw new Exception("Dados do veículo incorretos.");
         placa = dados[0];
         MarcaDAO marcaDAO = new MarcaDAO();
         marca = marcaDAO.getByNome(dados[1]);
         modelo = marcaDAO.getModeloByNome(dados[2]);
         ano = Integer.parseInt(dados[3]);
-        setSituacao(dados[4]);
+        quilometragem = Float.parseFloat(dados[4]);
+        setSituacao(dados[5]);
     }
 
     public String getPlaca() {
@@ -81,6 +85,22 @@ public class Veiculo {
         return situacao.toString();
     }
 
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    public float getQuilometragem() {
+        return quilometragem;
+    }
+
+    public void setQuilometragem(float quilometragem) {
+        this.quilometragem = quilometragem;
+    }
+    
     public void setSituacao(String situacao) {
         switch (situacao) {
             case "DISPONIVEL":
@@ -98,9 +118,9 @@ public class Veiculo {
     }
 
     public Float getDiaria() {
-        int diferencaAno = Calendar.YEAR - ano;
+        int diferencaAno = new GregorianCalendar().get(Calendar.YEAR) - ano;
         float valor = marca.getValor() + modelo.getValor();
-        return valor - (valor * diferencaAno/100);
+        return valor - (valor * diferencaAno * (float) 0.05);
     }
 
     @Override
@@ -109,6 +129,7 @@ public class Veiculo {
                 marca.getNome() + ";" +
                 modelo.getNome() + ";" + 
                 ano + ";" +
+                quilometragem + ";" +
                 situacao.toString() + "\n";
     }
     

@@ -1,10 +1,6 @@
 package data.persistence;
 
-import data.classes.client.CPF;
-import data.classes.client.CartaoCredito;
 import data.classes.client.Cliente;
-import data.classes.client.Endereco;
-import data.classes.client.Telefone;
 import data.interfaces.CRUD;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
