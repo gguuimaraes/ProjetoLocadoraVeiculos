@@ -5,31 +5,32 @@ public class Cliente {
     private String nomeCompleto;
     private String cnh;
     private CPF cpf;
+    private Email email;
     private Endereco endereco;
     private Telefone telefone;
-    private CartaoCredito cartaoCredito;
 
     public Cliente() {
     }
 
     public Cliente(String linha) throws Exception {
-        String dados[] = linha.split("|");
+        String dados[] = linha.split("\\|");
+        System.out.println(dados.length);
         if (dados.length != 6) throw new Exception("Dados do cliente incorretos.");
         cnh = dados[0];
         nomeCompleto = dados[1];
         cpf = new CPF(dados[2]);
-        endereco = new Endereco(dados[3]);
-        telefone = new Telefone(dados[4]);
-        cartaoCredito = new CartaoCredito(dados[5]);
+        email = new Email(dados[3]);
+        endereco = new Endereco(dados[4]);
+        telefone = new Telefone(dados[5]);
     }
 
-    public Cliente(String cnh, String nomeCompleto, CPF cpf, Endereco endereco, Telefone telefone, CartaoCredito cartaoCredito) {
+    public Cliente(String cnh, String nomeCompleto, CPF cpf, Email email, Endereco endereco, Telefone telefone) {
         this.nomeCompleto = nomeCompleto;
         this.cnh = cnh;
         this.cpf = cpf;
+        this.email = email;
         this.endereco = endereco;
         this.telefone = telefone;
-        this.cartaoCredito = cartaoCredito;
     }
 
     public String getCNH() {
@@ -56,6 +57,14 @@ public class Cliente {
         this.cpf = cpf;
     }
 
+    public Email getEmail() {
+        return email;
+    }
+
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+    
     public Endereco getEndereco() {
         return endereco;
     }
@@ -72,22 +81,14 @@ public class Cliente {
         this.telefone = telefone;
     }
 
-    public CartaoCredito getCartaoCredito() {
-        return cartaoCredito;
-    }
-
-    public void setCartaoCredito(CartaoCredito cartaoCredito) {
-        this.cartaoCredito = cartaoCredito;
-    }
-
     @Override
     public String toString() {
         return cnh + "|"
                 + nomeCompleto + "|"
                 + cpf.toString() + "|"
+                + email.toString() + "|"
                 + endereco.toString() + "|"
-                + telefone.toString() + "|"
-                + cartaoCredito.toString()
+                + telefone.toString()
                 + "\n";
     }
 

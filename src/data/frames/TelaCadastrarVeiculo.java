@@ -7,6 +7,7 @@ package data.frames;
 
 import data.classes.vehicle.Marca;
 import data.persistence.MarcaDAO;
+import java.awt.Dimension;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 
@@ -20,7 +21,6 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
      * Creates new form TelaCadastroDeVeiculos
      */
     public TelaCadastrarVeiculo() {
-        initComponents();
     }
 
     /**

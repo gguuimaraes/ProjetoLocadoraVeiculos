@@ -44,7 +44,7 @@ public class Telefone {
         setTipo(tipo);
     }
 
-    public int getDDI() {
+    public Integer getDDI() {
         return ddi;
     }
 
@@ -52,7 +52,7 @@ public class Telefone {
         this.ddi = DDI;
     }
 
-    public int getDDD() {
+    public Integer getDDD() {
         return ddd;
     }
 
@@ -60,7 +60,7 @@ public class Telefone {
         this.ddd = DDD;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
@@ -86,8 +86,8 @@ public class Telefone {
         }
     }
 
-    public String getTipo() {
-        return tipo.toString();
+    public Tipo getTipo() {
+        return tipo;
     }
 
     @Override

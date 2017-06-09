@@ -65,7 +65,7 @@ public class Endereco {
         this.logradouro = logradouro;
     }
 
-    public int getNumero() {
+    public Integer getNumero() {
         return numero;
     }
 
@@ -81,7 +81,7 @@ public class Endereco {
         this.complemento = complemento;
     }
 
-    public int getCEP() {
+    public Integer getCEP() {
         return cep;
     }
 

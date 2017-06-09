@@ -93,6 +93,34 @@ public class ClienteDAO implements CRUD {
         return clientes;
     }
     
+    public void alterar(Object objeto) throws Exception {
+        Cliente clienteExistente = (Cliente) objeto;
+        FileWriter clienteFileWriter = null;
+        BufferedWriter clienteBufferedWriter = null;
+        try {
+            if (!exists(clienteExistente.getCNH())) throw new Exception("Cliente inexistente.");
+            ArrayList<Cliente> clientes = listar();
+            clienteFileWriter = new FileWriter(arquivoClientes, false);
+            clienteBufferedWriter = new BufferedWriter(clienteFileWriter);
+            for (Cliente cliente : clientes) {
+                if (cliente.getCNH().equals(clienteExistente.getCNH())) {
+                    clienteBufferedWriter.write(clienteExistente.toString());
+                } else {
+                    clienteBufferedWriter.write(cliente.toString());
+                }
+            }
+        } catch (Exception ex) {
+            throw new Exception("Falha ao alterar o cliente.\n\n" + ex);
+        } finally {
+            if (clienteBufferedWriter != null) {
+                clienteBufferedWriter.close();
+            }
+            if (clienteFileWriter != null) {
+                clienteFileWriter.close();
+            }
+        }
+    }
+    
     public Cliente getByCNH(String cnhCliente) throws Exception {
         for (Cliente cliente : listar()) {
             if (cliente.getCNH().equals(cnhCliente))
