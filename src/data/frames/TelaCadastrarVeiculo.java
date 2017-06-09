@@ -43,7 +43,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldPalca = new javax.swing.JTextField();
-        jButtonCadastrar = new javax.swing.JButton();
+        jButtonSalvarVeiculo = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jComboBoxStatus = new javax.swing.JComboBox<>();
 
@@ -69,7 +69,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Ano:");
 
-        jButtonCadastrar.setText("Cadastrar");
+        jButtonSalvarVeiculo.setText("Salvar");
 
         jLabel5.setText("Status:");
 
@@ -112,7 +112,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(24, 24, 24))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButtonCadastrar)
+                        .addComponent(jButtonSalvarVeiculo)
                         .addGap(44, 44, 44))))
         );
         layout.setVerticalGroup(
@@ -133,7 +133,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
                     .addComponent(jLabel3)
                     .addComponent(jTextFieldPalca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jButtonCadastrar)
+                .addComponent(jButtonSalvarVeiculo)
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -149,7 +149,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.ButtonGroup buttonGroup3;
-    private javax.swing.JButton jButtonCadastrar;
+    private javax.swing.JButton jButtonSalvarVeiculo;
     private javax.swing.JComboBox<String> jComboBoxMarca;
     private javax.swing.JComboBox<String> jComboBoxModelo;
     private javax.swing.JComboBox<String> jComboBoxStatus;
