@@ -69,4 +69,14 @@ public class LocacaoDAO implements CRUD {
         return locacoes;
     }
 
+    public ArrayList<Locacao> listarByCNH(String clienteCNH) throws Exception {
+        ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+        for (Locacao locacao : listar()) {
+            if (locacao.getCliente().getCNH().equals(clienteCNH)) {
+                locacoes.add(locacao);
+            }
+        }
+        return locacoes;
+    }
+
 }
