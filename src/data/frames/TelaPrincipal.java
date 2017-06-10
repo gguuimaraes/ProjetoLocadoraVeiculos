@@ -5,16 +5,14 @@ import javax.swing.JFrame;
 public class TelaPrincipal extends JFrame {
 
     public TelaPrincipal() {
-        setLocationRelativeTo(null);
-        initComponents();
-        
+        initComponents();      
     }
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDP = new javax.swing.JDesktopPane();
+        jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu = new javax.swing.JMenu();
         jMCadastrarClientes = new javax.swing.JMenuItem();
@@ -35,14 +33,14 @@ public class TelaPrincipal extends JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1024, 768));
 
-        javax.swing.GroupLayout jDPLayout = new javax.swing.GroupLayout(jDP);
-        jDP.setLayout(jDPLayout);
-        jDPLayout.setHorizontalGroup(
-            jDPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout jDesktopPaneLayout = new javax.swing.GroupLayout(jDesktopPane);
+        jDesktopPane.setLayout(jDesktopPaneLayout);
+        jDesktopPaneLayout.setHorizontalGroup(
+            jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 643, Short.MAX_VALUE)
         );
-        jDPLayout.setVerticalGroup(
-            jDPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        jDesktopPaneLayout.setVerticalGroup(
+            jDesktopPaneLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 485, Short.MAX_VALUE)
         );
 
@@ -127,11 +125,11 @@ public class TelaPrincipal extends JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDP)
+            .addComponent(jDesktopPane)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDP)
+            .addComponent(jDesktopPane)
         );
 
         pack();
@@ -139,31 +137,31 @@ public class TelaPrincipal extends JFrame {
 
     private void jMenuCadastrarFrotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarFrotaActionPerformed
       TelaCadastrarVeiculo tela03 = new TelaCadastrarVeiculo();
-      jDP.add(tela03);
+      jDesktopPane.add(tela03);
       tela03.setVisible(true);
     }//GEN-LAST:event_jMenuCadastrarFrotaActionPerformed
 
     private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
        TelaConsultarVeiculo tela05 = new TelaConsultarVeiculo();
-       jDP.add(tela05);
+       jDesktopPane.add(tela05);
        tela05.setVisible(true);
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMCadastrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCadastrarClientesActionPerformed
-     TelaCadastrarCliente tela02 = new TelaCadastrarCliente();
-     jDP.add(tela02);
+     TelaCadastrarCliente tela02 = new TelaCadastrarCliente(jDesktopPane);
+     jDesktopPane.add(tela02);
      tela02.setVisible(true);
     }//GEN-LAST:event_jMCadastrarClientesActionPerformed
 
     private void jMenuConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultarClienteActionPerformed
        TelaConsultarCliente tela04 = new TelaConsultarCliente();
-       jDP.add(tela04);
+       jDesktopPane.add(tela04);
        tela04.setVisible(true);
     }//GEN-LAST:event_jMenuConsultarClienteActionPerformed
 
     private void jMenuItemCadastroDeMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeMarcaActionPerformed
        TelaCadastrarMarca tela05 = new TelaCadastrarMarca();
-       jDP.add(tela05);
+       jDesktopPane.add(tela05);
        tela05.setVisible(true);
     }//GEN-LAST:event_jMenuItemCadastroDeMarcaActionPerformed
 
@@ -203,7 +201,7 @@ public class TelaPrincipal extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDP;
+    private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenuItem jMCadastrarClientes;
     private javax.swing.JMenu jMenu;
     private javax.swing.JMenu jMenu2;

@@ -14,7 +14,6 @@ public class Cliente {
 
     public Cliente(String linha) throws Exception {
         String dados[] = linha.split("\\|");
-        System.out.println(dados.length);
         if (dados.length != 6) throw new Exception("Dados do cliente incorretos.");
         cnh = dados[0];
         nomeCompleto = dados[1];
