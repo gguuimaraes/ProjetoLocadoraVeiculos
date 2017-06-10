@@ -12,21 +12,21 @@ import javax.swing.JOptionPane;
 
 public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
 
-    private JDesktopPane parent;
-    private final ClienteDAO clienteDAO = new ClienteDAO();
+    private JDesktopPane desktopPane;
     private final boolean modoEdicao;
+    private final ClienteDAO clienteDAO = new ClienteDAO();
     private final Cliente cliente;
     private Cliente novoCliente;
     
     public TelaCadastrarCliente(JDesktopPane parent) {
-        this.parent = parent;
+        this.desktopPane = parent;
         modoEdicao = false;
         cliente = new Cliente();
         initComponents();
     }
 
     public TelaCadastrarCliente(JDesktopPane parent, Cliente cliente) {
-        this.parent = parent;
+        this.desktopPane = parent;
         this.modoEdicao = true;
         this.cliente = cliente;
         initComponents();
@@ -401,8 +401,8 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                 if (JOptionPane.showConfirmDialog(rootPane, "Continuar e realizar o cadastro do cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                     clienteDAO.incluir(novoCliente);
                     if (JOptionPane.showConfirmDialog(rootPane, "Cliente cadastrado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
-                        TelaCadastrarCliente novaTela = new TelaCadastrarCliente(parent, novoCliente);
-                        parent.add(novaTela);
+                        TelaCadastrarCliente novaTela = new TelaCadastrarCliente(desktopPane, novoCliente);
+                        desktopPane.add(novaTela);
                         novaTela.setVisible(true);
                     }
                     this.dispose();
@@ -414,8 +414,8 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                     if (JOptionPane.showConfirmDialog(rootPane, "Continuar e alterar o cadastro do cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                         clienteDAO.alterar(novoCliente);
                         if (JOptionPane.showConfirmDialog(rootPane, "Cliente alterado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
-                            TelaCadastrarCliente novaTela = new TelaCadastrarCliente(parent, novoCliente);
-                            parent.add(novaTela);
+                            TelaCadastrarCliente novaTela = new TelaCadastrarCliente(desktopPane, novoCliente);
+                            desktopPane.add(novaTela);
                             novaTela.setVisible(true);
                         }
                         this.dispose();

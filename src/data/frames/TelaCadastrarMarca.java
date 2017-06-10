@@ -39,7 +39,6 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableModelos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
-        jButtonCadastrar = new javax.swing.JButton();
         jButtonPesquisar = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldValor = new javax.swing.JTextField();
@@ -75,13 +74,6 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
 
         jLabel2.setText("Modelos:");
 
-        jButtonCadastrar.setText("Cadastrar");
-        jButtonCadastrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCadastrarActionPerformed(evt);
-            }
-        });
-
         jButtonPesquisar.setText("Pesquisar");
 
         jLabel3.setText("Valor do aluguel da marca:");
@@ -114,8 +106,7 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButtonCadastrar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(87, 87, 87)
                                 .addComponent(jButtonPesquisar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jButton2)
@@ -134,7 +125,6 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jTextFieldNomeMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonCadastrar)
                     .addComponent(jButtonPesquisar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +135,7 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -156,47 +146,11 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarActionPerformed
-        try {
-            if (jTextFieldNomeMarca.getText().isEmpty()) {
-                throw new Exception("Insira o nome da marca!");
-            }
-            if (jTextFieldValor.getText().isEmpty()) {
-                throw new Exception("Insira o valor de aluguel da marca!");
-            }
-            MarcaDAO marcaDAO = new MarcaDAO();
-            Marca marca = new Marca(jTextFieldNomeMarca.getText(), Float.parseFloat(jTextFieldValor.getText()));
-            DefaultTableModel tableModelModelos = (DefaultTableModel) jTableModelos.getModel();
-            CellEditor cellEditor = jTableModelos.getCellEditor();
-            if (cellEditor != null) {
-                if (cellEditor.getCellEditorValue() != null) {
-                    cellEditor.stopCellEditing();
-                } else {
-                    cellEditor.cancelCellEditing();
-                }
-            }
-            for (int i = 0; i < tableModelModelos.getRowCount(); i++) {
-                if (tableModelModelos.getValueAt(i, 0) != null && tableModelModelos.getValueAt(i, 1) != null) {
-                    String nome = tableModelModelos.getValueAt(i, 0).toString();
-                    Float valor = Float.parseFloat(tableModelModelos.getValueAt(i, 1).toString());
-                    if (!nome.isEmpty() && !valor.toString().isEmpty()) {
-                        marca.incluirModelo(new Modelo(nome, valor));
-                    }
-                }
-            }
-            marcaDAO.incluir(marca);
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex);
-        }
-
-    }//GEN-LAST:event_jButtonCadastrarActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButtonCadastrar;
     private javax.swing.JButton jButtonPesquisar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
