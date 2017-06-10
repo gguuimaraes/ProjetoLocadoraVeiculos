@@ -16,6 +16,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
     private final ClienteDAO clienteDAO = new ClienteDAO();
     private final boolean modoEdicao;
     private final Cliente cliente;
+    private Cliente novoCliente;
     
     public TelaCadastrarCliente(JDesktopPane parent) {
         this.parent = parent;
@@ -29,6 +30,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         this.modoEdicao = true;
         this.cliente = cliente;
         initComponents();
+        setTitle(getTitle() +  " - " + cliente.getCNH());
         jNumberTextFieldCNH.setEditable(false);
         jTextFieldNomeCompleto.setText(cliente.getNomeCompleto());
         jNumberTextFieldDDI.setText(cliente.getTelefone().getDDI().toString());
@@ -81,7 +83,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         jLabel17 = new javax.swing.JLabel();
         jTextFieldComplemento = new javax.swing.JTextField();
         jComboBoxTipoEndereco = new javax.swing.JComboBox<>();
-        jButtonCadastrarCliente = new javax.swing.JButton();
+        jButtonSalvar = new javax.swing.JButton();
         jNumberTextFieldDDI = new data.classes.JNumberTextField();
         jNumberTextFieldDDD = new data.classes.JNumberTextField();
         jNumberTextFieldNumeroTelefone = new data.classes.JNumberTextField();
@@ -94,6 +96,23 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Cadastro do Cliente");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel1.setText("Nome Completo:");
 
@@ -139,11 +158,11 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
             tipoEnderecoModel.addElement(enderecoTipo);
         }
 
-        jButtonCadastrarCliente.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jButtonCadastrarCliente.setText("Salvar");
-        jButtonCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSalvar.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jButtonSalvar.setText("Salvar");
+        jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonCadastrarClienteActionPerformed(evt);
+                jButtonSalvarActionPerformed(evt);
             }
         });
 
@@ -253,7 +272,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                             .addComponent(jNumberTextFieldCPF, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                             .addComponent(jNumberTextFieldCNH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar)))
                 .addContainerGap())
@@ -319,61 +338,65 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jNumberTextFieldCPF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jButtonCadastrarCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonSalvar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCadastrarClienteActionPerformed
-        try {
-            String nomeCompleto = jTextFieldNomeCompleto.getText();
-            if (!modoEdicao) {
-                if (nomeCompleto.isEmpty()) throw new Exception("Digite o Nome Completo do Cliente!");
-                for (char c : nomeCompleto.toCharArray()) {
-                    if (!Character.isLetter(c) && c != ' ') {
-                        throw new Exception("Digite apenas letras e espaços no Nome Completo do Cliente!");
-                    }
+    private void validarCampos() throws Exception {
+        String nomeCompleto = jTextFieldNomeCompleto.getText();
+        if (!modoEdicao) {
+            if (nomeCompleto.isEmpty()) throw new Exception("Digite o Nome Completo do Cliente!");
+            for (char c : nomeCompleto.toCharArray()) {
+                if (!Character.isLetter(c) && c != ' ') {
+                    throw new Exception("Digite apenas letras e espaços no Nome Completo do Cliente!");
                 }
             }
-            Integer ddi = jNumberTextFieldDDI.getInt();
-            if (ddi.toString().isEmpty()) throw new Exception("Digite o DDI do Telefone do Cliente!");
-            Integer ddd = jNumberTextFieldDDD.getInt();
-            if (ddd.toString().isEmpty()) throw new Exception("Digite o DDD do Telefone do Cliente!");
-            Integer numeroTelefone = jNumberTextFieldNumeroTelefone.getInt();
-            if (numeroTelefone.toString().isEmpty()) throw new Exception("Digite o Número de Telefone do Cliente!");
+        }
+        String ddi = jNumberTextFieldDDI.getText();
+        if (ddi.isEmpty()) throw new Exception("Digite o DDI do Telefone do Cliente!");
+        String ddd = jNumberTextFieldDDD.getText();
+        if (ddd.isEmpty()) throw new Exception("Digite o DDD do Telefone do Cliente!");
+        String numeroTelefone = jNumberTextFieldNumeroTelefone.getText();
+        if (numeroTelefone.isEmpty()) throw new Exception("Digite o Número de Telefone do Cliente!");
 
-            Email email = new Email(jTextFieldEmail.getText());
-            if (email.toString().isEmpty()) throw new Exception("Digite o Endereço de Email do Cliente!");
-            if (!email.valido()) throw new Exception("Digite um Endereço de Email válido para o Cliente!");
-            
-            String logradouro = jTextFieldLogradouro.getText();
-            if (logradouro.isEmpty()) throw new Exception("Digite o Logradouro do Endereço do Cliente!");
-            Integer numeroEndereco = jNumberTextFieldNumeroEndereco.getInt();
-            if (numeroEndereco.toString().isEmpty()) throw new Exception("Digite o Número do Endereço do Cliente!");
-            Integer cep = jNumberTextFieldCEP.getInt();
-            if (cep.toString().isEmpty()) throw new Exception("Digite o CEP do Endereço do Cliente!");
-            String pais = jTextFieldPais.getText();
-            if (pais.isEmpty()) throw new Exception("Digite o País do Endereço do Cliente!");
-            String cidade = jTextFieldCidade.getText();
-            if (cidade.isEmpty()) throw new Exception("Digite a Cidade do Endereço do Cliente!");
-            String estado = jTextFieldEstado.getText();
-            if (estado.isEmpty()) throw new Exception("Digite o Estado do Endereço do Cliente!");
-            String bairro = jTextFieldBairro.getText();
-            if (bairro.isEmpty()) throw new Exception("Digite a Bairro do Endereço do Cliente!");
-            String complemento = jTextFieldComplemento.getText();
-            
-            String cnh = jNumberTextFieldCNH.getText();
-            if (cnh.isEmpty()) throw new Exception("Digite a CNH do Cliente!");
-            CPF cpf = new CPF(jNumberTextFieldCPF.getText());
-            if (!cpf.toString().isEmpty() && !cpf.valido()) throw new Exception("Digite um CPF válido para o Cliente!");
-            
-            Cliente novoCliente = new Cliente(
-                    cnh, nomeCompleto, cpf, email, 
-                    new Endereco(logradouro, numeroEndereco, cep, cidade, estado, pais, bairro, complemento, jComboBoxTipoEndereco.getSelectedItem().toString()), 
-                    new Telefone(ddi, ddd, numeroTelefone, jComboBoxTipoTelefone.getSelectedItem().toString()));
-            
+        Email email = new Email(jTextFieldEmail.getText());
+        if (email.toString().isEmpty()) throw new Exception("Digite o Endereço de Email do Cliente!");
+        if (!email.valido()) throw new Exception("Digite um Endereço de Email válido para o Cliente!");
+        
+        String logradouro = jTextFieldLogradouro.getText();
+        if (logradouro.isEmpty()) throw new Exception("Digite o Logradouro do Endereço do Cliente!");
+        Integer numeroEndereco = jNumberTextFieldNumeroEndereco.getInt();
+        if (numeroEndereco.toString().isEmpty()) throw new Exception("Digite o Número do Endereço do Cliente!");
+        Integer cep = jNumberTextFieldCEP.getInt();
+        if (cep.toString().isEmpty()) throw new Exception("Digite o CEP do Endereço do Cliente!");
+        String pais = jTextFieldPais.getText();
+        if (pais.isEmpty()) throw new Exception("Digite o País do Endereço do Cliente!");
+        String cidade = jTextFieldCidade.getText();
+        if (cidade.isEmpty()) throw new Exception("Digite a Cidade do Endereço do Cliente!");
+        String estado = jTextFieldEstado.getText();
+        if (estado.isEmpty()) throw new Exception("Digite o Estado do Endereço do Cliente!");
+        String bairro = jTextFieldBairro.getText();
+        if (bairro.isEmpty()) throw new Exception("Digite a Bairro do Endereço do Cliente!");
+        String complemento = jTextFieldComplemento.getText();
+        
+        String cnh = jNumberTextFieldCNH.getText();
+        if (cnh.isEmpty()) throw new Exception("Digite a CNH do Cliente!");
+        CPF cpf = new CPF(jNumberTextFieldCPF.getText());
+        if (!cpf.toString().isEmpty() && !cpf.valido()) throw new Exception("Digite um CPF válido para o Cliente!");
+        
+        novoCliente = new Cliente(
+                cnh, nomeCompleto, cpf, email, 
+                new Endereco(logradouro, numeroEndereco, cep, cidade, estado, pais, bairro, complemento, jComboBoxTipoEndereco.getSelectedItem().toString()), 
+                new Telefone(Integer.parseInt(ddi), Integer.parseInt(ddd), Integer.parseInt(numeroTelefone), jComboBoxTipoTelefone.getSelectedItem().toString()));
+        
+    }
+    
+    private void jButtonSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalvarActionPerformed
+        try {
+            validarCampos();
             if(!modoEdicao) {
                 if (JOptionPane.showConfirmDialog(rootPane, "Continuar e realizar o cadastro do cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                     clienteDAO.incluir(novoCliente);
@@ -385,25 +408,46 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                     this.dispose();
                 }
             } else {
-                novoCliente = new Cliente(
-                    cnh, nomeCompleto, cpf, email, 
-                    new Endereco(logradouro, numeroEndereco, cep, cidade, estado, pais, bairro, complemento, jComboBoxTipoEndereco.getSelectedItem().toString()), 
-                    new Telefone(ddi, ddd, numeroTelefone, jComboBoxTipoTelefone.getSelectedItem().toString()));
-                if(cliente.equals(novoCliente)) this.dispose();
-                else clienteDAO.alterar(novoCliente);
+                if(cliente.toString().equals(novoCliente.toString())) 
+                    JOptionPane.showMessageDialog(rootPane, "Nenhuma alteração foi feita.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+                else {
+                    if (JOptionPane.showConfirmDialog(rootPane, "Continuar e alterar o cadastro do cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                        clienteDAO.alterar(novoCliente);
+                        if (JOptionPane.showConfirmDialog(rootPane, "Cliente alterado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
+                            TelaCadastrarCliente novaTela = new TelaCadastrarCliente(parent, novoCliente);
+                            parent.add(novaTela);
+                            novaTela.setVisible(true);
+                        }
+                        this.dispose();
+                    }
+                }
             }
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex, this.getTitle(), JOptionPane.WARNING_MESSAGE);
         }
-    }//GEN-LAST:event_jButtonCadastrarClienteActionPerformed
+    }//GEN-LAST:event_jButtonSalvarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-        // TODO add your handling code here:
+        try {
+            validarCampos();
+            if (cliente.toString().equals(novoCliente.toString())) this.dispose();
+            else {
+                if (JOptionPane.showConfirmDialog(rootPane, "Alterações foram encontradas, deseja mesmo fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                    this.dispose();
+                }
+            }
+        } catch (Exception ex) {
+            this.dispose();
+        }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+       jButtonCancelar.doClick();
+    }//GEN-LAST:event_formInternalFrameClosing
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonCadastrarCliente;
     private javax.swing.JButton jButtonCancelar;
+    private javax.swing.JButton jButtonSalvar;
     private javax.swing.JComboBox<String> jComboBoxTipoEndereco;
     private javax.swing.JComboBox<String> jComboBoxTipoTelefone;
     private javax.swing.JLabel jLabel1;
