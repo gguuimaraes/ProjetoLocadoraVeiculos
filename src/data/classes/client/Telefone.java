@@ -4,7 +4,7 @@ public class Telefone {
 
     private int ddi = 0;
     private int ddd = 0;
-    private int numero = 0;
+    private long numero = 0;
     private Tipo tipo = Tipo.RESIDENCIAL;
 
     public enum Tipo {
@@ -33,11 +33,11 @@ public class Telefone {
         }
         ddi = Integer.parseInt(dados[0]);
         ddd = Integer.parseInt(dados[1]);
-        numero = Integer.parseInt(dados[2]);
+        numero = Long.parseLong(dados[2]);
         setTipo(dados[3]);
     }
 
-    public Telefone(int DDI, int DDD, int numero, String tipo) {
+    public Telefone(int DDI, int DDD, long numero, String tipo) {
         this.ddi = DDI;
         this.ddd = DDD;
         this.numero = numero;
@@ -60,11 +60,11 @@ public class Telefone {
         this.ddd = DDD;
     }
 
-    public Integer getNumero() {
+    public Long getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(long numero) {
         this.numero = numero;
     }
 

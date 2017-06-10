@@ -2,6 +2,9 @@ package data.frames;
 
 import data.classes.client.Cliente;
 import data.persistence.ClienteDAO;
+import data.persistence.LocacaoDAO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
@@ -31,6 +34,8 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Consultar Cliente");
 
         jButtonBuscar.setText("Consultar");
@@ -45,11 +50,11 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "CNH", "Nome Completo"
+                "CNH", "Nome Completo", "Email", "Aluguel aberto?"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false
+                true, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -57,6 +62,13 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTableClientes);
+        jTableClientes.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    jButtonAlterar.doClick();
+                }
+            }
+        });
 
         jButtonAlterar.setText("Alterar");
         jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +100,7 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextFieldParametroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jButtonBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -99,7 +111,7 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
                     .addComponent(jButtonBuscar)
                     .addComponent(jTextFieldParametroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAlterar)
@@ -121,7 +133,12 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
             } else {
                 for (Cliente cliente : clienteDAO.listar()) {
                     for (int i = 0; i < parametrosBusca.length; i++) {
-                        if (cliente.getNomeCompleto().toUpperCase().contains(parametrosBusca[i].toUpperCase()) || cliente.getCNH().contains(parametrosBusca[i])) {
+                        String aluguelAberto = (new LocacaoDAO().existsAbertaByCNH(cliente.getCNH()) ? "SIM" : "NAO");
+                        if (cliente.getCNH().contains(parametrosBusca[i]) ||
+                                cliente.getNomeCompleto().toUpperCase().contains(parametrosBusca[i].toUpperCase()) || 
+                                cliente.getEmail().toString().toUpperCase().contains(parametrosBusca[i].toUpperCase()) ||
+                                aluguelAberto.contains(parametrosBusca[i].toUpperCase()) ||
+                                aluguelAberto.contains(parametrosBusca[i].toUpperCase().replace('Ã', 'A'))) {
                             resultadoBusca.add(cliente);
                             i = parametrosBusca.length;
                         }
@@ -138,6 +155,13 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
                             break;
                         case "CNH":
                             tableClientesModel.setValueAt(cliente.getCNH(), linha, coluna);
+                            break;
+                        case "Email":
+                            tableClientesModel.setValueAt(cliente.getEmail().toString(), linha, coluna);
+                            break;
+                        case "Aluguel aberto?":
+                            tableClientesModel.setValueAt((new LocacaoDAO().existsAbertaByCNH(cliente.getCNH())) ? "Sim" : "Não", linha, coluna);
+                            break;
                     }
                 }
             }

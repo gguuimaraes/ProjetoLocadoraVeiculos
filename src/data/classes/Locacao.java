@@ -49,7 +49,7 @@ public class Locacao {
         }
     }
 
-    private enum Situacao {
+    public enum Situacao {
         ABERTA, FECHADA;
 
         @Override

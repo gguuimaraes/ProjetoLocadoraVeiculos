@@ -78,6 +78,15 @@ public class LocacaoDAO implements CRUD {
         return false;
     }
     
+    public boolean existsAbertaByCNH(String clienteCNH) throws Exception {
+        for (Locacao locacao : listar()) {
+            if (locacao.getCliente().getCNH().equals(clienteCNH) && locacao.getSituacao() == Locacao.Situacao.ABERTA) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     public boolean existsByPlaca(String veiculoPlaca) throws Exception {
         for (Locacao locacao : listar()) {
             if (locacao.getVeiculo().getPlaca().equals(veiculoPlaca)) {
