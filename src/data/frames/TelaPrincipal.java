@@ -148,15 +148,15 @@ public class TelaPrincipal extends JFrame {
     }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     private void jMCadastrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCadastrarClientesActionPerformed
-     TelaCadastrarCliente tela02 = new TelaCadastrarCliente(jDesktopPane);
-     jDesktopPane.add(tela02);
-     tela02.setVisible(true);
+     TelaCadastrarCliente telaCadastrarCliente = new TelaCadastrarCliente(jDesktopPane);
+     jDesktopPane.add(telaCadastrarCliente);
+     telaCadastrarCliente.setVisible(true);
     }//GEN-LAST:event_jMCadastrarClientesActionPerformed
 
     private void jMenuConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultarClienteActionPerformed
-       TelaConsultarCliente tela04 = new TelaConsultarCliente();
-       jDesktopPane.add(tela04);
-       tela04.setVisible(true);
+       TelaConsultarCliente telaConsultarCliente = new TelaConsultarCliente(jDesktopPane);
+       jDesktopPane.add(telaConsultarCliente);
+       telaConsultarCliente.setVisible(true);
     }//GEN-LAST:event_jMenuConsultarClienteActionPerformed
 
     private void jMenuItemCadastroDeMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeMarcaActionPerformed

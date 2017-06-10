@@ -95,6 +95,8 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
         setTitle("Cadastro do Cliente");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
@@ -255,7 +257,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jNumberTextFieldNumeroTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 73, Short.MAX_VALUE)
+                        .addComponent(jNumberTextFieldNumeroTelefone, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jComboBoxTipoTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
@@ -385,7 +387,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         String cnh = jNumberTextFieldCNH.getText();
         if (cnh.isEmpty()) throw new Exception("Digite a CNH do Cliente!");
         CPF cpf = new CPF(jNumberTextFieldCPF.getText());
-        if (!cpf.toString().isEmpty() && !cpf.valido()) throw new Exception("Digite um CPF válido para o Cliente!");
+        if ((cpf.toString().length() > 0 && cpf.toString().length() < 11) || (cpf.toString().length() == 11 && !cpf.valido())) throw new Exception("Digite um CPF válido para o Cliente!");
         
         novoCliente = new Cliente(
                 cnh, nomeCompleto, cpf, email, 
@@ -423,7 +425,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                 }
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex, this.getTitle(), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonSalvarActionPerformed
 

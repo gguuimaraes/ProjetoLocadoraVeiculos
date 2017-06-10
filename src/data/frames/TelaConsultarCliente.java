@@ -2,15 +2,20 @@ package data.frames;
 
 import data.classes.client.Cliente;
 import data.persistence.ClienteDAO;
+import java.util.ArrayList;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaConsultarCliente extends javax.swing.JInternalFrame {
 
+    private JDesktopPane parent;
     private final ClienteDAO clienteDAO = new ClienteDAO();
-    
-    public TelaConsultarCliente() {
+
+    public TelaConsultarCliente(JDesktopPane parent) {
+        this.parent = parent;
         initComponents();
+        jButtonBuscar.doClick();
     }
 
     @SuppressWarnings("unchecked")
@@ -20,8 +25,8 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
         jButtonBuscar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableClientes = new javax.swing.JTable();
-        jButtonAlterarCliente = new javax.swing.JButton();
-        jButtonExcluirCliente = new javax.swing.JButton();
+        jButtonAlterar = new javax.swing.JButton();
+        jButtonExcluir = new javax.swing.JButton();
         jTextFieldParametroBusca = new javax.swing.JTextField();
 
         setClosable(true);
@@ -53,9 +58,19 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
         });
         jScrollPane1.setViewportView(jTableClientes);
 
-        jButtonAlterarCliente.setText("Alterar");
+        jButtonAlterar.setText("Alterar");
+        jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlterarActionPerformed(evt);
+            }
+        });
 
-        jButtonExcluirCliente.setText("Excluir");
+        jButtonExcluir.setText("Excluir");
+        jButtonExcluir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonExcluirActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -67,9 +82,9 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButtonAlterarCliente)
+                        .addComponent(jButtonAlterar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButtonExcluirCliente))
+                        .addComponent(jButtonExcluir))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jTextFieldParametroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -87,8 +102,8 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 122, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonAlterarCliente)
-                    .addComponent(jButtonExcluirCliente))
+                    .addComponent(jButtonAlterar)
+                    .addComponent(jButtonExcluir))
                 .addContainerGap())
         );
 
@@ -100,20 +115,83 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
             DefaultTableModel tableClientesModel = (DefaultTableModel) jTableClientes.getModel();
             tableClientesModel.setRowCount(0);
             String parametrosBusca[] = jTextFieldParametroBusca.getText().split(" ");
-            for (Cliente cliente : clienteDAO.listar()) {
-                if ()
+            ArrayList<Cliente> resultadoBusca = new ArrayList<Cliente>();
+            if (parametrosBusca.length == 0) {
+                resultadoBusca = clienteDAO.listar();
+            } else {
+                for (Cliente cliente : clienteDAO.listar()) {
+                    for (int i = 0; i < parametrosBusca.length; i++) {
+                        if (cliente.getNomeCompleto().toUpperCase().contains(parametrosBusca[i].toUpperCase()) || cliente.getCNH().contains(parametrosBusca[i])) {
+                            resultadoBusca.add(cliente);
+                            i = parametrosBusca.length;
+                        }
+                    }
+                }
+            }
+            for (Cliente cliente : resultadoBusca) {
+                int linha = tableClientesModel.getRowCount();
+                tableClientesModel.setRowCount(linha + 1);
+                for (int coluna = 0; coluna < tableClientesModel.getColumnCount(); coluna++) {
+                    switch (tableClientesModel.getColumnName(coluna)) {
+                        case "Nome Completo":
+                            tableClientesModel.setValueAt(cliente.getNomeCompleto(), linha, coluna);
+                            break;
+                        case "CNH":
+                            tableClientesModel.setValueAt(cliente.getCNH(), linha, coluna);
+                    }
+                }
             }
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex, this.getTitle(), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
         }
-        
+
     }//GEN-LAST:event_jButtonBuscarActionPerformed
+
+    private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
+        if (jTableClientes.getSelectedRowCount() == 0) return;
+        try {
+            DefaultTableModel tableClientesModel = (DefaultTableModel) jTableClientes.getModel();
+            for (int coluna = 0; coluna < tableClientesModel.getColumnCount(); coluna++) {
+                switch (tableClientesModel.getColumnName(coluna)) {
+                    case "CNH":
+                        TelaCadastrarCliente novaTela = new TelaCadastrarCliente(parent, clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString()));
+                        parent.add(novaTela);
+                        novaTela.setVisible(true);
+                        return;
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonAlterarActionPerformed
+
+    private void jButtonExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonExcluirActionPerformed
+        if (jTableClientes.getSelectedRowCount() == 0) return;
+        try {
+            DefaultTableModel tableClientesModel = (DefaultTableModel) jTableClientes.getModel();
+            for (int coluna = 0; coluna < tableClientesModel.getColumnCount(); coluna++) {
+                switch (tableClientesModel.getColumnName(coluna)) {
+                    case "CNH":
+                        Cliente cliente = clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString());
+                        if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro do cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                            clienteDAO.remover(cliente);
+                            JOptionPane.showMessageDialog(rootPane, "Cliente excluído com sucesso!", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+                            jTextFieldParametroBusca.setText("");
+                            jButtonBuscar.doClick();
+                            return;
+                        }
+                }
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonExcluirActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonAlterarCliente;
+    private javax.swing.JButton jButtonAlterar;
     private javax.swing.JButton jButtonBuscar;
-    private javax.swing.JButton jButtonExcluirCliente;
+    private javax.swing.JButton jButtonExcluir;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableClientes;
     private javax.swing.JTextField jTextFieldParametroBusca;
