@@ -1,6 +1,7 @@
 package data.frames;
 
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 
 public class TelaPrincipal extends JFrame {
 
@@ -145,27 +146,27 @@ public class TelaPrincipal extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarVeiculoActionPerformed
-        jDesktopPane.add(new TelaCadastrarVeiculo());
+        ((JInternalFrame) jDesktopPane.add(new TelaCadastrarVeiculo(jDesktopPane))).moveToFront();
     }//GEN-LAST:event_jMenuItemCadastrarVeiculoActionPerformed
 
     private void jMenuItemConsultarVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarVeiculosActionPerformed
-        jDesktopPane.add(new TelaConsultarVeiculo());
+        ((JInternalFrame) jDesktopPane.add(new TelaConsultarVeiculo(jDesktopPane))).moveToFront();
     }//GEN-LAST:event_jMenuItemConsultarVeiculosActionPerformed
 
     private void jMenuItemCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarClienteActionPerformed
-        jDesktopPane.add(new TelaCadastrarCliente(jDesktopPane));
+        ((JInternalFrame) jDesktopPane.add(new TelaCadastrarCliente(jDesktopPane))).moveToFront();
     }//GEN-LAST:event_jMenuItemCadastrarClienteActionPerformed
 
     private void jMenuItemConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarClientesActionPerformed
-        jDesktopPane.add(new TelaConsultarCliente(jDesktopPane));
+        ((JInternalFrame) jDesktopPane.add(new TelaConsultarCliente(jDesktopPane))).moveToFront();
     }//GEN-LAST:event_jMenuItemConsultarClientesActionPerformed
 
     private void jMenuItemCadastrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarMarcaActionPerformed
-        jDesktopPane.add(new TelaCadastrarMarca(jDesktopPane));
+        ((JInternalFrame) jDesktopPane.add(new TelaCadastrarMarca(jDesktopPane))).moveToFront();
     }//GEN-LAST:event_jMenuItemCadastrarMarcaActionPerformed
 
     private void jMenuItemConsultarMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarMarcasActionPerformed
-        jDesktopPane.add(new TelaConsultarMarca(jDesktopPane));
+        ((JInternalFrame) jDesktopPane.add(new TelaConsultarMarca(jDesktopPane))).moveToFront();
     }//GEN-LAST:event_jMenuItemConsultarMarcasActionPerformed
 
     /**

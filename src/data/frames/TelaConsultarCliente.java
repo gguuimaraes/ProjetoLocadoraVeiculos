@@ -12,11 +12,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class TelaConsultarCliente extends javax.swing.JInternalFrame {
 
-    private JDesktopPane parent;
+    private JDesktopPane desktopPane;
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
-    public TelaConsultarCliente(JDesktopPane parent) {
-        this.parent = parent;
+    public TelaConsultarCliente(JDesktopPane desktopPane) {
+        this.desktopPane = desktopPane;
         initComponents();
         jButtonBuscar.doClick();
     }
@@ -179,9 +179,8 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableClientesModel.getColumnCount(); coluna++) {
                 switch (tableClientesModel.getColumnName(coluna)) {
                     case "CNH":
-                        TelaCadastrarCliente novaTela = new TelaCadastrarCliente(parent, clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString()));
-                        parent.add(novaTela);
-                        novaTela.setVisible(true);
+                        desktopPane.add(new TelaCadastrarCliente(desktopPane, clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString())));
+                        moveToBack();
                         return;
                 }
             }

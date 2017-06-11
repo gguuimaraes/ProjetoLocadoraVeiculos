@@ -12,11 +12,11 @@ import javax.swing.table.DefaultTableModel;
 
 public class TelaConsultarMarca extends javax.swing.JInternalFrame {
 
-    private JDesktopPane parent;
+    private JDesktopPane desktopPane;
     private final MarcaDAO marcaDAO = new MarcaDAO();
 
     public TelaConsultarMarca(JDesktopPane parent) {
-        this.parent = parent;
+        this.desktopPane = parent;
         initComponents();
         jButtonBuscar.doClick();
     }
@@ -181,9 +181,8 @@ public class TelaConsultarMarca extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableMarcasModel.getColumnCount(); coluna++) {
                 switch (tableMarcasModel.getColumnName(coluna)) {
                     case "Nome":
-                        TelaCadastrarMarca novaTela = new TelaCadastrarMarca(parent, marcaDAO.getByNome(tableMarcasModel.getValueAt(jTableMarcas.getSelectedRows()[0], coluna).toString()));
-                        parent.add(novaTela);
-                        novaTela.setVisible(true);
+                        desktopPane.add(new TelaCadastrarMarca(desktopPane, marcaDAO.getByNome(tableMarcasModel.getValueAt(jTableMarcas.getSelectedRows()[0], coluna).toString())));
+                        moveToBack();
                         return;
                 }
             }

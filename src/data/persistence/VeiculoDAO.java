@@ -25,7 +25,7 @@ public class VeiculoDAO implements CRUD {
             veiculoBufferedWriter = new BufferedWriter(veiculoFileWriter);
             veiculoBufferedWriter.write(veiculo.toString());
         } catch (IOException ex) {
-            throw new Exception("Falha ao incluir o veículo.\n\n" + ex);
+            throw new Exception("Falha ao incluir o Veículo.\n\n" + ex);
         } finally {
             if (veiculoBufferedWriter != null) {
                 veiculoBufferedWriter.close();
@@ -43,7 +43,7 @@ public class VeiculoDAO implements CRUD {
         BufferedWriter veiculoBufferedReader = null;
         try {
             if (!exists(veiculoExistente.getPlaca())) throw new Exception("Veículo inexistente.");
-            if (new LocacaoDAO().existsByPlaca(veiculoExistente.getPlaca())) throw new Exception("Impossível remover um veículo que já foi locado.");
+            if (new LocacaoDAO().existsByPlaca(veiculoExistente.getPlaca())) throw new Exception("Impossível remover um Veículo que já foi Locado.");
             ArrayList<Veiculo> veiculos = listar();
             veiculoFileWriter = new FileWriter(arquivoVeiculos, false);
             veiculoBufferedReader = new BufferedWriter(veiculoFileWriter);
@@ -53,10 +53,39 @@ public class VeiculoDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao remover o veículo.\n\n" + ex);
+            throw new Exception("Falha ao remover o Veículo.\n\n" + ex);
         } finally {
             if (veiculoBufferedReader != null) {
                 veiculoBufferedReader.close();
+            }
+            if (veiculoFileWriter != null) {
+                veiculoFileWriter.close();
+            }
+        }
+    }
+    
+    @Override
+    public void alterar(Object objeto) throws Exception {
+        Veiculo veiculoExistente = (Veiculo) objeto;
+        FileWriter veiculoFileWriter = null;
+        BufferedWriter veiculoBufferedWriter = null;
+        try {
+            if (!exists(veiculoExistente.getPlaca())) throw new Exception("Veículo inexistente.");
+            ArrayList<Veiculo> veiculos = listar();
+            veiculoFileWriter = new FileWriter(arquivoVeiculos, false);
+            veiculoBufferedWriter = new BufferedWriter(veiculoFileWriter);
+            for (Veiculo veiculo : veiculos) {
+                if (veiculo.getPlaca().equals(veiculoExistente.getPlaca())) {
+                    veiculoBufferedWriter.write(veiculoExistente.toString());
+                } else {
+                    veiculoBufferedWriter.write(veiculo.toString());
+                }
+            }
+        } catch (Exception ex) {
+            throw new Exception("Falha ao alterar o Veículo.\n\n" + ex);
+        } finally {
+            if (veiculoBufferedWriter != null) {
+                veiculoBufferedWriter.close();
             }
             if (veiculoFileWriter != null) {
                 veiculoFileWriter.close();
@@ -80,7 +109,7 @@ public class VeiculoDAO implements CRUD {
                 }
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao listar os veículos.\n\n" + ex);
+            throw new Exception("Falha ao listar os Veículos.\n\n" + ex);
         } finally {
             if (veiculoBufferedReader != null) {
                 veiculoBufferedReader.close();

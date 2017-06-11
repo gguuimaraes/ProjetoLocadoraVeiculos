@@ -81,8 +81,8 @@ public class Veiculo {
         this.ano = ano;
     }
 
-    public String getSituacao() {
-        return situacao.toString();
+    public Situacao getSituacao() {
+        return situacao;
     }
 
     public Marca getMarca() {
@@ -105,14 +105,19 @@ public class Veiculo {
         switch (situacao) {
             case "DISPONIVEL":
                 this.situacao = Situacao.DISPONIVEL;
+                break;
             case "LOCADO":
                 this.situacao = Situacao.LOCADO;
+                break;
             case "SINISTRADO":
                 this.situacao = Situacao.SINISTRADO;
+                break;
             case "VENDIDO":
                 this.situacao = Situacao.VENDIDO;
+                break;
             case "INATIVO":
                 this.situacao = Situacao.INATIVO;
+                break;
         }
 
     }

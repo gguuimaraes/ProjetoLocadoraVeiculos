@@ -25,7 +25,7 @@ public class LocacaoDAO implements CRUD {
             locacaoBufferedWriter = new BufferedWriter(locacaoFileWriter);
             locacaoBufferedWriter.write(locacao.toString());
         } catch (IOException ex) {
-            throw new Exception("Falha ao incluir a locação.\n\n" + ex);
+            throw new Exception("Falha ao incluir a Locação.\n\n" + ex);
         } finally {
             if (locacaoBufferedWriter != null) {
                 locacaoBufferedWriter.close();
@@ -39,6 +39,11 @@ public class LocacaoDAO implements CRUD {
     @Override
     public void remover(Object o) throws Exception {
         throw new UnsupportedOperationException("Ainda não implementado.");
+    }
+    
+    @Override
+    public void alterar(Object o) throws Exception {
+        
     }
 
     @Override
@@ -57,7 +62,7 @@ public class LocacaoDAO implements CRUD {
                 }
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao listar as locações.\n\n" + ex);
+            throw new Exception("Falha ao listar as Locações.\n\n" + ex);
         } finally {
             if (locacaoBufferedReader != null) {
                 locacaoBufferedReader.close();

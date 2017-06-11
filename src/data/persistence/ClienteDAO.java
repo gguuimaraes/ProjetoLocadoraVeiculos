@@ -26,7 +26,7 @@ public class ClienteDAO implements CRUD {
             clienteBufferedWriter = new BufferedWriter(clienteFileWriter);
             clienteBufferedWriter.write(cliente.toString());
         } catch (IOException ex) {
-            throw new Exception("Falha ao incluir o cliente.\n\n" + ex);
+            throw new Exception("Falha ao incluir o Cliente.\n\n" + ex);
         } finally {
             if (clienteBufferedWriter != null) {
                 clienteBufferedWriter.close();
@@ -44,7 +44,7 @@ public class ClienteDAO implements CRUD {
         BufferedWriter clienteBufferedWriter = null;
         try {
             if (!exists(clienteExistente.getCNH())) throw new Exception("Cliente inexistente.");
-            if (new LocacaoDAO().existsByCNH(clienteExistente.getCNH())) throw new Exception("Impossível remover um cliente que já realizou uma locação.");
+            if (new LocacaoDAO().existsByCNH(clienteExistente.getCNH())) throw new Exception("Impossível remover um Cliente que já realizou uma Locação.");
             ArrayList<Cliente> clientes = listar();
             clienteFileWriter = new FileWriter(arquivoClientes, false);
             clienteBufferedWriter = new BufferedWriter(clienteFileWriter);
@@ -54,7 +54,7 @@ public class ClienteDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao remover o cliente.\n\n" + ex);
+            throw new Exception("Falha ao remover o Cliente.\n\n" + ex);
         } finally {
             if (clienteBufferedWriter != null) {
                 clienteBufferedWriter.close();
@@ -81,7 +81,7 @@ public class ClienteDAO implements CRUD {
                 }
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao listar os clientes.\n\n" + ex);
+            throw new Exception("Falha ao listar os Clientes.\n\n" + ex);
         } finally {
             if (clienteBufferedReader != null) {
                 clienteBufferedReader.close();
@@ -93,6 +93,7 @@ public class ClienteDAO implements CRUD {
         return clientes;
     }
     
+    @Override
     public void alterar(Object objeto) throws Exception {
         Cliente clienteExistente = (Cliente) objeto;
         FileWriter clienteFileWriter = null;
@@ -110,7 +111,7 @@ public class ClienteDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao alterar o cliente.\n\n" + ex);
+            throw new Exception("Falha ao alterar o Cliente.\n\n" + ex);
         } finally {
             if (clienteBufferedWriter != null) {
                 clienteBufferedWriter.close();

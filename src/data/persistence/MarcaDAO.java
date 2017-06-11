@@ -35,7 +35,7 @@ public class MarcaDAO implements CRUD {
                 modeloBufferedWriter.write(marca.getNome() + ";" + modelo.toString());
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao incluir a marca.\n\n" + ex);
+            throw new Exception("Falha ao incluir a Marca.\n\n" + ex);
         } finally {
             if (modeloBufferedWriter != null) {
                 modeloBufferedWriter.close();
@@ -84,7 +84,7 @@ public class MarcaDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao remover a marca.\n\n" + ex);
+            throw new Exception("Falha ao remover a Marca.\n\n" + ex);
         } finally {
             if (modeloBufferedReader != null) {
                 modeloBufferedReader.close();
@@ -107,6 +107,7 @@ public class MarcaDAO implements CRUD {
         }
     }
 
+    @Override
     public void alterar(Object objeto) throws Exception {
         Marca marcaAlterada = (Marca) objeto;
         FileWriter marcaFileWriter = null;
@@ -132,7 +133,7 @@ public class MarcaDAO implements CRUD {
             VeiculoDAO veiculoDAO = new VeiculoDAO();
             for (Modelo modeloRemovido : modelosRemovidos) {
                 if (veiculoDAO.existsByMarcaModelo(marcaAlterada.getNome(), modeloRemovido.getNome())) {
-                    throw new Exception("O modelo de nome " + modeloRemovido.getNome() + " e valor " + modeloRemovido.getValor() + " não pode ser removido pois pertence a um veículo.");
+                    throw new Exception("O Modelo de Nome " + modeloRemovido.getNome() + " e Valor de aluguel " + modeloRemovido.getValor() + " não pode ser removido pois pertence a um Veículo.");
                 }
             }
             ArrayList<Marca> marcas = listar();
@@ -159,7 +160,7 @@ public class MarcaDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao alterar a marca.\n\n" + ex);
+            throw new Exception("Falha ao alterar a Marca.\n\n" + ex);
         } finally {
             if (modeloBufferedWriter != null) {
                 modeloBufferedWriter.close();
@@ -207,7 +208,7 @@ public class MarcaDAO implements CRUD {
                 }
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao listar as marcas.\n\n" + ex);
+            throw new Exception("Falha ao listar as Marcas.\n\n" + ex);
         } finally {
             if (modeloBufferedReader != null) {
                 modeloBufferedReader.close();
@@ -241,7 +242,7 @@ public class MarcaDAO implements CRUD {
                 }
             }
         }
-        throw new Exception("Modelo do veículo não encontrado.");
+        throw new Exception("Modelo do Veículo não encontrado.");
     }
     
     public boolean exists(String nomeMarca) throws Exception {
