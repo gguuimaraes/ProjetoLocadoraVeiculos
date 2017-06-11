@@ -146,7 +146,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
         editor.getFormat().setMinimumIntegerDigits(4);
         jSpinner1.setEditor(editor);
         jSpinner1.setValue(anoAtual);
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(anoMinimo, anoMinimo, anoMaximo, 1));
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(anoAtual, anoMinimo, anoMaximo, 1));
 
         try {
             jFormattedTextFieldPlaca.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("AAA-####")));
@@ -250,7 +250,6 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
         novoVeiculo = new Veiculo();
         novoVeiculo.setPlaca(placa.toUpperCase());
         novoVeiculo.setAno(anoInt);
-        System.out.println(jComboBoxSituacao.getSelectedItem().toString());
         novoVeiculo.setSituacao(jComboBoxSituacao.getSelectedItem().toString());
         Marca marca = marcaDAO.getByNome(jComboBoxMarca.getSelectedItem().toString());
         novoVeiculo.setMarca(marca);

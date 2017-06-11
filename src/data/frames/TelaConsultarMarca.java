@@ -199,7 +199,7 @@ public class TelaConsultarMarca extends javax.swing.JInternalFrame {
                 switch (tableMarcasModel.getColumnName(coluna)) {
                     case "Nome":
                         Marca marca = marcaDAO.getByNome(tableMarcasModel.getValueAt(jTableMarcas.getSelectedRows()[0], coluna).toString());
-                        if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro da marca do sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                        if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro da Marca do sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                             marcaDAO.remover(marca);
                             JOptionPane.showMessageDialog(rootPane, "Marca excluída com sucesso!", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
                             jTextFieldParametroBusca.setText("");

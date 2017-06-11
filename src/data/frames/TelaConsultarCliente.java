@@ -169,7 +169,6 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
         }
-
     }//GEN-LAST:event_jButtonBuscarActionPerformed
 
     private void jButtonAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlterarActionPerformed
@@ -197,7 +196,7 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
                 switch (tableClientesModel.getColumnName(coluna)) {
                     case "CNH":
                         Cliente cliente = clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString());
-                        if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro do cliente do sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                        if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro do Cliente do sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                             clienteDAO.remover(cliente);
                             JOptionPane.showMessageDialog(rootPane, "Cliente excluído com sucesso!", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
                             jTextFieldParametroBusca.setText("");
