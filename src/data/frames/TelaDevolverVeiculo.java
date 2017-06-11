@@ -40,6 +40,11 @@ public class TelaDevolverVeiculo extends javax.swing.JInternalFrame {
         jTextFieldClienteDevolver = new javax.swing.JTextField();
         jButtonCancelarDevolver = new javax.swing.JButton();
 
+        setClosable(true);
+        setIconifiable(true);
+        setTitle("Devolver Veículo");
+        setVisible(true);
+
         jLabel4.setText("Valor a ser extornado:");
 
         jLabel1.setText("PLACA: ");

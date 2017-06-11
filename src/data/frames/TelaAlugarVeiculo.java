@@ -60,7 +60,8 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
 
         setClosable(true);
         setIconifiable(true);
-        setTitle("Alugar Veiculo");
+        setTitle("Alugar Veículo");
+        setVisible(true);
 
         jLabel2.setText("CNH: ");
 

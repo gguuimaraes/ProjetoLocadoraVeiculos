@@ -37,6 +37,7 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar Cliente");
+        setVisible(true);
 
         jButtonBuscar.setText("Consultar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {

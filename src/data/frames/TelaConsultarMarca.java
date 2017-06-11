@@ -37,6 +37,7 @@ public class TelaConsultarMarca extends javax.swing.JInternalFrame {
         setMaximizable(true);
         setResizable(true);
         setTitle("Consultar Marca");
+        setVisible(true);
 
         jButtonBuscar.setText("Consultar");
         jButtonBuscar.addActionListener(new java.awt.event.ActionListener() {

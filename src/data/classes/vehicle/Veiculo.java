@@ -13,7 +13,7 @@ public class Veiculo {
     private float quilometragem;
     private Situacao situacao;
 
-    private enum Situacao {
+    public enum Situacao {
         DISPONIVEL, LOCADO, SINISTRADO, VENDIDO, INATIVO;
 
         @Override

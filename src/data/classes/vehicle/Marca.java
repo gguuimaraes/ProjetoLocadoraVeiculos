@@ -13,13 +13,13 @@ public class Marca {
     }
 
     public Marca(String nome, float valor) {
-        this.nome = nome.toUpperCase();
+        this.nome = nome;
         modelos = new ArrayList<Modelo>();
         this.valor = valor;
     }
 
     public Marca(String nome, float valor, ArrayList<Modelo> modelos) {
-        this.nome = nome.toUpperCase();
+        this.nome = nome;
         this.modelos = modelos;
         this.valor = valor;
     }
@@ -37,7 +37,7 @@ public class Marca {
     }
 
     public void setNome(String nome) {
-        this.nome = nome.toUpperCase();
+        this.nome = nome;
     }
     
     public Float getValor() {
@@ -52,11 +52,8 @@ public class Marca {
         return modelos;
     }
 
-    public void setModelos(ArrayList<String> modelos) {
-        this.modelos = new ArrayList<>();
-        modelos.forEach((modelo) -> {
-            modelos.add(modelo.toUpperCase());
-        });
+    public void setModelos(ArrayList<Modelo> modelos) {
+        this.modelos = modelos;
     }
     
     public void incluirModelo(Modelo novoModelo) throws Exception {

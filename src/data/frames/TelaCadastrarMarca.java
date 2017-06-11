@@ -80,6 +80,24 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setTitle("Cadastro da Marca");
+        setVisible(true);
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameClosing(evt);
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jLabel1.setText("Nome:");
 
@@ -274,8 +292,14 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
         try {
             String nomeModelo = jTextFieldNomeModelo.getText();
             String valorModelo = jNumberTextFieldValorModelo.getText();
-            if (nomeModelo.length() == 0) throw new Exception("Digite um Nome para o Modelo!");
-            if (valorModelo.length() == 0) throw new Exception("Digite um Valor para o Modelo!");
+            if (nomeModelo.length() == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Digite um Nome para o Modelo!", this.getTitle(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
+            if (valorModelo.length() == 0) {
+                JOptionPane.showMessageDialog(rootPane, "Digite um Valor para o Modelo!", this.getTitle(), JOptionPane.WARNING_MESSAGE);
+                return;
+            }
             Modelo modelo = new Modelo(nomeModelo, Float.parseFloat(valorModelo));
             DefaultTableModel tableModelosModel = (DefaultTableModel) jTableModelos.getModel();
             boolean modoModeloEdicao = !jButtonAdicionarModelo.getText().equals("Adicionar");
@@ -375,8 +399,6 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         try {
             validarCampos();
-            System.out.println(marca.toString());
-            System.out.println(novaMarca.toString());
             if (marca.toString().equals(novaMarca.toString()) && marca.getModelos().equals(novaMarca.getModelos())) this.dispose();
             else {
                 if (JOptionPane.showConfirmDialog(rootPane, "Alterações foram encontradas, deseja mesmo fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
@@ -387,6 +409,10 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
             this.dispose();
         }
     }//GEN-LAST:event_jButtonCancelarActionPerformed
+
+    private void formInternalFrameClosing(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameClosing
+        jButtonCancelar.doClick();
+    }//GEN-LAST:event_formInternalFrameClosing
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

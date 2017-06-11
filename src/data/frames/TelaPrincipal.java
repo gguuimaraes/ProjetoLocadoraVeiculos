@@ -5,9 +5,9 @@ import javax.swing.JFrame;
 public class TelaPrincipal extends JFrame {
 
     public TelaPrincipal() {
-        initComponents();      
+        initComponents();
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -21,7 +21,7 @@ public class TelaPrincipal extends JFrame {
         jMenuItemCadastrarMarca = new javax.swing.JMenuItem();
         jMenuItemConsultarMarcas = new javax.swing.JMenuItem();
         jMenuFrota = new javax.swing.JMenu();
-        jMenuCadastrarVeiculo = new javax.swing.JMenuItem();
+        jMenuItemCadastrarVeiculo = new javax.swing.JMenuItem();
         jMenuItemConsultarVeiculos = new javax.swing.JMenuItem();
         jMenuLocacao = new javax.swing.JMenu();
         jMenuItemLocar = new javax.swing.JMenuItem();
@@ -87,13 +87,13 @@ public class TelaPrincipal extends JFrame {
 
         jMenuFrota.setText("Frota");
 
-        jMenuCadastrarVeiculo.setText("Cadastro");
-        jMenuCadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCadastrarVeiculo.setText("Cadastro");
+        jMenuItemCadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuCadastrarVeiculoActionPerformed(evt);
+                jMenuItemCadastrarVeiculoActionPerformed(evt);
             }
         });
-        jMenuFrota.add(jMenuCadastrarVeiculo);
+        jMenuFrota.add(jMenuItemCadastrarVeiculo);
 
         jMenuItemConsultarVeiculos.setText("Consultar");
         jMenuItemConsultarVeiculos.addActionListener(new java.awt.event.ActionListener() {
@@ -144,40 +144,28 @@ public class TelaPrincipal extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarVeiculoActionPerformed
-      TelaCadastrarVeiculo tela03 = new TelaCadastrarVeiculo();
-      jDesktopPane.add(tela03);
-      tela03.setVisible(true);
-    }//GEN-LAST:event_jMenuCadastrarVeiculoActionPerformed
+    private void jMenuItemCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarVeiculoActionPerformed
+        jDesktopPane.add(new TelaCadastrarVeiculo());
+    }//GEN-LAST:event_jMenuItemCadastrarVeiculoActionPerformed
 
     private void jMenuItemConsultarVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarVeiculosActionPerformed
-       TelaConsultarVeiculo tela05 = new TelaConsultarVeiculo();
-       jDesktopPane.add(tela05);
-       tela05.setVisible(true);
+        jDesktopPane.add(new TelaConsultarVeiculo());
     }//GEN-LAST:event_jMenuItemConsultarVeiculosActionPerformed
 
     private void jMenuItemCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarClienteActionPerformed
-     TelaCadastrarCliente telaCadastrarCliente = new TelaCadastrarCliente(jDesktopPane);
-     jDesktopPane.add(telaCadastrarCliente);
-     telaCadastrarCliente.setVisible(true);
+        jDesktopPane.add(new TelaCadastrarCliente(jDesktopPane));
     }//GEN-LAST:event_jMenuItemCadastrarClienteActionPerformed
 
     private void jMenuItemConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarClientesActionPerformed
-       TelaConsultarCliente telaConsultarCliente = new TelaConsultarCliente(jDesktopPane);
-       jDesktopPane.add(telaConsultarCliente);
-       telaConsultarCliente.setVisible(true);
+        jDesktopPane.add(new TelaConsultarCliente(jDesktopPane));
     }//GEN-LAST:event_jMenuItemConsultarClientesActionPerformed
 
     private void jMenuItemCadastrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarMarcaActionPerformed
-       TelaCadastrarMarca telaCadastrarMarca = new TelaCadastrarMarca(jDesktopPane);
-       jDesktopPane.add(telaCadastrarMarca);
-       telaCadastrarMarca.setVisible(true);
+        jDesktopPane.add(new TelaCadastrarMarca(jDesktopPane));
     }//GEN-LAST:event_jMenuItemCadastrarMarcaActionPerformed
 
     private void jMenuItemConsultarMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarMarcasActionPerformed
-       TelaConsultarMarca telaConsultarMarca = new TelaConsultarMarca(jDesktopPane);
-       jDesktopPane.add(telaConsultarMarca);
-       telaConsultarMarca.setVisible(true);
+        jDesktopPane.add(new TelaConsultarMarca(jDesktopPane));
     }//GEN-LAST:event_jMenuItemConsultarMarcasActionPerformed
 
     /**
@@ -218,7 +206,6 @@ public class TelaPrincipal extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuCadastrarVeiculo;
     private javax.swing.JMenu jMenuClientes;
     private javax.swing.JMenu jMenuFrota;
     private javax.swing.JMenuItem jMenuItem5;
@@ -226,6 +213,7 @@ public class TelaPrincipal extends JFrame {
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemCadastrarCliente;
     private javax.swing.JMenuItem jMenuItemCadastrarMarca;
+    private javax.swing.JMenuItem jMenuItemCadastrarVeiculo;
     private javax.swing.JMenuItem jMenuItemConsultarClientes;
     private javax.swing.JMenuItem jMenuItemConsultarMarcas;
     private javax.swing.JMenuItem jMenuItemConsultarVeiculos;
