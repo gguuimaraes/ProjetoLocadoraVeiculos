@@ -4,6 +4,8 @@ public class Modelo {
     private String nome;
     private float valor;
     
+    public Modelo(){}
+    
     public Modelo(String nome, float valor) {
         this.nome = nome;
         this.valor = valor;
@@ -24,7 +26,7 @@ public class Modelo {
         this.nome = nome;
     }
 
-    public float getValor() {
+    public Float getValor() {
         return valor;
     }
 

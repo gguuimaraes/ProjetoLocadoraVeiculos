@@ -14,21 +14,22 @@ public class TelaPrincipal extends JFrame {
 
         jDesktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu = new javax.swing.JMenu();
-        jMCadastrarClientes = new javax.swing.JMenuItem();
-        jMenuConsultarCliente = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
-        jMenuCadastrarFrota = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
-        jMenu4 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenu5 = new javax.swing.JMenu();
+        jMenuClientes = new javax.swing.JMenu();
+        jMenuItemCadastrarCliente = new javax.swing.JMenuItem();
+        jMenuItemConsultarClientes = new javax.swing.JMenuItem();
+        jMenuMarcas = new javax.swing.JMenu();
+        jMenuItemCadastrarMarca = new javax.swing.JMenuItem();
+        jMenuItemConsultarMarcas = new javax.swing.JMenuItem();
+        jMenuFrota = new javax.swing.JMenu();
+        jMenuCadastrarVeiculo = new javax.swing.JMenuItem();
+        jMenuItemConsultarVeiculos = new javax.swing.JMenuItem();
+        jMenuLocacao = new javax.swing.JMenu();
+        jMenuItemLocar = new javax.swing.JMenuItem();
+        jMenuItemDevolver = new javax.swing.JMenuItem();
+        jMenuListas = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItemCadastroDeMarca = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(1024, 768));
@@ -44,80 +45,88 @@ public class TelaPrincipal extends JFrame {
             .addGap(0, 485, Short.MAX_VALUE)
         );
 
-        jMenu.setText("Clientes");
+        jMenuClientes.setText("Clientes");
 
-        jMCadastrarClientes.setText("Cadastro");
-        jMCadastrarClientes.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCadastrarCliente.setText("Cadastro");
+        jMenuItemCadastrarCliente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMCadastrarClientesActionPerformed(evt);
+                jMenuItemCadastrarClienteActionPerformed(evt);
             }
         });
-        jMenu.add(jMCadastrarClientes);
+        jMenuClientes.add(jMenuItemCadastrarCliente);
 
-        jMenuConsultarCliente.setText("Consultar");
-        jMenuConsultarCliente.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemConsultarClientes.setText("Consultar");
+        jMenuItemConsultarClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuConsultarClienteActionPerformed(evt);
+                jMenuItemConsultarClientesActionPerformed(evt);
             }
         });
-        jMenu.add(jMenuConsultarCliente);
+        jMenuClientes.add(jMenuItemConsultarClientes);
 
-        jMenuBar1.add(jMenu);
+        jMenuBar1.add(jMenuClientes);
 
-        jMenu2.setText("Frota");
+        jMenuMarcas.setText("Marcas");
 
-        jMenuCadastrarFrota.setText("Cadastro");
-        jMenuCadastrarFrota.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemCadastrarMarca.setText("Cadastro");
+        jMenuItemCadastrarMarca.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuCadastrarFrotaActionPerformed(evt);
+                jMenuItemCadastrarMarcaActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuCadastrarFrota);
+        jMenuMarcas.add(jMenuItemCadastrarMarca);
 
-        jMenuItem8.setText("Consultar");
-        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItemConsultarMarcas.setText("Consultar");
+        jMenuItemConsultarMarcas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem8ActionPerformed(evt);
+                jMenuItemConsultarMarcasActionPerformed(evt);
             }
         });
-        jMenu2.add(jMenuItem8);
+        jMenuMarcas.add(jMenuItemConsultarMarcas);
 
-        jMenuBar1.add(jMenu2);
+        jMenuBar1.add(jMenuMarcas);
 
-        jMenu4.setText("Aluguel");
+        jMenuFrota.setText("Frota");
 
-        jMenuItem3.setText("Locação");
-        jMenu4.add(jMenuItem3);
+        jMenuCadastrarVeiculo.setText("Cadastro");
+        jMenuCadastrarVeiculo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuCadastrarVeiculoActionPerformed(evt);
+            }
+        });
+        jMenuFrota.add(jMenuCadastrarVeiculo);
 
-        jMenuItem4.setText("Devolução");
-        jMenu4.add(jMenuItem4);
+        jMenuItemConsultarVeiculos.setText("Consultar");
+        jMenuItemConsultarVeiculos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemConsultarVeiculosActionPerformed(evt);
+            }
+        });
+        jMenuFrota.add(jMenuItemConsultarVeiculos);
 
-        jMenuBar1.add(jMenu4);
+        jMenuBar1.add(jMenuFrota);
 
-        jMenu5.setText("Listas");
+        jMenuLocacao.setText("Aluguel");
 
-        jMenuItem5.setText("Lista de clientes");
-        jMenu5.add(jMenuItem5);
+        jMenuItemLocar.setText("Locação");
+        jMenuLocacao.add(jMenuItemLocar);
+
+        jMenuItemDevolver.setText("Devolução");
+        jMenuLocacao.add(jMenuItemDevolver);
+
+        jMenuBar1.add(jMenuLocacao);
+
+        jMenuListas.setText("Listas");
+
+        jMenuItem5.setText("Lista de Clientes");
+        jMenuListas.add(jMenuItem5);
 
         jMenuItem6.setText("Lista de Veículos");
-        jMenu5.add(jMenuItem6);
+        jMenuListas.add(jMenuItem6);
 
         jMenuItem9.setText("Lista de Locação");
-        jMenu5.add(jMenuItem9);
+        jMenuListas.add(jMenuItem9);
 
-        jMenuBar1.add(jMenu5);
-
-        jMenu3.setText("Marca");
-
-        jMenuItemCadastroDeMarca.setText("Cadastra Marca");
-        jMenuItemCadastroDeMarca.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItemCadastroDeMarcaActionPerformed(evt);
-            }
-        });
-        jMenu3.add(jMenuItemCadastroDeMarca);
-
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(jMenuListas);
 
         setJMenuBar(jMenuBar1);
 
@@ -135,35 +144,41 @@ public class TelaPrincipal extends JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuCadastrarFrotaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarFrotaActionPerformed
+    private void jMenuCadastrarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuCadastrarVeiculoActionPerformed
       TelaCadastrarVeiculo tela03 = new TelaCadastrarVeiculo();
       jDesktopPane.add(tela03);
       tela03.setVisible(true);
-    }//GEN-LAST:event_jMenuCadastrarFrotaActionPerformed
+    }//GEN-LAST:event_jMenuCadastrarVeiculoActionPerformed
 
-    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+    private void jMenuItemConsultarVeiculosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarVeiculosActionPerformed
        TelaConsultarVeiculo tela05 = new TelaConsultarVeiculo();
        jDesktopPane.add(tela05);
        tela05.setVisible(true);
-    }//GEN-LAST:event_jMenuItem8ActionPerformed
+    }//GEN-LAST:event_jMenuItemConsultarVeiculosActionPerformed
 
-    private void jMCadastrarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMCadastrarClientesActionPerformed
+    private void jMenuItemCadastrarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarClienteActionPerformed
      TelaCadastrarCliente telaCadastrarCliente = new TelaCadastrarCliente(jDesktopPane);
      jDesktopPane.add(telaCadastrarCliente);
      telaCadastrarCliente.setVisible(true);
-    }//GEN-LAST:event_jMCadastrarClientesActionPerformed
+    }//GEN-LAST:event_jMenuItemCadastrarClienteActionPerformed
 
-    private void jMenuConsultarClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuConsultarClienteActionPerformed
+    private void jMenuItemConsultarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarClientesActionPerformed
        TelaConsultarCliente telaConsultarCliente = new TelaConsultarCliente(jDesktopPane);
        jDesktopPane.add(telaConsultarCliente);
        telaConsultarCliente.setVisible(true);
-    }//GEN-LAST:event_jMenuConsultarClienteActionPerformed
+    }//GEN-LAST:event_jMenuItemConsultarClientesActionPerformed
 
-    private void jMenuItemCadastroDeMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastroDeMarcaActionPerformed
-       TelaCadastrarMarca tela05 = new TelaCadastrarMarca();
-       jDesktopPane.add(tela05);
-       tela05.setVisible(true);
-    }//GEN-LAST:event_jMenuItemCadastroDeMarcaActionPerformed
+    private void jMenuItemCadastrarMarcaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCadastrarMarcaActionPerformed
+       TelaCadastrarMarca telaCadastrarMarca = new TelaCadastrarMarca(jDesktopPane);
+       jDesktopPane.add(telaCadastrarMarca);
+       telaCadastrarMarca.setVisible(true);
+    }//GEN-LAST:event_jMenuItemCadastrarMarcaActionPerformed
+
+    private void jMenuItemConsultarMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarMarcasActionPerformed
+       TelaConsultarMarca telaConsultarMarca = new TelaConsultarMarca(jDesktopPane);
+       jDesktopPane.add(telaConsultarMarca);
+       telaConsultarMarca.setVisible(true);
+    }//GEN-LAST:event_jMenuItemConsultarMarcasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -202,21 +217,22 @@ public class TelaPrincipal extends JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane jDesktopPane;
-    private javax.swing.JMenuItem jMCadastrarClientes;
-    private javax.swing.JMenu jMenu;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuCadastrarFrota;
-    private javax.swing.JMenuItem jMenuConsultarCliente;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuCadastrarVeiculo;
+    private javax.swing.JMenu jMenuClientes;
+    private javax.swing.JMenu jMenuFrota;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
-    private javax.swing.JMenuItem jMenuItemCadastroDeMarca;
+    private javax.swing.JMenuItem jMenuItemCadastrarCliente;
+    private javax.swing.JMenuItem jMenuItemCadastrarMarca;
+    private javax.swing.JMenuItem jMenuItemConsultarClientes;
+    private javax.swing.JMenuItem jMenuItemConsultarMarcas;
+    private javax.swing.JMenuItem jMenuItemConsultarVeiculos;
+    private javax.swing.JMenuItem jMenuItemDevolver;
+    private javax.swing.JMenuItem jMenuItemLocar;
+    private javax.swing.JMenu jMenuListas;
+    private javax.swing.JMenu jMenuLocacao;
+    private javax.swing.JMenu jMenuMarcas;
     // End of variables declaration//GEN-END:variables
 }

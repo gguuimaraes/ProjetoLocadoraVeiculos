@@ -8,7 +8,9 @@ public class Marca {
     private ArrayList<Modelo> modelos;
     private float valor;
 
-    public Marca() {}
+    public Marca() {
+        modelos = new ArrayList<Modelo>();
+    }
 
     public Marca(String nome, float valor) {
         this.nome = nome.toUpperCase();
@@ -38,7 +40,7 @@ public class Marca {
         this.nome = nome.toUpperCase();
     }
     
-    public float getValor() {
+    public Float getValor() {
         return valor;
     }
 
@@ -65,6 +67,11 @@ public class Marca {
         this.modelos.add(novoModelo);
     }
     
+    public void alterarModelo(Modelo modeloAntigo, Modelo modelo) throws Exception {
+        removerModelo(modeloAntigo);
+        incluirModelo(modelo);
+    }
+
     public void removerModelo(Modelo modeloExistente) throws Exception {
         for (int indexModelo = 0; indexModelo < this.modelos.size(); indexModelo++) {
             if (modelos.get(indexModelo).getNome().equals(modeloExistente.getNome())) {

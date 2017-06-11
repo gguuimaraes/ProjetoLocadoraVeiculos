@@ -374,6 +374,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="jNumberTextField1"/>
       </Properties>
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="jNumberTextFieldNumeroEndereco.setAllowNegative(false);"/>
+      </AuxValues>
     </Component>
     <Component class="javax.swing.JButton" name="jButtonCancelar">
       <Properties>

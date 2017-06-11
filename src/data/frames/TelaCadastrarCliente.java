@@ -18,15 +18,15 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
     private final Cliente cliente;
     private Cliente novoCliente;
     
-    public TelaCadastrarCliente(JDesktopPane parent) {
-        this.desktopPane = parent;
+    public TelaCadastrarCliente(JDesktopPane desktopPane) {
+        this.desktopPane = desktopPane;
         modoEdicao = false;
         cliente = new Cliente();
         initComponents();
     }
 
-    public TelaCadastrarCliente(JDesktopPane parent, Cliente cliente) {
-        this.desktopPane = parent;
+    public TelaCadastrarCliente(JDesktopPane desktopPane, Cliente cliente) {
+        this.desktopPane = desktopPane;
         this.modoEdicao = true;
         this.cliente = cliente;
         initComponents();
@@ -184,6 +184,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         jNumberTextFieldCEP.setMaxLength(8);
 
         jNumberTextFieldNumeroEndereco.setText("jNumberTextField1");
+        jNumberTextFieldNumeroEndereco.setAllowNegative(false);
 
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
@@ -398,7 +399,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         try {
             validarCampos();
             if(!modoEdicao) {
-                if (JOptionPane.showConfirmDialog(rootPane, "Continuar e realizar o cadastro do cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                if (JOptionPane.showConfirmDialog(rootPane, "Continuar e realizar o cadastro do Cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                     clienteDAO.incluir(novoCliente);
                     if (JOptionPane.showConfirmDialog(rootPane, "Cliente cadastrado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
                         TelaCadastrarCliente novaTela = new TelaCadastrarCliente(desktopPane, novoCliente);
@@ -411,7 +412,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                 if(cliente.toString().equals(novoCliente.toString())) 
                     JOptionPane.showMessageDialog(rootPane, "Nenhuma alteração foi feita.", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
                 else {
-                    if (JOptionPane.showConfirmDialog(rootPane, "Continuar e alterar o cadastro do cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                    if (JOptionPane.showConfirmDialog(rootPane, "Continuar e alterar o cadastro do Cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                         clienteDAO.alterar(novoCliente);
                         if (JOptionPane.showConfirmDialog(rootPane, "Cliente alterado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
                             TelaCadastrarCliente novaTela = new TelaCadastrarCliente(desktopPane, novoCliente);
