@@ -296,11 +296,11 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
         try {
             String nomeModelo = jTextFieldNomeModelo.getText();
             String valorModelo = jNumberTextFieldValorModelo.getText();
-            if (nomeModelo.length() == 0) {
+            if (nomeModelo.isEmpty() || nomeModelo.contains(";")) {
                 JOptionPane.showMessageDialog(rootPane, "Digite um Nome para o Modelo!", this.getTitle(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            if (valorModelo.length() == 0) {
+            if (valorModelo.isEmpty()) {
                 JOptionPane.showMessageDialog(rootPane, "Digite um Valor para o Modelo!", this.getTitle(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
@@ -360,7 +360,7 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
     public void validarCampos() throws Exception {
         String nomeMarca = jTextFieldNomeMarca.getText();
         if (!modoEdicao)
-            if (nomeMarca.isEmpty()) throw new Exception("Digite o Nome da Marca!");
+            if (nomeMarca.isEmpty() || nomeMarca.contains(";")) throw new Exception("Digite o Nome da Marca!");
         String valorMarca = jNumberTextFieldValorMarca.getText();
         if (valorMarca.isEmpty()) throw new Exception("Digite o Valor do aluguel da Marca!");
         novaMarca.setNome(nomeMarca);

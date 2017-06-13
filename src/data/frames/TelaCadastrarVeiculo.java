@@ -262,6 +262,8 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
         int anoInt = Integer.parseInt(ano);
         if (anoInt < anoMinimo || anoInt > anoMaximo) throw new Exception("Digite um Ano válido para o Veículo!");
         if (jComboBoxMarca.getItemCount() == 0) throw new Exception("Selecione uma Marca para o Veículo!");
+        if (jComboBoxModelo.getItemCount() == 0) throw new Exception("Selecione um Modelo para o Veículo!");
+        if (jNumberTextFieldQuilometragem.getText().isEmpty()) throw new Exception("Digite a Quilometragem do Veículo!");
         
         novoVeiculo = new Veiculo();
         novoVeiculo.setPlaca(placa.toUpperCase());

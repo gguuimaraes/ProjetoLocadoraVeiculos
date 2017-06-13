@@ -73,7 +73,7 @@ public class Locacao {
     public Locacao(String linha) throws Exception {
         String dados[] = linha.split(";");
         if (dados.length < 7 || dados.length > 8) throw new Exception("Dados da locação incorretos.");
-        DateFormat df = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy");
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         this.dataAbertura = df.parse(dados[0]);
         this.dataPrevisaoFechamento = df.parse(dados[1]);
         this.cliente = new ClienteDAO().getByCNH(dados[2]);
@@ -200,14 +200,15 @@ public class Locacao {
 
     @Override
     public String toString() {
-        return dataAbertura.toString() + ";"
-                + dataPrevisaoFechamento.toString() + ";"
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return dateFormat.format(dataAbertura) + ";"
+                + dateFormat.format(dataPrevisaoFechamento) + ";"
                 + cliente.getCNH() + ";"
                 + veiculo.getPlaca() + ";"
                 + finalidade.toString() + ";"
                 + area.toString() + ";"
                 + situacao.toString()
-                + (situacao == Situacao.FECHADA ? ";" + dataFechamento.toString() : "")
+                + (situacao == Situacao.FECHADA ? ";" + dateFormat.format(dataFechamento) : "")
                 + "\n";
 
     }

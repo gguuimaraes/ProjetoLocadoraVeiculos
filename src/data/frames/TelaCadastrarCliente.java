@@ -362,6 +362,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
     private void validarCampos() throws Exception {
         String nomeCompleto = jTextFieldNomeCompleto.getText();
         if (!modoEdicao) {
+            if (nomeCompleto.contains("\\|") || nomeCompleto.contains(";")) throw new Exception("Digite o Nome Completo do Cliente!");
             if (nomeCompleto.isEmpty()) throw new Exception("Digite o Nome Completo do Cliente!");
             for (char c : nomeCompleto.toCharArray()) {
                 if (!Character.isLetter(c) && c != ' ') {
@@ -381,19 +382,19 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         if (!email.valido()) throw new Exception("Digite um Endereço de Email válido para o Cliente!");
         
         String logradouro = jTextFieldLogradouro.getText();
-        if (logradouro.isEmpty()) throw new Exception("Digite o Logradouro do Endereço do Cliente!");
+        if (logradouro.isEmpty() || logradouro.contains("\\|") || logradouro.contains(";")) throw new Exception("Digite o Logradouro do Endereço do Cliente!");
         Integer numeroEndereco = jNumberTextFieldNumeroEndereco.getInt();
         if (numeroEndereco.toString().isEmpty()) throw new Exception("Digite o Número do Endereço do Cliente!");
         Integer cep = jNumberTextFieldCEP.getInt();
         if (cep.toString().isEmpty()) throw new Exception("Digite o CEP do Endereço do Cliente!");
         String pais = jTextFieldPais.getText();
-        if (pais.isEmpty()) throw new Exception("Digite o País do Endereço do Cliente!");
+        if (pais.isEmpty() || pais.contains("\\|") || pais.contains(";")) throw new Exception("Digite o País do Endereço do Cliente!");
         String cidade = jTextFieldCidade.getText();
-        if (cidade.isEmpty()) throw new Exception("Digite a Cidade do Endereço do Cliente!");
+        if (cidade.isEmpty() || cidade.contains("\\|") || cidade.contains(";")) throw new Exception("Digite a Cidade do Endereço do Cliente!");
         String estado = jTextFieldEstado.getText();
-        if (estado.isEmpty()) throw new Exception("Digite o Estado do Endereço do Cliente!");
+        if (estado.isEmpty() || estado.contains("\\|") || estado.contains(";")) throw new Exception("Digite o Estado do Endereço do Cliente!");
         String bairro = jTextFieldBairro.getText();
-        if (bairro.isEmpty()) throw new Exception("Digite o Bairro do Endereço do Cliente!");
+        if (bairro.isEmpty() || bairro.contains("\\|") || bairro.contains(";")) throw new Exception("Digite o Bairro do Endereço do Cliente!");
         String complemento = jTextFieldComplemento.getText();
         
         String cnh = jNumberTextFieldCNH.getText();

@@ -386,7 +386,7 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
                 locacao.getVeiculo().setSituacao("LOCADO");
                 new VeiculoDAO().alterar(locacao.getVeiculo());
                 locacaoDAO.incluir(locacao);
-                if (JOptionPane.showConfirmDialog(rootPane, "Locacão iniciada com sucesso!\n\nDeseja realizar outra?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
+                if (JOptionPane.showConfirmDialog(rootPane, "Locacão iniciada com sucesso!\n\nDeseja realizar outra?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
                     ((JInternalFrame) desktopPane.add(new TelaAlugarVeiculo(desktopPane))).moveToFront();
                 }
                 this.dispose();
