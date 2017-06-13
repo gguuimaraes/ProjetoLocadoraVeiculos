@@ -63,6 +63,13 @@ public class Locacao {
         }
     }
 
+    public Locacao() {
+        dataAbertura = new GregorianCalendar().getTime();
+        situacao = Situacao.ABERTA;
+        area = Area.RURAL;
+        finalidade = Finalidade.TRABALHO;
+    }
+    
     public Locacao(String linha) throws Exception {
         String dados[] = linha.split(";");
         if (dados.length < 7 || dados.length > 8) throw new Exception("Dados da locação incorretos.");
@@ -166,14 +173,14 @@ public class Locacao {
         this.situacao = Situacao.FECHADA;
     }
 
-    public int getPrevisaoDias() {
+    public long getPrevisaoDias() {
         long diferenca = dataPrevisaoFechamento.getTime() - dataAbertura.getTime();
-        return (int) TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
+        return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
     }
 
-    public int getTotalDias() {
+    public long getTotalDias() {
         long diferenca = dataFechamento.getTime() - dataAbertura.getTime();
-        return (int) TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
+        return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
     }
 
     private float getValor() {
@@ -183,11 +190,11 @@ public class Locacao {
         return valor;
     }
 
-    public float getValorPrevisao() {
+    public Float getValorPrevisao() {
         return getValor() * getPrevisaoDias() * 2;
     }
 
-    public float getValorTotal() {
+    public Float getValorTotal() {
         return getValor() * getTotalDias() * 2;
     }
 
