@@ -1,4 +1,4 @@
-package data.classes.client;
+package data.classes.location;
 
 public class CartaoCredito {
 

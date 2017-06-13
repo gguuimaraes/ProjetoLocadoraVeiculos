@@ -1,4 +1,4 @@
-package data.classes;
+package data.classes.location;
 
 import data.classes.client.Cliente;
 import data.classes.vehicle.Veiculo;

@@ -1,6 +1,6 @@
 package data.persistence;
 
-import data.classes.Locacao;
+import data.classes.location.Locacao;
 import data.interfaces.CRUD;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,8 +42,31 @@ public class LocacaoDAO implements CRUD {
     }
     
     @Override
-    public void alterar(Object o) throws Exception {
-        
+    public void alterar(Object objeto) throws Exception {
+        Locacao locacaoExistente = (Locacao) objeto;
+        FileWriter locacaoFileWriter = null;
+        BufferedWriter locacaoBufferedWriter = null;
+        try {
+            ArrayList<Locacao> locacoes = listar();
+            locacaoFileWriter = new FileWriter(arquivoLocacoes, false);
+            locacaoBufferedWriter = new BufferedWriter(locacaoFileWriter);
+            for (Locacao locacao : locacoes) {
+                if (locacao.getDataAbertura().equals(locacaoExistente.getDataAbertura())) {
+                    locacaoBufferedWriter.write(locacaoExistente.toString());
+                } else {
+                    locacaoBufferedWriter.write(locacao.toString());
+                }
+            }
+        } catch (Exception ex) {
+            throw new Exception("Falha ao alterar a Locação.\n\n" + ex);
+        } finally {
+            if (locacaoBufferedWriter != null) {
+                locacaoBufferedWriter.close();
+            }
+            if (locacaoFileWriter != null) {
+                locacaoFileWriter.close();
+            }
+        }
     }
 
     @Override
@@ -110,5 +133,14 @@ public class LocacaoDAO implements CRUD {
         }
         return locacoes;
     }
-
+    
+    public ArrayList<Locacao> listarAbertasByCNHPlaca(String clienteCNH, String veiculoPlaca) throws Exception {
+        ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+        for (Locacao locacao : listarByCNHPlaca(clienteCNH, veiculoPlaca)) {
+            if (locacao.getCliente().getCNH().equals(clienteCNH) && locacao.getVeiculo().getPlaca().equals(veiculoPlaca) && locacao.getSituacao() == Locacao.Situacao.ABERTA) {
+                locacoes.add(locacao);
+            }
+        }
+        return locacoes;
+    }
 }
