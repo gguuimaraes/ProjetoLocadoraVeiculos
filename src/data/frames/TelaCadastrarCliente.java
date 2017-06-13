@@ -129,6 +129,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Número:");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel7.setText("Contato");
 
@@ -139,6 +140,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
             tipoTelefoneModel.addElement(telefoneTipo);
         }
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel9.setText("Endereço");
 
@@ -163,6 +165,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
             tipoEnderecoModel.addElement(enderecoTipo);
         }
 
+        jButtonSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -190,6 +193,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         jNumberTextFieldNumeroEndereco.setText("jNumberTextField1");
         jNumberTextFieldNumeroEndereco.setAllowNegative(false);
 
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -197,6 +201,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
             }
         });
 
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel18.setText("Dados pessoais");
 

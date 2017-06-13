@@ -93,7 +93,7 @@ public class Veiculo {
         this.marca = marca;
     }
 
-    public float getQuilometragem() {
+    public Float getQuilometragem() {
         return quilometragem;
     }
 

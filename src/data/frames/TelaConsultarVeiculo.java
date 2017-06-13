@@ -3,6 +3,8 @@ package data.frames;
 
 import data.classes.vehicle.Veiculo;
 import data.persistence.VeiculoDAO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
 import javax.swing.JInternalFrame;
@@ -12,14 +14,28 @@ import javax.swing.table.DefaultTableModel;
 public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
 
     private final JDesktopPane desktopPane;
+    private final TelaAlugarVeiculo requester;
     private final VeiculoDAO veiculoDAO = new VeiculoDAO();
-
+    private boolean modoBusca = false;
+    private Veiculo veiculo;
+    
     public TelaConsultarVeiculo(JDesktopPane desktopPane) {
         this.desktopPane = desktopPane;
+        requester = null;
         initComponents();
         jButtonBuscar.doClick();
     }
-
+    
+    public TelaConsultarVeiculo(JDesktopPane desktopPane, TelaAlugarVeiculo requester, String placa) {
+        this.desktopPane = desktopPane;
+        this.requester = requester;
+        this.modoBusca = true;
+        initComponents();
+        jButtonExcluir.setText("Cancelar");
+        jButtonAlterar.setText("Selecionar");
+        jTextFieldParametroBusca.setText(placa);
+        jButtonBuscar.doClick();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -70,6 +86,13 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(jTableVeiculos);
+        jTableVeiculos.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) {
+                    jButtonAlterar.doClick();
+                }
+            }
+        });
 
         jButtonAlterar.setText("Alterar");
         jButtonAlterar.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +203,12 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableVeiculosModel.getColumnCount(); coluna++) {
                 switch (tableVeiculosModel.getColumnName(coluna)) {
                     case "Placa":
-                        ((JInternalFrame) desktopPane.add(new TelaCadastrarVeiculo(desktopPane, veiculoDAO.getByPlaca(tableVeiculosModel.getValueAt(jTableVeiculos.getSelectedRows()[0], coluna).toString())))).moveToFront();
+                        veiculo = veiculoDAO.getByPlaca(tableVeiculosModel.getValueAt(jTableVeiculos.getSelectedRows()[0], coluna).toString());
+                        if (!modoBusca) ((JInternalFrame) desktopPane.add(new TelaCadastrarVeiculo(desktopPane, veiculo))).moveToFront();
+                        else {
+                            dispose();
+                            requester.setVeiculo(veiculo);
+                        }
                         return;
                 }
             }
@@ -196,13 +224,17 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableVeiculosModel.getColumnCount(); coluna++) {
                 switch (tableVeiculosModel.getColumnName(coluna)) {
                     case "Placa":
-                        Veiculo veiculo = veiculoDAO.getByPlaca(tableVeiculosModel.getValueAt(jTableVeiculos.getSelectedRows()[0], coluna).toString());
-                        if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro do Veículo do sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
-                            veiculoDAO.remover(veiculo);
-                            JOptionPane.showMessageDialog(rootPane, "Veículo excluído com sucesso!", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
-                            jTextFieldParametroBusca.setText("");
-                            jButtonBuscar.doClick();
-                            return;
+                        if (!modoBusca) {
+                            if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro do Veículo do sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                                veiculo = veiculoDAO.getByPlaca(tableVeiculosModel.getValueAt(jTableVeiculos.getSelectedRows()[0], coluna).toString());
+                                veiculoDAO.remover(veiculo);
+                                JOptionPane.showMessageDialog(rootPane, "Veículo excluído com sucesso!", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+                                jTextFieldParametroBusca.setText("");
+                                jButtonBuscar.doClick();
+                                return;
+                            }
+                        } else {
+                            dispose();
                         }
                 }
             }

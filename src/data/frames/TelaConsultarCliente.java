@@ -14,11 +14,26 @@ import javax.swing.table.DefaultTableModel;
 public class TelaConsultarCliente extends javax.swing.JInternalFrame {
 
     private final JDesktopPane desktopPane;
+    private final TelaAlugarVeiculo requester;
     private final ClienteDAO clienteDAO = new ClienteDAO();
-
+    private boolean modoBusca = false;
+    private Cliente cliente;
+    
     public TelaConsultarCliente(JDesktopPane desktopPane) {
         this.desktopPane = desktopPane;
+        requester = null;
         initComponents();
+        jButtonBuscar.doClick();
+    }
+    
+    public TelaConsultarCliente(JDesktopPane desktopPane, TelaAlugarVeiculo requester, String cnh) {
+        this.desktopPane = desktopPane;
+        this.requester = requester;
+        this.modoBusca = true;
+        initComponents();
+        jButtonExcluir.setText("Cancelar");
+        jButtonAlterar.setText("Selecionar");
+        jTextFieldParametroBusca.setText(cnh);
         jButtonBuscar.doClick();
     }
 
@@ -133,36 +148,36 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
             if (parametrosBusca.length == 0) {
                 resultadoBusca = clienteDAO.listar();
             } else {
-                for (Cliente cliente : clienteDAO.listar()) {
+                for (Cliente clienteTemporario : clienteDAO.listar()) {
                     for (int i = 0; i < parametrosBusca.length; i++) {
-                        String aluguelAberto = (new LocacaoDAO().existsAbertaByCNH(cliente.getCNH()) ? "SIM" : "NAO");
-                        if (cliente.getCNH().contains(parametrosBusca[i]) ||
-                                cliente.getNomeCompleto().toUpperCase().contains(parametrosBusca[i].toUpperCase()) || 
-                                cliente.getEmail().toString().toUpperCase().contains(parametrosBusca[i].toUpperCase()) ||
+                        String aluguelAberto = (new LocacaoDAO().existsAbertaByCNH(clienteTemporario.getCNH()) ? "SIM" : "NAO");
+                        if (clienteTemporario.getCNH().contains(parametrosBusca[i]) ||
+                                clienteTemporario.getNomeCompleto().toUpperCase().contains(parametrosBusca[i].toUpperCase()) || 
+                                clienteTemporario.getEmail().toString().toUpperCase().contains(parametrosBusca[i].toUpperCase()) ||
                                 aluguelAberto.contains(parametrosBusca[i].toUpperCase()) ||
                                 aluguelAberto.contains(parametrosBusca[i].toUpperCase().replace('Ã', 'A'))) {
-                            resultadoBusca.add(cliente);
+                            resultadoBusca.add(clienteTemporario);
                             i = parametrosBusca.length;
                         }
                     }
                 }
             }
-            for (Cliente cliente : resultadoBusca) {
+            for (Cliente clienteTemporario : resultadoBusca) {
                 int linha = tableClientesModel.getRowCount();
                 tableClientesModel.setRowCount(linha + 1);
                 for (int coluna = 0; coluna < tableClientesModel.getColumnCount(); coluna++) {
                     switch (tableClientesModel.getColumnName(coluna)) {
                         case "Nome Completo":
-                            tableClientesModel.setValueAt(cliente.getNomeCompleto(), linha, coluna);
+                            tableClientesModel.setValueAt(clienteTemporario.getNomeCompleto(), linha, coluna);
                             break;
                         case "CNH":
-                            tableClientesModel.setValueAt(cliente.getCNH(), linha, coluna);
+                            tableClientesModel.setValueAt(clienteTemporario.getCNH(), linha, coluna);
                             break;
                         case "Email":
-                            tableClientesModel.setValueAt(cliente.getEmail().toString(), linha, coluna);
+                            tableClientesModel.setValueAt(clienteTemporario.getEmail().toString(), linha, coluna);
                             break;
                         case "Aluguel aberto?":
-                            tableClientesModel.setValueAt((new LocacaoDAO().existsAbertaByCNH(cliente.getCNH())) ? "Sim" : "Não", linha, coluna);
+                            tableClientesModel.setValueAt((new LocacaoDAO().existsAbertaByCNH(clienteTemporario.getCNH())) ? "Sim" : "Não", linha, coluna);
                             break;
                     }
                 }
@@ -179,7 +194,12 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableClientesModel.getColumnCount(); coluna++) {
                 switch (tableClientesModel.getColumnName(coluna)) {
                     case "CNH":
-                        ((JInternalFrame) desktopPane.add(new TelaCadastrarCliente(desktopPane, clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString())))).moveToFront();
+                        cliente = clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString());
+                        if (!modoBusca) ((JInternalFrame) desktopPane.add(new TelaCadastrarCliente(desktopPane, cliente))).moveToFront();
+                        else {
+                            dispose();
+                            requester.setCliente(cliente);
+                        }
                         return;
                 }
             }
@@ -195,13 +215,17 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableClientesModel.getColumnCount(); coluna++) {
                 switch (tableClientesModel.getColumnName(coluna)) {
                     case "CNH":
-                        Cliente cliente = clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString());
-                        if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro do Cliente do sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
-                            clienteDAO.remover(cliente);
-                            JOptionPane.showMessageDialog(rootPane, "Cliente excluído com sucesso!", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
-                            jTextFieldParametroBusca.setText("");
-                            jButtonBuscar.doClick();
-                            return;
+                        if (!modoBusca) {
+                            cliente = clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString());
+                            if (JOptionPane.showConfirmDialog(rootPane, "Continuar e excluir o cadastro do Cliente do sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                                clienteDAO.remover(cliente);
+                                JOptionPane.showMessageDialog(rootPane, "Cliente excluído com sucesso!", this.getTitle(), JOptionPane.INFORMATION_MESSAGE);
+                                jTextFieldParametroBusca.setText("");
+                                jButtonBuscar.doClick();
+                                return;
+                            }
+                        } else {
+                            dispose();
                         }
                 }
             }

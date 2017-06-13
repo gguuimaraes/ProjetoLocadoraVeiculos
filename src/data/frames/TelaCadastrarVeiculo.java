@@ -48,13 +48,8 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
         jSpinner1.setValue(veiculo.getAno());
         jComboBoxSituacao.setSelectedIndex(veiculo.getSituacao().ordinal());
         jNumberTextFieldQuilometragem.setFloat(veiculo.getQuilometragem());
-        for (int indexMarca = 0; indexMarca < jComboBoxMarca.getItemCount(); indexMarca++) {
-            if (jComboBoxMarca.getItemAt(indexMarca).equals(veiculo.getMarca().getNome())) {
-                jComboBoxMarca.setSelectedIndex(indexMarca);
-                indexMarca = jComboBoxMarca.getItemCount();
-            }
-        }
-        jComboBoxModelo.setSelectedIndex(veiculo.getMarca().getModelos().indexOf(veiculo.getModelo()));
+        jComboBoxMarca.setSelectedItem(veiculo.getMarca().getNome());
+        jComboBoxModelo.setSelectedItem(veiculo.getModelo().getNome());
         boolean jaLocado = true;
         try {
             jaLocado = new LocacaoDAO().existsByPlaca(veiculo.getPlaca());
@@ -62,8 +57,8 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, ex.toString(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
         }
         jSpinner1.setEnabled(!jaLocado);
-        jComboBoxMarca.setEditable(!jaLocado);
-        jComboBoxModelo.setEditable(!jaLocado);
+        jComboBoxMarca.setEnabled(!jaLocado);
+        jComboBoxModelo.setEnabled(!jaLocado);
     }
 
     @SuppressWarnings("unchecked")
@@ -130,6 +125,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
 
         jLabel4.setText("Ano:");
 
+        jButtonSalvar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonSalvar.setText("Salvar");
         jButtonSalvar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +155,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
             ex.printStackTrace();
         }
 
+        jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonCancelar.setText("Cancelar");
         jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -181,7 +178,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jNumberTextFieldQuilometragem, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 121, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
                         .addComponent(jButtonSalvar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButtonCancelar))
