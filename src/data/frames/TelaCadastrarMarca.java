@@ -289,6 +289,7 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonCancelarEdicaoActionPerformed
 
     private void jButtonAdicionarModeloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAdicionarModeloActionPerformed
+        boolean modoModeloEdicao = !jButtonAdicionarModelo.getText().equals("Adicionar");
         try {
             String nomeModelo = jTextFieldNomeModelo.getText();
             String valorModelo = jNumberTextFieldValorModelo.getText();
@@ -300,31 +301,31 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(rootPane, "Digite um Valor para o Modelo!", this.getTitle(), JOptionPane.WARNING_MESSAGE);
                 return;
             }
-            Modelo modelo = new Modelo(nomeModelo, Float.parseFloat(valorModelo));
+            Modelo modeloNovo = new Modelo(nomeModelo, Float.parseFloat(valorModelo));
             DefaultTableModel tableModelosModel = (DefaultTableModel) jTableModelos.getModel();
-            boolean modoModeloEdicao = !jButtonAdicionarModelo.getText().equals("Adicionar");
             int linha = !modoModeloEdicao ? tableModelosModel.getRowCount() : jTableModelos.getSelectedRows()[0];
             if (!modoModeloEdicao) {
-                novaMarca.incluirModelo(modelo);
+                novaMarca.incluirModelo(modeloNovo);
                 tableModelosModel.setRowCount(linha + 1);
             }
-            Modelo modeloAntigo = new Modelo();
+            Modelo modeloAntigo = novaMarca.getModelos().get(linha);
+            if (modoModeloEdicao) novaMarca.alterarModelo(modeloAntigo, modeloNovo);
             for (int coluna = 0; coluna < tableModelosModel.getColumnCount(); coluna++) {
                 switch (tableModelosModel.getColumnName(coluna)) {
                     case "Nome":
-                        if (modoModeloEdicao) modeloAntigo.setNome(tableModelosModel.getValueAt(linha, coluna).toString());
-                        tableModelosModel.setValueAt(modelo.getNome(), linha, coluna);
+                        tableModelosModel.setValueAt(modeloNovo.getNome(), linha, coluna);
                         break;
                     case "Valor do aluguel":
-                        if (modoModeloEdicao) modeloAntigo.setValor(Float.parseFloat(tableModelosModel.getValueAt(linha, coluna).toString()));
-                        tableModelosModel.setValueAt(modelo.getValor(), linha, coluna);
+                        tableModelosModel.setValueAt(modeloNovo.getValor(), linha, coluna);
                         break;
                 }
             }
-            if (modoModeloEdicao) novaMarca.alterarModelo(modeloAntigo, modelo);
             jButtonCancelarEdicao.doClick();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.toString(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
+            jTextFieldNomeModelo.requestFocus();
+        } finally {
+            if (modoModeloEdicao) jButtonCancelarEdicao.doClick();
         }
     }//GEN-LAST:event_jButtonAdicionarModeloActionPerformed
 
@@ -349,7 +350,7 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
             }
             if (jButtonAdicionarModelo.getText().equals("Alterar")) jButtonCancelarEdicao.doClick();
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(rootPane, ex.toString(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_jButtonRemoverModeloActionPerformed
 

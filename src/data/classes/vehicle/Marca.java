@@ -1,5 +1,6 @@
 package data.classes.vehicle;
 
+import data.persistence.VeiculoDAO;
 import java.util.ArrayList;
 
 public class Marca {
@@ -59,24 +60,32 @@ public class Marca {
     public void incluirModelo(Modelo novoModelo) throws Exception {
         for (Modelo modelo : this.modelos) {
             if (modelo.getNome().equals(novoModelo.getNome()))
-                throw new Exception("O modelo " + novoModelo.getNome() + " já está incluído na marca " + this.nome + ".");
+                throw new Exception("O Modelo " + novoModelo.getNome() + " já está incluído na Marca " + this.nome + ".");
         }
         this.modelos.add(novoModelo);
     }
     
     public void alterarModelo(Modelo modeloAntigo, Modelo modelo) throws Exception {
-        removerModelo(modeloAntigo);
-        incluirModelo(modelo);
+        for (int indexModelo = 0; indexModelo < this.modelos.size(); indexModelo++) {
+            if (modelos.get(indexModelo).getNome().equals(modeloAntigo.getNome())) {
+                if (!modeloAntigo.getNome().equals(modelo.getNome()) && new VeiculoDAO().existsByMarcaModelo(nome, modeloAntigo.getNome())) throw new Exception("O Modelo " + modeloAntigo.getNome() + " não pode ser renomeado pois pertence a um Veículo.");
+                this.modelos.remove(indexModelo);
+                incluirModelo(modelo);
+                return;
+            }
+        }
+        throw new Exception("O Modelo " + modeloAntigo.getNome() + " não está incluído na Marca " + this.nome + "."); 
     }
 
     public void removerModelo(Modelo modeloExistente) throws Exception {
         for (int indexModelo = 0; indexModelo < this.modelos.size(); indexModelo++) {
             if (modelos.get(indexModelo).getNome().equals(modeloExistente.getNome())) {
+                if (new VeiculoDAO().existsByMarcaModelo(nome, modeloExistente.getNome())) throw new Exception("O Modelo " + modeloExistente.getNome() + " não pode ser removido pois pertence a um Veículo.");
                 this.modelos.remove(indexModelo);
                 return;
             }
         }
-        throw new Exception("O modelo " + modeloExistente.getNome() + " não está incluído na marca " + this.nome + ".");  
+        throw new Exception("O Modelo " + modeloExistente.getNome() + " não está incluído na Marca " + this.nome + ".");  
     }
     
     @Override

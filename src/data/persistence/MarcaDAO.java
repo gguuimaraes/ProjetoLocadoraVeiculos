@@ -116,26 +116,7 @@ public class MarcaDAO implements CRUD {
         BufferedWriter modeloBufferedWriter = null;
         try {
             if (!exists(marcaAlterada.getNome())) throw new Exception("Marca inexistente.");
-            Marca marcaExistente = getByNome(marcaAlterada.getNome());
-            ArrayList<Modelo> modelosRemovidos = new ArrayList<Modelo>();
-            for (Modelo modelo : marcaExistente.getModelos()) {
-                boolean tem = false;
-                for (int indexModelo = 0; indexModelo < marcaAlterada.getModelos().size(); indexModelo++) {
-                    if (modelo.getNome().equals(marcaAlterada.getModelos().get(indexModelo).getNome())) {
-                        tem = true;
-                        indexModelo = marcaAlterada.getModelos().size();
-                    }
-                    if (!tem) {
-                        modelosRemovidos.add(modelo);
-                    }
-                }
-            }
-            VeiculoDAO veiculoDAO = new VeiculoDAO();
-            for (Modelo modeloRemovido : modelosRemovidos) {
-                if (veiculoDAO.existsByMarcaModelo(marcaAlterada.getNome(), modeloRemovido.getNome())) {
-                    throw new Exception("O Modelo de Nome " + modeloRemovido.getNome() + " e Valor de aluguel " + modeloRemovido.getValor() + " não pode ser removido pois pertence a um Veículo.");
-                }
-            }
+            
             ArrayList<Marca> marcas = listar();
             marcaFileWriter = new FileWriter(arquivoMarcas);
             marcaBufferedWriter = new BufferedWriter(marcaFileWriter);
