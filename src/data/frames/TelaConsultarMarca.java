@@ -1,18 +1,18 @@
 package data.frames;
 
-import data.classes.client.Cliente;
 import data.classes.vehicle.Marca;
 import data.persistence.MarcaDAO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaConsultarMarca extends javax.swing.JInternalFrame {
 
-    private JDesktopPane desktopPane;
+    private final JDesktopPane desktopPane;
     private final MarcaDAO marcaDAO = new MarcaDAO();
 
     public TelaConsultarMarca(JDesktopPane parent) {
@@ -181,8 +181,7 @@ public class TelaConsultarMarca extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableMarcasModel.getColumnCount(); coluna++) {
                 switch (tableMarcasModel.getColumnName(coluna)) {
                     case "Nome":
-                        desktopPane.add(new TelaCadastrarMarca(desktopPane, marcaDAO.getByNome(tableMarcasModel.getValueAt(jTableMarcas.getSelectedRows()[0], coluna).toString())));
-                        moveToBack();
+                        ((JInternalFrame) desktopPane.add(new TelaCadastrarMarca(desktopPane, marcaDAO.getByNome(tableMarcasModel.getValueAt(jTableMarcas.getSelectedRows()[0], coluna).toString())))).moveToFront();
                         return;
                 }
             }

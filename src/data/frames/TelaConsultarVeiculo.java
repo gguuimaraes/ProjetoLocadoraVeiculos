@@ -5,12 +5,13 @@ import data.classes.vehicle.Veiculo;
 import data.persistence.VeiculoDAO;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
 
-    private JDesktopPane desktopPane;
+    private final JDesktopPane desktopPane;
     private final VeiculoDAO veiculoDAO = new VeiculoDAO();
 
     public TelaConsultarVeiculo(JDesktopPane desktopPane) {
@@ -179,8 +180,7 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableVeiculosModel.getColumnCount(); coluna++) {
                 switch (tableVeiculosModel.getColumnName(coluna)) {
                     case "Placa":
-                        desktopPane.add(new TelaCadastrarVeiculo(desktopPane, veiculoDAO.getByPlaca(tableVeiculosModel.getValueAt(jTableVeiculos.getSelectedRows()[0], coluna).toString())));
-                        moveToBack();
+                        ((JInternalFrame) desktopPane.add(new TelaCadastrarVeiculo(desktopPane, veiculoDAO.getByPlaca(tableVeiculosModel.getValueAt(jTableVeiculos.getSelectedRows()[0], coluna).toString())))).moveToFront();
                         return;
                 }
             }

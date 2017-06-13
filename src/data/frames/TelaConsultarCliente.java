@@ -7,12 +7,13 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class TelaConsultarCliente extends javax.swing.JInternalFrame {
 
-    private JDesktopPane desktopPane;
+    private final JDesktopPane desktopPane;
     private final ClienteDAO clienteDAO = new ClienteDAO();
 
     public TelaConsultarCliente(JDesktopPane desktopPane) {
@@ -178,8 +179,7 @@ public class TelaConsultarCliente extends javax.swing.JInternalFrame {
             for (int coluna = 0; coluna < tableClientesModel.getColumnCount(); coluna++) {
                 switch (tableClientesModel.getColumnName(coluna)) {
                     case "CNH":
-                        desktopPane.add(new TelaCadastrarCliente(desktopPane, clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString())));
-                        moveToBack();
+                        ((JInternalFrame) desktopPane.add(new TelaCadastrarCliente(desktopPane, clienteDAO.getByCNH(tableClientesModel.getValueAt(jTableClientes.getSelectedRows()[0], coluna).toString())))).moveToFront();
                         return;
                 }
             }

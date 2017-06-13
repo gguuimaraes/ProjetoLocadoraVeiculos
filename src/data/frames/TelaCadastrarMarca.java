@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
 
-    private JDesktopPane desktopPane;
+    private final JDesktopPane desktopPane;
     private final boolean modoEdicao;
     private final MarcaDAO marcaDAO = new MarcaDAO();
     private final Marca marca;
@@ -370,9 +371,7 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
                 if (JOptionPane.showConfirmDialog(rootPane, "Continuar e realizar o cadastro da Marca no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                     marcaDAO.incluir(novaMarca);
                     if (JOptionPane.showConfirmDialog(rootPane, "Marca cadastrada com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
-                        TelaCadastrarMarca novaTela = new TelaCadastrarMarca(desktopPane, novaMarca);
-                        desktopPane.add(novaTela);
-                        novaTela.setVisible(true);
+                        ((JInternalFrame) desktopPane.add(new TelaCadastrarMarca(desktopPane, novaMarca))).moveToFront();
                     }
                     this.dispose();
                 }
@@ -382,10 +381,8 @@ public class TelaCadastrarMarca extends javax.swing.JInternalFrame {
                 else {
                     if (JOptionPane.showConfirmDialog(rootPane, "Continuar e alterar o cadastro da Marca no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                         marcaDAO.alterar(novaMarca);
-                        if (JOptionPane.showConfirmDialog(rootPane, "Marca alterado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
-                            TelaCadastrarMarca novaTela = new TelaCadastrarMarca(desktopPane, novaMarca);
-                            desktopPane.add(novaTela);
-                            novaTela.setVisible(true);
+                        if (JOptionPane.showConfirmDialog(rootPane, "Marca alterada com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
+                            ((JInternalFrame) desktopPane.add(new TelaCadastrarMarca(desktopPane, novaMarca))).moveToFront();
                         }
                         this.dispose();
                     }

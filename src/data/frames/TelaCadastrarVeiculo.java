@@ -11,12 +11,13 @@ import java.util.Calendar;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 
 public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
 
-    private JDesktopPane desktopPane;
+    private final JDesktopPane desktopPane;
     private final boolean modoEdicao;
     private final VeiculoDAO veiculoDAO = new VeiculoDAO();
     private final Veiculo veiculo;
@@ -287,7 +288,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
                 if (JOptionPane.showConfirmDialog(rootPane, "Continuar e realizar o cadastro do Veículo no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                     veiculoDAO.incluir(novoVeiculo);
                     if (JOptionPane.showConfirmDialog(rootPane, "Veículo cadastrado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
-                        desktopPane.add(new TelaCadastrarVeiculo(desktopPane, novoVeiculo));
+                        ((JInternalFrame) desktopPane.add(new TelaCadastrarVeiculo(desktopPane, novoVeiculo))).moveToFront();
                     }
                     this.dispose();
                 }
@@ -298,7 +299,7 @@ public class TelaCadastrarVeiculo extends javax.swing.JInternalFrame {
                     if (JOptionPane.showConfirmDialog(rootPane, "Continuar e alterar o cadastro do Veículo no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                         veiculoDAO.alterar(novoVeiculo);
                         if (JOptionPane.showConfirmDialog(rootPane, "Veículo alterado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
-                            desktopPane.add(new TelaCadastrarVeiculo(desktopPane, novoVeiculo));
+                            ((JInternalFrame) desktopPane.add(new TelaCadastrarVeiculo(desktopPane, novoVeiculo))).moveToFront();
                         }
                         this.dispose();
                     }

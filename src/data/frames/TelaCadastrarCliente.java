@@ -8,11 +8,12 @@ import data.classes.client.Telefone;
 import data.persistence.ClienteDAO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
 import javax.swing.JOptionPane;
 
 public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
 
-    private JDesktopPane desktopPane;
+    private final JDesktopPane desktopPane;
     private final boolean modoEdicao;
     private final ClienteDAO clienteDAO = new ClienteDAO();
     private final Cliente cliente;
@@ -409,9 +410,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                 if (JOptionPane.showConfirmDialog(rootPane, "Continuar e realizar o cadastro do Cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                     clienteDAO.incluir(novoCliente);
                     if (JOptionPane.showConfirmDialog(rootPane, "Cliente cadastrado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
-                        TelaCadastrarCliente novaTela = new TelaCadastrarCliente(desktopPane, novoCliente);
-                        desktopPane.add(novaTela);
-                        novaTela.setVisible(true);
+                        ((JInternalFrame) desktopPane.add(new TelaCadastrarCliente(desktopPane, novoCliente))).moveToFront();
                     }
                     this.dispose();
                 }
@@ -422,9 +421,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
                     if (JOptionPane.showConfirmDialog(rootPane, "Continuar e alterar o cadastro do Cliente no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
                         clienteDAO.alterar(novoCliente);
                         if (JOptionPane.showConfirmDialog(rootPane, "Cliente alterado com sucesso!\n\nDeseja fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
-                            TelaCadastrarCliente novaTela = new TelaCadastrarCliente(desktopPane, novoCliente);
-                            desktopPane.add(novaTela);
-                            novaTela.setVisible(true);
+                            ((JInternalFrame) desktopPane.add(new TelaCadastrarCliente(desktopPane, novoCliente))).moveToFront();
                         }
                         this.dispose();
                     }
