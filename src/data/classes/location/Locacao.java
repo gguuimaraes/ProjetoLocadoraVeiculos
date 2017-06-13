@@ -203,11 +203,11 @@ public class Locacao {
         return dataAbertura.toString() + ";"
                 + dataPrevisaoFechamento.toString() + ";"
                 + cliente.getCNH() + ";"
-                + veiculo + ";"
+                + veiculo.getPlaca() + ";"
                 + finalidade.toString() + ";"
                 + area.toString() + ";"
-                + situacao.toString() + ";"
-                + (situacao == Situacao.FECHADA ? dataFechamento.toString() : "")
+                + situacao.toString()
+                + (situacao == Situacao.FECHADA ? ";" + dataFechamento.toString() : "")
                 + "\n";
 
     }

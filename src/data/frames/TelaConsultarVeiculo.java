@@ -135,7 +135,7 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldParametroBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButtonBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonAlterar)
@@ -155,38 +155,40 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
             if (parametrosBusca.length == 0) {
                 resultadoBusca = veiculoDAO.listar();
             } else {
-                for (Veiculo veiculo : veiculoDAO.listar()) {
-                    for (int i = 0; i < parametrosBusca.length; i++) {
-                        if (veiculo.getPlaca().replace("-", "").contains(parametrosBusca[i].toUpperCase()) ||
-                            veiculo.getMarca().getNome().toUpperCase().contains(parametrosBusca[i].toUpperCase()) ||
-                            veiculo.getModelo().getNome().toUpperCase().contains(parametrosBusca[i].toUpperCase()) ||
-                            veiculo.getAno().toString().contains(parametrosBusca[i]) ||
-                            veiculo.getSituacao().toString().toUpperCase().contains(parametrosBusca[i].toUpperCase().replace("Ã", "A"))) {
-                            resultadoBusca.add(veiculo);
-                            i = parametrosBusca.length;
+                for (Veiculo veiculoTemporario : veiculoDAO.listar()) {
+                    if (modoBusca && veiculoTemporario.getSituacao() == Veiculo.Situacao.DISPONIVEL || !modoBusca) {
+                        for (int i = 0; i < parametrosBusca.length; i++) {
+                            if (veiculoTemporario.getPlaca().replace("-", "").contains(parametrosBusca[i].toUpperCase())
+                                    || veiculoTemporario.getMarca().getNome().toUpperCase().contains(parametrosBusca[i].toUpperCase())
+                                    || veiculoTemporario.getModelo().getNome().toUpperCase().contains(parametrosBusca[i].toUpperCase())
+                                    || veiculoTemporario.getAno().toString().contains(parametrosBusca[i])
+                                    || veiculoTemporario.getSituacao().toString().toUpperCase().contains(parametrosBusca[i].toUpperCase().replace("Ã", "A"))) {
+                                resultadoBusca.add(veiculoTemporario);
+                                i = parametrosBusca.length;
+                            }
                         }
                     }
                 }
             }
-            for (Veiculo veiculo : resultadoBusca) {
+            for (Veiculo veiculoTemporario : resultadoBusca) {
                 int linha = tableVeiculosModel.getRowCount();
                 tableVeiculosModel.setRowCount(linha + 1);
                 for (int coluna = 0; coluna < tableVeiculosModel.getColumnCount(); coluna++) {
                     switch (tableVeiculosModel.getColumnName(coluna)) {
                         case "Placa":
-                            tableVeiculosModel.setValueAt(veiculo.getPlaca(), linha, coluna);
+                            tableVeiculosModel.setValueAt(veiculoTemporario.getPlaca(), linha, coluna);
                             break;
                         case "Marca":
-                            tableVeiculosModel.setValueAt(veiculo.getMarca().getNome(), linha, coluna);
+                            tableVeiculosModel.setValueAt(veiculoTemporario.getMarca().getNome(), linha, coluna);
                             break;
                         case "Modelo":
-                            tableVeiculosModel.setValueAt(veiculo.getModelo().getNome(), linha, coluna);
+                            tableVeiculosModel.setValueAt(veiculoTemporario.getModelo().getNome(), linha, coluna);
                             break;
                         case "Ano":
-                            tableVeiculosModel.setValueAt(veiculo.getAno(), linha, coluna);
+                            tableVeiculosModel.setValueAt(veiculoTemporario.getAno(), linha, coluna);
                             break;
                         case "Situação":
-                            tableVeiculosModel.setValueAt(veiculo.getSituacao().toString(), linha, coluna);
+                            tableVeiculosModel.setValueAt(veiculoTemporario.getSituacao().toString(), linha, coluna);
                             break;
                     }
                 }
@@ -234,6 +236,7 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
                                 return;
                             }
                         } else {
+                            setVisible(false);
                             dispose();
                         }
                 }

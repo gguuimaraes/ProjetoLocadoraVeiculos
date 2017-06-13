@@ -25,7 +25,7 @@ public class LocacaoDAO implements CRUD {
             locacaoBufferedWriter = new BufferedWriter(locacaoFileWriter);
             locacaoBufferedWriter.write(locacao.toString());
         } catch (IOException ex) {
-            throw new Exception("Falha ao incluir a Locação.\n\n" + ex);
+            throw new Exception("Falha ao incluir a Locação.\n\n" + ex.getMessage());
         } finally {
             if (locacaoBufferedWriter != null) {
                 locacaoBufferedWriter.close();
@@ -58,7 +58,7 @@ public class LocacaoDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao alterar a Locação.\n\n" + ex);
+            throw new Exception("Falha ao alterar a Locação.\n\n" + ex.getMessage());
         } finally {
             if (locacaoBufferedWriter != null) {
                 locacaoBufferedWriter.close();
@@ -85,7 +85,7 @@ public class LocacaoDAO implements CRUD {
                 }
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao listar as Locações.\n\n" + ex);
+            throw new Exception("Falha ao listar as Locações.\n\n" + ex.getMessage());
         } finally {
             if (locacaoBufferedReader != null) {
                 locacaoBufferedReader.close();

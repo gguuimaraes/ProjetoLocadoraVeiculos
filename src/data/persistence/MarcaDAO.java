@@ -35,7 +35,7 @@ public class MarcaDAO implements CRUD {
                 modeloBufferedWriter.write(marca.getNome() + ";" + modelo.toString());
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao incluir a Marca.\n\n" + ex);
+            throw new Exception("Falha ao incluir a Marca.\n\n" + ex.getMessage());
         } finally {
             if (modeloBufferedWriter != null) {
                 modeloBufferedWriter.close();
@@ -84,7 +84,7 @@ public class MarcaDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao remover a Marca.\n\n" + ex);
+            throw new Exception("Falha ao remover a Marca.\n\n" + ex.getMessage());
         } finally {
             if (modeloBufferedReader != null) {
                 modeloBufferedReader.close();
@@ -141,7 +141,7 @@ public class MarcaDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao alterar a Marca.\n\n" + ex);
+            throw new Exception("Falha ao alterar a Marca.\n\n" + ex.getMessage());
         } finally {
             if (modeloBufferedWriter != null) {
                 modeloBufferedWriter.close();
@@ -189,7 +189,7 @@ public class MarcaDAO implements CRUD {
                 }
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao listar as Marcas.\n\n" + ex);
+            throw new Exception("Falha ao listar as Marcas.\n\n" + ex.getMessage());
         } finally {
             if (modeloBufferedReader != null) {
                 modeloBufferedReader.close();

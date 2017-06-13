@@ -4,12 +4,14 @@ import data.classes.client.Cliente;
 import data.classes.location.Locacao;
 import data.classes.vehicle.Veiculo;
 import data.persistence.LocacaoDAO;
+import data.persistence.VeiculoDAO;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDesktopPane;
+import javax.swing.JInternalFrame;
+import javax.swing.JOptionPane;
 
 public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
     private final JDesktopPane desktopPane;
@@ -41,7 +43,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
             data.setMinutes(new GregorianCalendar().getTime().getMinutes());
             data.setSeconds(new GregorianCalendar().getTime().getSeconds());
             locacao.setDataPrevisaoFechamento(data); 
-            jLabelQuantidadeDias.setText(locacao.getPrevisaoDias() + " dias");
             escreveValorPrevisao();
         } catch (Exception ex) {
         }
@@ -54,8 +55,11 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
         }
     }
     
-    public void validarCampos() {
-        
+    public void validarCampos() throws Exception {
+        if (locacao.getCliente() == null) throw new Exception("Selecione o Cliente da Locação!");
+        if (locacao.getVeiculo() == null) throw new Exception("Selecione o Veículo da Locação!");
+        if (locacao.getDataPrevisaoFechamento() == null) throw new Exception("Digite a Data prevista para a Devolução!");
+        if (locacao.getDataPrevisaoFechamento().getTime() < locacao.getDataAbertura().getTime()) throw new Exception("Digite uma Data prevista válida!");
     }
     
     public TelaAlugarVeiculo(JDesktopPane desktopPane) {
@@ -94,7 +98,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
         jNumberTextFieldCNH = new data.classes.JNumberTextField();
         jLabelNome = new javax.swing.JLabel();
         jTextFieldPlaca = new javax.swing.JTextField();
-        jLabelQuantidadeDias = new javax.swing.JLabel();
 
         setClosable(true);
         setIconifiable(true);
@@ -117,6 +120,11 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
 
         jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonCancelar.setText("Cancelar");
+        jButtonCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCancelarActionPerformed(evt);
+            }
+        });
 
         jLabel6.setText("Valor total com caução:");
         jLabel6.setAutoscrolls(true);
@@ -125,6 +133,11 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
 
         jButtonAlugar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonAlugar.setText("Alugar");
+        jButtonAlugar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonAlugarActionPerformed(evt);
+            }
+        });
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -214,8 +227,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
         jLabelNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabelNome.setText("Selecione um cliente...");
 
-        jLabelQuantidadeDias.setText("dias");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -245,41 +256,38 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
                         .addComponent(jLabel18)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelModelo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(jLabel9)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jFormattedTextFieldDataPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(jLabelQuantidadeDias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFormattedTextFieldDataPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboBoxArea, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBoxFinalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(layout.createSequentialGroup()
-                                    .addComponent(jComboBoxArea, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel2)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jComboBoxFinalidade, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jNumberTextFieldCNH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel15)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabelMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonPesquisarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGap(0, 0, Short.MAX_VALUE))))
+                                    .addComponent(jNumberTextFieldCNH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButtonPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel7)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabelNome, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel15)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jLabelMarca, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE))
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(jLabel10)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(jButtonPesquisarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -326,8 +334,7 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedTextFieldDataPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(jLabelQuantidadeDias, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel9))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -372,6 +379,34 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
         setDataPrevisaoFechamento();
     }//GEN-LAST:event_jFormattedTextFieldDataPrevistaKeyPressed
 
+    private void jButtonAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlugarActionPerformed
+        try {
+            validarCampos();
+            if (JOptionPane.showConfirmDialog(rootPane, "Continuar e iniciar este Locação no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                locacao.getVeiculo().setSituacao("LOCADO");
+                new VeiculoDAO().alterar(locacao.getVeiculo());
+                locacaoDAO.incluir(locacao);
+                if (JOptionPane.showConfirmDialog(rootPane, "Locacão iniciada com sucesso!\n\nDeseja realizar outra?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) != 0) {
+                    ((JInternalFrame) desktopPane.add(new TelaAlugarVeiculo(desktopPane))).moveToFront();
+                }
+                this.dispose();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jButtonAlugarActionPerformed
+
+    private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
+        try {
+            validarCampos();
+            if (JOptionPane.showConfirmDialog(rootPane, "Alterações foram encontradas, deseja mesmo fechar esta tela?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                this.dispose();
+            }
+        } catch (Exception ex) {
+            this.dispose();
+        }
+    }//GEN-LAST:event_jButtonCancelarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonAlugar;
     private javax.swing.JButton jButtonCancelar;
@@ -396,7 +431,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabelMarca;
     private javax.swing.JLabel jLabelModelo;
     private javax.swing.JLabel jLabelNome;
-    private javax.swing.JLabel jLabelQuantidadeDias;
     private javax.swing.JLabel jLabelValorDiaria;
     private javax.swing.JLabel jLabelValorTotal;
     private data.classes.JNumberTextField jNumberTextFieldCNH;

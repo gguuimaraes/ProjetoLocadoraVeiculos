@@ -393,7 +393,7 @@ public class TelaCadastrarCliente extends javax.swing.JInternalFrame {
         String estado = jTextFieldEstado.getText();
         if (estado.isEmpty()) throw new Exception("Digite o Estado do Endereço do Cliente!");
         String bairro = jTextFieldBairro.getText();
-        if (bairro.isEmpty()) throw new Exception("Digite a Bairro do Endereço do Cliente!");
+        if (bairro.isEmpty()) throw new Exception("Digite o Bairro do Endereço do Cliente!");
         String complemento = jTextFieldComplemento.getText();
         
         String cnh = jNumberTextFieldCNH.getText();

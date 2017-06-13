@@ -26,7 +26,7 @@ public class ClienteDAO implements CRUD {
             clienteBufferedWriter = new BufferedWriter(clienteFileWriter);
             clienteBufferedWriter.write(cliente.toString());
         } catch (IOException ex) {
-            throw new Exception("Falha ao incluir o Cliente.\n\n" + ex);
+            throw new Exception("Falha ao incluir o Cliente.\n\n" + ex.getMessage());
         } finally {
             if (clienteBufferedWriter != null) {
                 clienteBufferedWriter.close();
@@ -54,7 +54,7 @@ public class ClienteDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao remover o Cliente.\n\n" + ex);
+            throw new Exception("Falha ao remover o Cliente.\n\n" + ex.getMessage());
         } finally {
             if (clienteBufferedWriter != null) {
                 clienteBufferedWriter.close();
@@ -81,7 +81,7 @@ public class ClienteDAO implements CRUD {
                 }
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao listar os Clientes.\n\n" + ex);
+            throw new Exception("Falha ao listar os Clientes.\n\n" + ex.getMessage());
         } finally {
             if (clienteBufferedReader != null) {
                 clienteBufferedReader.close();
@@ -111,7 +111,7 @@ public class ClienteDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao alterar o Cliente.\n\n" + ex);
+            throw new Exception("Falha ao alterar o Cliente.\n\n" + ex.getMessage());
         } finally {
             if (clienteBufferedWriter != null) {
                 clienteBufferedWriter.close();

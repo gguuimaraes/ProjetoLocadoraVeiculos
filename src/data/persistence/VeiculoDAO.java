@@ -25,7 +25,7 @@ public class VeiculoDAO implements CRUD {
             veiculoBufferedWriter = new BufferedWriter(veiculoFileWriter);
             veiculoBufferedWriter.write(veiculo.toString());
         } catch (IOException ex) {
-            throw new Exception("Falha ao incluir o Veículo.\n\n" + ex);
+            throw new Exception("Falha ao incluir o Veículo.\n\n" + ex.getMessage());
         } finally {
             if (veiculoBufferedWriter != null) {
                 veiculoBufferedWriter.close();
@@ -53,7 +53,7 @@ public class VeiculoDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao remover o Veículo.\n\n" + ex);
+            throw new Exception("Falha ao remover o Veículo.\n\n" + ex.getMessage());
         } finally {
             if (veiculoBufferedReader != null) {
                 veiculoBufferedReader.close();
@@ -82,7 +82,7 @@ public class VeiculoDAO implements CRUD {
                 }
             }
         } catch (Exception ex) {
-            throw new Exception("Falha ao alterar o Veículo.\n\n" + ex);
+            throw new Exception("Falha ao alterar o Veículo.\n\n" + ex.getMessage());
         } finally {
             if (veiculoBufferedWriter != null) {
                 veiculoBufferedWriter.close();
@@ -109,7 +109,7 @@ public class VeiculoDAO implements CRUD {
                 }
             }
         } catch (IOException ex) {
-            throw new Exception("Falha ao listar os Veículos.\n\n" + ex);
+            throw new Exception("Falha ao listar os Veículos.\n\n" + ex.getMessage());
         } finally {
             if (veiculoBufferedReader != null) {
                 veiculoBufferedReader.close();
