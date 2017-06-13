@@ -109,6 +109,11 @@ public class TelaPrincipal extends JFrame {
         jMenuLocacao.setText("Aluguel");
 
         jMenuItemLocar.setText("Locação");
+        jMenuItemLocar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemLocarActionPerformed(evt);
+            }
+        });
         jMenuLocacao.add(jMenuItemLocar);
 
         jMenuItemDevolver.setText("Devolução");
@@ -168,6 +173,10 @@ public class TelaPrincipal extends JFrame {
     private void jMenuItemConsultarMarcasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemConsultarMarcasActionPerformed
         ((JInternalFrame) jDesktopPane.add(new TelaConsultarMarca(jDesktopPane))).moveToFront();
     }//GEN-LAST:event_jMenuItemConsultarMarcasActionPerformed
+
+    private void jMenuItemLocarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemLocarActionPerformed
+        ((JInternalFrame) jDesktopPane.add(new TelaAlugarVeiculo(jDesktopPane))).moveToFront();
+    }//GEN-LAST:event_jMenuItemLocarActionPerformed
 
     /**
      * @param args the command line arguments
