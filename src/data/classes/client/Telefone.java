@@ -97,8 +97,4 @@ public class Telefone {
                 + numero + ";"
                 + tipo.toString();
     }
-
-    public String getTelefone() {
-        return ddi + "-" + ddd + "-" + numero + "-" + (tipo.toString().substring(0, 1));
-    }
 }

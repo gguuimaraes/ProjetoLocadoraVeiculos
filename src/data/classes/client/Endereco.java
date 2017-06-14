@@ -152,16 +152,4 @@ public class Endereco {
                 + complemento + ";"
                 + tipo.toString();
     }
-
-    public String getEndereco() {
-        return logradouro + "-"
-                + numero + "-"
-                + cep + "-"
-                + cidade + "-"
-                + estado + "-"
-                + pais + "-"
-                + bairro + "-"
-                + complemento + "-"
-                + tipo.toString().substring(0, 1);
-    }
 }
