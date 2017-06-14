@@ -73,7 +73,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
 
         jLabel2 = new javax.swing.JLabel();
         jButtonPesquisarCliente = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
         jButtonCancelar = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -112,11 +111,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
                 jButtonPesquisarClienteActionPerformed(evt);
             }
         });
-
-        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Pagamento");
-        jLabel3.setAutoscrolls(true);
 
         jButtonCancelar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jButtonCancelar.setText("Cancelar");
@@ -183,7 +177,7 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Devolução");
+        jLabel1.setText("Locação");
         jLabel1.setAutoscrolls(true);
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
@@ -250,7 +244,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabelValorDiaria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel18)
@@ -272,7 +265,8 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jNumberTextFieldCNH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonPesquisarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jButtonPesquisarCliente)
+                                    .addGap(21, 21, 21))
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(jLabel7)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -286,7 +280,7 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jTextFieldPlaca, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButtonPesquisarVeiculo, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jButtonPesquisarVeiculo))))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -335,8 +329,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jFormattedTextFieldDataPrevista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -357,7 +349,7 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jButtonPesquisarClienteActionPerformed
 
     private void jButtonPesquisarVeiculoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPesquisarVeiculoActionPerformed
-        TelaConsultarVeiculo telaConsultarVeiculo = new TelaConsultarVeiculo(desktopPane, this, jTextFieldPlaca.getText());
+        TelaConsultarVeiculo telaConsultarVeiculo = new TelaConsultarVeiculo(desktopPane, this, jTextFieldPlaca.getText(), true);
         desktopPane.add(telaConsultarVeiculo, new Integer(10));
     }//GEN-LAST:event_jButtonPesquisarVeiculoActionPerformed
 
@@ -382,8 +374,9 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
     private void jButtonAlugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAlugarActionPerformed
         try {
             validarCampos();
-            if (JOptionPane.showConfirmDialog(rootPane, "Continuar e iniciar este Locação no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
-                locacao.getVeiculo().setSituacao("LOCADO");
+            if (JOptionPane.showConfirmDialog(rootPane, "Continuar e iniciar esta Locação no sistema?", this.getTitle(), JOptionPane.YES_NO_OPTION) == 0) {
+                locacao.abrir();
+                setDataPrevisaoFechamento();
                 new VeiculoDAO().alterar(locacao.getVeiculo());
                 locacaoDAO.incluir(locacao);
                 if (JOptionPane.showConfirmDialog(rootPane, "Locacão iniciada com sucesso!\n\nDeseja realizar outra?", this.getTitle(), JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE) == 0) {
@@ -423,7 +416,6 @@ public class TelaAlugarVeiculo extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

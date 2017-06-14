@@ -90,6 +90,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Devolu&#xe7;&#xe3;o"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemDevolverActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -98,19 +101,9 @@
             <Property name="text" type="java.lang.String" value="Listas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem5">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lista de Clientes"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem6">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Lista de Ve&#xed;culos"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Lista de Loca&#xe7;&#xe3;o"/>
+                <Property name="text" type="java.lang.String" value="Lista de Loca&#xe7;&#xf5;es"/>
               </Properties>
             </MenuItem>
           </SubComponents>

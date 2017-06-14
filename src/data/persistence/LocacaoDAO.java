@@ -124,23 +124,40 @@ public class LocacaoDAO implements CRUD {
         return false;
     }
     
-    public ArrayList<Locacao> listarByCNHPlaca(String clienteCNH, String veiculoPlaca) throws Exception {
+    public ArrayList<Locacao> listarByCNH(String clienteCNH) throws Exception {
         ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
         for (Locacao locacao : listar()) {
-            if (locacao.getCliente().getCNH().equals(clienteCNH) && locacao.getVeiculo().getPlaca().equals(veiculoPlaca)) {
+            if (locacao.getCliente().getCNH().equals(clienteCNH)) {
                 locacoes.add(locacao);
             }
         }
         return locacoes;
     }
     
-    public ArrayList<Locacao> listarAbertasByCNHPlaca(String clienteCNH, String veiculoPlaca) throws Exception {
+    public ArrayList<Locacao> listarAbertasByCNH(String clienteCNH) throws Exception {
         ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
-        for (Locacao locacao : listarByCNHPlaca(clienteCNH, veiculoPlaca)) {
-            if (locacao.getCliente().getCNH().equals(clienteCNH) && locacao.getVeiculo().getPlaca().equals(veiculoPlaca) && locacao.getSituacao() == Locacao.Situacao.ABERTA) {
+        for (Locacao locacao : listarByCNH(clienteCNH)) {
+            if (locacao.getCliente().getCNH().equals(clienteCNH) && locacao.getSituacao() == Locacao.Situacao.ABERTA) {
                 locacoes.add(locacao);
             }
         }
         return locacoes;
+    }
+    
+    public ArrayList<Locacao> listarByPlaca(String veiculoPlaca) throws Exception {
+        ArrayList<Locacao> locacoes = new ArrayList<Locacao>();
+        for (Locacao locacao : listar()) {
+            if (locacao.getVeiculo().getPlaca().equals(veiculoPlaca)) {
+                locacoes.add(locacao);
+            }
+        }
+        return locacoes;
+    }
+    
+    public Locacao getAbertaByPlaca(String veiculoPlaca) throws Exception {
+        for (Locacao locacao : listarByPlaca(veiculoPlaca)) {
+            if (locacao.getVeiculo().getPlaca().equals(veiculoPlaca) && locacao.getSituacao() == Locacao.Situacao.ABERTA) return locacao;
+        }
+        return null;
     }
 }

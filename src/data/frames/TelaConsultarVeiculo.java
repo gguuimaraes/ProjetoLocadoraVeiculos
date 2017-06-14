@@ -14,9 +14,10 @@ import javax.swing.table.DefaultTableModel;
 public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
 
     private final JDesktopPane desktopPane;
-    private final TelaAlugarVeiculo requester;
+    private final JInternalFrame requester;
     private final VeiculoDAO veiculoDAO = new VeiculoDAO();
     private boolean modoBusca = false;
+    private boolean alugar = false;
     private Veiculo veiculo;
     
     public TelaConsultarVeiculo(JDesktopPane desktopPane) {
@@ -26,9 +27,10 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
         jButtonBuscar.doClick();
     }
     
-    public TelaConsultarVeiculo(JDesktopPane desktopPane, TelaAlugarVeiculo requester, String placa) {
+    public TelaConsultarVeiculo(JDesktopPane desktopPane, JInternalFrame requester, String placa, boolean alugar) {
         this.desktopPane = desktopPane;
         this.requester = requester;
+        this.alugar = alugar;
         this.modoBusca = true;
         initComponents();
         jButtonExcluir.setText("Cancelar");
@@ -156,9 +158,12 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
                 resultadoBusca = veiculoDAO.listar();
             } else {
                 for (Veiculo veiculoTemporario : veiculoDAO.listar()) {
-                    if (modoBusca && veiculoTemporario.getSituacao() == Veiculo.Situacao.DISPONIVEL || !modoBusca) {
+                    if ((modoBusca && 
+                        ((alugar && veiculoTemporario.getSituacao() == Veiculo.Situacao.DISPONIVEL) || 
+                        !alugar && veiculoTemporario.getSituacao() == Veiculo.Situacao.LOCADO)) || 
+                        !modoBusca) {
                         for (int i = 0; i < parametrosBusca.length; i++) {
-                            if (veiculoTemporario.getPlaca().replace("-", "").contains(parametrosBusca[i].toUpperCase())
+                            if (veiculoTemporario.getPlaca().replace("-", "").contains(parametrosBusca[i].replace("-", "").toUpperCase())
                                     || veiculoTemporario.getMarca().getNome().toUpperCase().contains(parametrosBusca[i].toUpperCase())
                                     || veiculoTemporario.getModelo().getNome().toUpperCase().contains(parametrosBusca[i].toUpperCase())
                                     || veiculoTemporario.getAno().toString().contains(parametrosBusca[i])
@@ -209,7 +214,11 @@ public class TelaConsultarVeiculo extends javax.swing.JInternalFrame {
                         if (!modoBusca) ((JInternalFrame) desktopPane.add(new TelaCadastrarVeiculo(desktopPane, veiculo))).moveToFront();
                         else {
                             dispose();
-                            requester.setVeiculo(veiculo);
+                            if (alugar) {
+                                ((TelaAlugarVeiculo) requester).setVeiculo(veiculo);
+                            } else {
+                                ((TelaDevolverVeiculo) requester).setVeiculo(veiculo);
+                            }
                         }
                         return;
                 }

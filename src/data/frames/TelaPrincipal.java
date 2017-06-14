@@ -28,8 +28,6 @@ public class TelaPrincipal extends JFrame {
         jMenuItemLocar = new javax.swing.JMenuItem();
         jMenuItemDevolver = new javax.swing.JMenuItem();
         jMenuListas = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
         jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -117,19 +115,18 @@ public class TelaPrincipal extends JFrame {
         jMenuLocacao.add(jMenuItemLocar);
 
         jMenuItemDevolver.setText("Devolução");
+        jMenuItemDevolver.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemDevolverActionPerformed(evt);
+            }
+        });
         jMenuLocacao.add(jMenuItemDevolver);
 
         jMenuBar1.add(jMenuLocacao);
 
         jMenuListas.setText("Listas");
 
-        jMenuItem5.setText("Lista de Clientes");
-        jMenuListas.add(jMenuItem5);
-
-        jMenuItem6.setText("Lista de Veículos");
-        jMenuListas.add(jMenuItem6);
-
-        jMenuItem9.setText("Lista de Locação");
+        jMenuItem9.setText("Lista de Locações");
         jMenuListas.add(jMenuItem9);
 
         jMenuBar1.add(jMenuListas);
@@ -179,6 +176,10 @@ public class TelaPrincipal extends JFrame {
         ((JInternalFrame) jDesktopPane.add(new TelaAlugarVeiculo(jDesktopPane))).moveToFront();
     }//GEN-LAST:event_jMenuItemLocarActionPerformed
 
+    private void jMenuItemDevolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemDevolverActionPerformed
+        ((JInternalFrame) jDesktopPane.add(new TelaDevolverVeiculo(jDesktopPane))).moveToFront();
+    }//GEN-LAST:event_jMenuItemDevolverActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -219,8 +220,6 @@ public class TelaPrincipal extends JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuClientes;
     private javax.swing.JMenu jMenuFrota;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemCadastrarCliente;
     private javax.swing.JMenuItem jMenuItemCadastrarMarca;

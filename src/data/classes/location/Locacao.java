@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 public class Locacao {
 
-    private final Date dataAbertura;
+    private Date dataAbertura;
     private Date dataPrevisaoFechamento;
     private Cliente cliente;
     private Veiculo veiculo;
@@ -94,6 +94,10 @@ public class Locacao {
         this.situacao = Situacao.ABERTA;
     }
 
+    public void setDataAbertura(Date dataAbertura) {
+        this.dataAbertura = dataAbertura;
+    }
+    
     public Date getDataAbertura() {
         return dataAbertura;
     }
@@ -168,6 +172,15 @@ public class Locacao {
         }
     }
 
+    public void setDataFechamento(Date dataFechamento) {
+        this.dataFechamento = dataFechamento;
+    }
+    
+    public void abrir() {
+        this.dataAbertura = new GregorianCalendar().getTime();
+        veiculo.setSituacao("LOCADO");
+    }
+    
     public void fechar() {
         this.dataFechamento = new GregorianCalendar().getTime();
         this.situacao = Situacao.FECHADA;
@@ -178,8 +191,9 @@ public class Locacao {
         return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
     }
 
-    public long getTotalDias() {
-        long diferenca = dataFechamento.getTime() - dataAbertura.getTime();
+    public long getDiferencaDias() {
+        
+        long diferenca = dataFechamento.getTime() > dataPrevisaoFechamento.getTime() ? dataFechamento.getTime() - dataPrevisaoFechamento.getTime() : dataPrevisaoFechamento.getTime() - dataFechamento.getTime();
         return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
     }
 
@@ -194,8 +208,16 @@ public class Locacao {
         return getValor() * getPrevisaoDias() * 2;
     }
 
-    public Float getValorTotal() {
-        return getValor() * getTotalDias() * 2;
+    public Float getValorExtornar() {
+        if (dataFechamento.getTime() > dataPrevisaoFechamento.getTime()) return (float) 0;
+        else if (getDiferencaDias() == 0) return getValorPrevisao() / 2;
+        return getValor() * getDiferencaDias() * 2;
+    }
+    
+    public Float getValorPagar() {
+        if (dataPrevisaoFechamento.getTime() > dataFechamento.getTime()) return (float) 0;
+        float valor = getValorPrevisao() - (getValor() * getDiferencaDias());
+        return valor < 0 ? valor * -1 : valor;
     }
 
     @Override
