@@ -6,6 +6,7 @@ import data.persistence.ClienteDAO;
 import data.persistence.VeiculoDAO;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.concurrent.TimeUnit;
@@ -191,33 +192,42 @@ public class Locacao {
         return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
     }
 
-    public long getDiferencaDias() {
-        
-        long diferenca = dataFechamento.getTime() > dataPrevisaoFechamento.getTime() ? dataFechamento.getTime() - dataPrevisaoFechamento.getTime() : dataPrevisaoFechamento.getTime() - dataFechamento.getTime();
-        return TimeUnit.DAYS.convert(diferenca, TimeUnit.MILLISECONDS);
+    public long getDiasLocacao() {
+        int diasLocacao;
+        diasLocacao = (int) ((dataFechamento.getTime() - dataAbertura.getTime()) / 86400000L);
+        if(diasLocacao==0) {
+            if(((float)(float)((float)dataFechamento.getTime() - (float)dataAbertura.getTime()) / 86400000L) < 0) {
+                return -1;
+            } else {
+                return 1;
+            }
+        }
+        return diasLocacao;
+    }
+    
+    public long getDiasAtrasados() {
+        return (int) ((dataFechamento.getTime() - dataPrevisaoFechamento.getTime()) / 86400000L);
     }
 
-    private float getValor() {
+    public Float getValorAdicionais() {
         float valor = finalidade == Finalidade.TRABALHO ? veiculo.getDiaria() * (float) 0.03 : 0;
         valor += area == Area.RURAL ? veiculo.getDiaria() * (float) 0.03 : 0;
         valor += veiculo.getDiaria();
         return valor;
     }
 
-    public Float getValorPrevisao() {
-        return getValor() * getPrevisaoDias() * 2;
+    public Float getValorPagar() {
+        return getValorAdicionais() * getPrevisaoDias() * 2;
     }
 
     public Float getValorExtornar() {
-        if (dataFechamento.getTime() > dataPrevisaoFechamento.getTime()) return (float) 0;
-        else if (getDiferencaDias() == 0) return getValorPrevisao() / 2;
-        return getValor() * getDiferencaDias() * 2;
+        float valorJaPago = getValorPagar();
+        float deveriaPagar = getDiasLocacao() * getValorAdicionais();
+        return (valorJaPago - deveriaPagar < 0) ? 0 : valorJaPago - deveriaPagar;
     }
     
-    public Float getValorPagar() {
-        if (dataPrevisaoFechamento.getTime() > dataFechamento.getTime()) return (float) 0;
-        float valor = getValorPrevisao() - (getValor() * getDiferencaDias());
-        return valor < 0 ? valor * -1 : valor;
+    public Float getValorFinalPagar() {
+        return (getDiasAtrasados() * getValorAdicionais() < 0) ? 0 : getDiasAtrasados() * getValorAdicionais();
     }
 
     @Override

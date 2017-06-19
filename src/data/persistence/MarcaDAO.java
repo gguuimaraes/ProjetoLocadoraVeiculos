@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class MarcaDAO implements CRUD {
 
-    String pastaArquivos = "C:\\Users\\gguui\\OneDrive\\Documentos\\NetBeansProjects\\ProjetoLocadoraVeiculos\\src\\files\\";
+    String pastaArquivos = "files\\";
     String arquivoMarcas = pastaArquivos + "Marcas.csv";
     String arquivoModelos = pastaArquivos + "Modelos.csv";
 

@@ -34,10 +34,10 @@ public class TelaDevolverVeiculo extends javax.swing.JInternalFrame {
             jLabelNome.setText(locacao.getCliente().getNomeCompleto());
             jLabelDataAberta.setText(dateFormat.format(locacao.getDataAbertura()));
             jLabelDataPrevisao.setText(dateFormat.format(locacao.getDataPrevisaoFechamento()));
-            jLabelValorPago.setText("R$ " + locacao.getValorPrevisao().toString());
+            jLabelValorPago.setText(String.format("R$ %.2f", locacao.getValorPagar()));
             locacao.fechar();
-            jLabelValorExtornar.setText("R$ " + locacao.getValorExtornar().toString());
-            jLabelValorPagar.setText("R$ " + locacao.getValorPagar().toString());         
+            jLabelValorExtornar.setText(String.format("R$ %.2f", locacao.getValorExtornar()));
+            jLabelValorPagar.setText(String.format("R$ %.2f", locacao.getValorFinalPagar()));         
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(rootPane, ex.getMessage(), this.getTitle(), JOptionPane.WARNING_MESSAGE);
         }

@@ -27,8 +27,6 @@ public class TelaPrincipal extends JFrame {
         jMenuLocacao = new javax.swing.JMenu();
         jMenuItemLocar = new javax.swing.JMenuItem();
         jMenuItemDevolver = new javax.swing.JMenuItem();
-        jMenuListas = new javax.swing.JMenu();
-        jMenuItem9 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setSize(new java.awt.Dimension(800, 640));
@@ -124,13 +122,6 @@ public class TelaPrincipal extends JFrame {
 
         jMenuBar1.add(jMenuLocacao);
 
-        jMenuListas.setText("Listas");
-
-        jMenuItem9.setText("Lista de Locações");
-        jMenuListas.add(jMenuItem9);
-
-        jMenuBar1.add(jMenuListas);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -220,7 +211,6 @@ public class TelaPrincipal extends JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuClientes;
     private javax.swing.JMenu jMenuFrota;
-    private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JMenuItem jMenuItemCadastrarCliente;
     private javax.swing.JMenuItem jMenuItemCadastrarMarca;
     private javax.swing.JMenuItem jMenuItemCadastrarVeiculo;
@@ -229,7 +219,6 @@ public class TelaPrincipal extends JFrame {
     private javax.swing.JMenuItem jMenuItemConsultarVeiculos;
     private javax.swing.JMenuItem jMenuItemDevolver;
     private javax.swing.JMenuItem jMenuItemLocar;
-    private javax.swing.JMenu jMenuListas;
     private javax.swing.JMenu jMenuLocacao;
     private javax.swing.JMenu jMenuMarcas;
     // End of variables declaration//GEN-END:variables

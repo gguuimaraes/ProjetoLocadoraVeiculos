@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class ClienteDAO implements CRUD {
 
-    String pastaArquivos = "C:\\Users\\gguui\\OneDrive\\Documentos\\NetBeansProjects\\ProjetoLocadoraVeiculos\\src\\files\\";
+    String pastaArquivos = "files\\";
     String arquivoClientes = pastaArquivos + "Clientes.csv";
 
     @Override
